@@ -1,20 +1,21 @@
 <template>
   <div class="sidebar-section mt-4">
     <div class="sidebar-item sticky-top">
-        <div class="sidebar-content">
+      <div class="sidebar-content">
         <ul class="list-group">
-        <li v-for="g of menuGroups" :key="`group-`+g.name" class="list-group-item d-flex justify-content-between align-items-start border-0">
+          <li v-for="g of menuGroups" :key="`group-`+g.name"
+              class="list-group-item d-flex justify-content-between align-items-start border-0">
             <div class="ms-2 me-auto">
-                <div class="fw-bold">
-                    <a :href="`#`+g.name">{{g.name}}</a>
-                </div>
+              <div class="fw-bold">
+                <a :href="`#`+g.name">{{ g.name }}</a>
+              </div>
             </div>
-            <span class="badge bg-primary rounded-pill">{{g.length}}</span>
-        </li>
+            <span class="badge badge-light rounded-pill">{{ g.length }}</span>
+          </li>
         </ul>
-        </div>
-        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -23,9 +24,9 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'MenuGroupSidebar',
   props: {
-    menuGroups:  { 
-        type: Array as () => Array<Record<string, string | number | undefined>>, 
-        required: true
+    menuGroups: {
+      type: Array as () => Array<Record<string, string | number | undefined>>,
+      required: true
     },
   },
 });
@@ -36,14 +37,17 @@ export default Vue.extend({
 h3 {
   margin: 40px 0 0;
 }
+
 ul {
   list-style-type: none;
   padding: 0;
 }
+
 li {
   display: inline-block;
   margin: 0 10px;
 }
+
 a {
   color: #42b983;
 }

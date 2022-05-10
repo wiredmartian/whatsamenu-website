@@ -22,19 +22,4 @@ export default Vue.extend({
   margin-top: 60px;
 }
 
-/** custom cards */
-.card {
-  border: none;
-}
-.card-img-top {
-    height: 12vw;
-    object-fit: cover;
-  }
-  .card-body {
-    padding: 0.5rem 0;
-  }
-  .card-title {
-    margin-bottom: 0.25rem;
-  }
-  /** end custom card */
 </style>
