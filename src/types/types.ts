@@ -4,6 +4,8 @@ export type Menu = {
     summary: string;
     restaurantId: string;
     menuGroups: MenuGroup[]
+    updated: string | Date;
+    created: string | Date;
 }
 
 export type MenuGroup = {
@@ -12,6 +14,8 @@ export type MenuGroup = {
     name: string;
     summary: string;
     items: MenuItem[] | null
+    updated: string | Date;
+    created: string | Date;
 }
 
 export type MenuItem = {
@@ -23,7 +27,22 @@ export type MenuItem = {
     description: string;
     imageUrl: string;
     price: number;
-    ingredients: [];
+    ingredients: MenuItemIngredient[] | null;
     updated: string | Date;
     created: string | Date;
 }
+
+export type MenuItemIngredient = {
+    ingredientId: string;
+    menuItemId: string;
+    name: string;
+    imageUrl: string;
+}
+
+export type MenuItemAllergen = {
+    allergenId: string;
+    menuItemId: string;
+    name: string;
+    summary: string;
+}
+

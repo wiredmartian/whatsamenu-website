@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <router-view/>
+    <AppNavbar/>
+    <div class="mb-5 mt-5">
+      <router-view/>
+    </div>
+    <AppFooter/>
   </div>
 </template>
 
@@ -8,6 +12,10 @@
 import Vue from 'vue';
 
 export default Vue.extend({
+  components: {
+    AppFooter: () => import("@/components/ui/Footer.vue"),
+    AppNavbar: () => import("@/components/ui/Navbar.vue")
+  },
   name: 'App',
 });
 </script>
@@ -19,7 +27,6 @@ export default Vue.extend({
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
   color: #2c3e50;
-  margin-top: 60px;
 }
 
 </style>

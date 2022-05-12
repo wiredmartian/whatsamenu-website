@@ -7,7 +7,7 @@
               class="list-group-item d-flex justify-content-between align-items-start border-0">
             <div class="ms-2 me-auto">
               <div class="fw-bold">
-                <a :href="`#`+g.name">{{ g.name }}</a>
+                <h5><a :href="`#`+g.name">{{ g.name }}</a></h5>
               </div>
             </div>
             <span class="badge badge-light rounded-pill">{{ g.length }}</span>
@@ -49,6 +49,6 @@ li {
 }
 
 a {
-  color: #42b983;
+  color: #2c3e50;
 }
 </style>
