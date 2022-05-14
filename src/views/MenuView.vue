@@ -11,7 +11,8 @@
       </div>
       <div class="col-md-9 col-sm-12">
         <div class="main-content">
-          <div class="row" :id="group.name" v-for="group of menu.menuGroups" :key="`row-`+group.menuGroupId">
+          <div class="row" :id="group.name.split(' ').join('-')" v-for="group of menu.menuGroups"
+               :key="`row-`+group.menuGroupId">
             <div class="row" v-if="group.items !== null">
               <div class="col-12 mb-3 mt-3">
                 <h3>{{ group.name }}</h3>

@@ -1,7 +1,7 @@
 <template>
   <div class="row mt-5">
     <div class="col-sm-12">
-      <h2 class="font-weight-bolder text-center mb-5">Ingredients</h2>
+      <h3 class="text-center mb-5">Ingredients</h3>
       <div class="row align-items-center mb-3">
         <div class="col-md-2 col-sm-6 mb-3" v-for="item of ingredients" :key="item.name">
           <figure class="figure">
