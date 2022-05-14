@@ -17,24 +17,26 @@
                 <h3>{{ group.name }}</h3>
               </div>
               <div class="col-md-3 col-sm-6 mb-4" v-for="(item, i) of group.items" :key="`col-${i}${item.menuItemId}`">
-                <div class="card menu-card h-100">
-                  <div class="menu-card-content">
-                    <!--                  <img v-if="item.imageUrl" v-bind:src="`http://localhost:9200/`+item.imageUrl" class="card-img-top"-->
-                    <!--                       alt="...">-->
-                    <img
-                        v-bind:src="`https://www.mcdonalds.co.za/media/products/big-mac/McDonalds-Image-Resize.psdBig-mac.png`"
-                        class="card-img-top"
-                        alt="...">
-                    <!--                  <img v-else-->
-                    <!--                       v-bind:src="`https://www.mcdonalds.co.za/media/products/big-mac/McDonalds-Image-Resize.psdBig-mac.png`"-->
-                    <!--                       class="card-img-top"-->
-                    <!--                       alt="...">-->
-                    <div class="card-body">
-                      <h5 class="card-title"><b>{{ item.name }}</b></h5>
-                      <p class="card-text">R {{ item.price.toFixed(2) }}</p>
+                <router-link to="menu/item">
+                  <div class="card menu-card h-100">
+                    <div class="menu-card-content">
+                      <!--                  <img v-if="item.imageUrl" v-bind:src="`http://localhost:9200/`+item.imageUrl" class="card-img-top"-->
+                      <!--                       alt="...">-->
+                      <img
+                          v-bind:src="`https://www.mcdonalds.co.za/media/products/big-mac/McDonalds-Image-Resize.psdBig-mac.png`"
+                          class="card-img-top"
+                          alt="...">
+                      <!--                  <img v-else-->
+                      <!--                       v-bind:src="`https://www.mcdonalds.co.za/media/products/big-mac/McDonalds-Image-Resize.psdBig-mac.png`"-->
+                      <!--                       class="card-img-top"-->
+                      <!--                       alt="...">-->
+                      <div class="card-body">
+                        <h5 class="card-title"><b>{{ item.name }}</b></h5>
+                        <p class="card-text">R {{ item.price.toFixed(2) }}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </router-link>
               </div>
               <hr/>
             </div>

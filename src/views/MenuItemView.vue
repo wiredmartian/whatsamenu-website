@@ -9,8 +9,8 @@
       </div>
       <div class="col-md-5 mt-5">
         <div class="description-content">
-          <h1 class="display-4">
-            <b>Steers Prince Burger</b>
+          <h1 class="display-4 font-weight-bold">
+            Steers Prince Burger
           </h1>
           <p class="lead">The wacky wednesday special gives you 2 chicken or beef burgers and small chips. A fully
             loaded
@@ -20,26 +20,30 @@
       </div>
     </div>
     <MenuItemIngredients :ingredients="ingredients"/>
+    <MenuItemAllergens :allergens="allergens"/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import {fakeIngredients} from "@/fake";
-import {MenuItemIngredient} from "@/types/types";
+import {fakeIngredients, fakeAllergens} from "@/fake";
+import {MenuItemIngredient, MenuItemAllergen} from "@/types/types";
 
 export default Vue.extend({
   name: "MenuItemView",
   components: {
-    MenuItemIngredients: () => import("@/components/menu/MenuItemIngredients.vue")
+    MenuItemIngredients: () => import("@/components/menu/MenuItemIngredients.vue"),
+    MenuItemAllergens: () => import("@/components/menu/MenuItemAllergens.vue")
   },
   data() {
     return {
-      ingredients: [] as MenuItemIngredient[]
+      ingredients: [] as MenuItemIngredient[],
+      allergens: [] as MenuItemAllergen[]
     }
   },
   mounted() {
-    this.ingredients = fakeIngredients
+    this.ingredients = fakeIngredients;
+    this.allergens = fakeAllergens;
   }
 })
 </script>

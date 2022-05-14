@@ -1,4 +1,4 @@
-import {Menu, MenuItemIngredient} from "@/types/types";
+import {Menu, MenuItemAllergen, MenuItemIngredient} from "@/types/types";
 
 export const fakeMenu: Menu = {
     "menuId": "1", "name": "Steers Menu", "summary": "Ultimate menu", "restaurantId": "6", "menuGroups": [{
@@ -331,4 +331,13 @@ export const fakeIngredients: MenuItemIngredient[] = [
         menuItemId: '3',
         imageUrl: 'public/menu-items/1-57afa843d533f38db7e1b8fb5e199ad7.png'
     }
+]
+
+export const fakeAllergens: MenuItemAllergen[] = [
+    {name: 'Contains milk', summary: 'Contains milk', menuItemId: '1', allergenId: '1'},
+    {name: 'Contains milk', summary: 'Contains milk', menuItemId: '1', allergenId: '2'},
+    {name: 'Contains milk', summary: 'Contains milk', menuItemId: '1', allergenId: '3'},
+    {name: 'Contains milk', summary: 'Contains milk', menuItemId: '1', allergenId: '4'},
+    {name: 'Contains milk', summary: 'Contains milk', menuItemId: '1', allergenId: '5'},
+    {name: 'Contains milk', summary: 'Contains milk', menuItemId: '1', allergenId: '6'},
 ]
