@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer fixed-bottom">
+  <footer class="footer">
     <div class="container">
       <span class="text-muted">&copy; whatsamenu.co.za | powered by wiredmartians</span>
     </div>

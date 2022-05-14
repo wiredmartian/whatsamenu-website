@@ -12,30 +12,32 @@
       <div class="col-md-9 col-sm-12">
         <div class="main-content">
           <div class="row" :id="group.name" v-for="group of menu.menuGroups" :key="`row-`+group.menuGroupId">
-            <div class="col-12 mb-3 mt-3">
-              <h3>{{ group.name }}</h3>
-            </div>
-            <div class="col-md-3 col-sm-6 mb-4" v-for="item of group.items" :key="`col-${item.menuItemId}`">
-              <div class="card menu-card h-100">
-                <div class="menu-card-content">
-                  <!--                  <img v-if="item.imageUrl" v-bind:src="`http://localhost:9200/`+item.imageUrl" class="card-img-top"-->
-                  <!--                       alt="...">-->
-                  <img
-                      v-bind:src="`https://www.mcdonalds.co.za/media/products/big-mac/McDonalds-Image-Resize.psdBig-mac.png`"
-                      class="card-img-top"
-                      alt="...">
-                  <!--                  <img v-else-->
-                  <!--                       v-bind:src="`https://www.mcdonalds.co.za/media/products/big-mac/McDonalds-Image-Resize.psdBig-mac.png`"-->
-                  <!--                       class="card-img-top"-->
-                  <!--                       alt="...">-->
-                  <div class="card-body">
-                    <h5 class="card-title"><b>{{ item.name }}</b></h5>
-                    <p class="card-text">R {{ item.price.toFixed(2) }}</p>
+            <div class="row" v-if="group.items !== null">
+              <div class="col-12 mb-3 mt-3">
+                <h3>{{ group.name }}</h3>
+              </div>
+              <div class="col-md-3 col-sm-6 mb-4" v-for="(item, i) of group.items" :key="`col-${i}${item.menuItemId}`">
+                <div class="card menu-card h-100">
+                  <div class="menu-card-content">
+                    <!--                  <img v-if="item.imageUrl" v-bind:src="`http://localhost:9200/`+item.imageUrl" class="card-img-top"-->
+                    <!--                       alt="...">-->
+                    <img
+                        v-bind:src="`https://www.mcdonalds.co.za/media/products/big-mac/McDonalds-Image-Resize.psdBig-mac.png`"
+                        class="card-img-top"
+                        alt="...">
+                    <!--                  <img v-else-->
+                    <!--                       v-bind:src="`https://www.mcdonalds.co.za/media/products/big-mac/McDonalds-Image-Resize.psdBig-mac.png`"-->
+                    <!--                       class="card-img-top"-->
+                    <!--                       alt="...">-->
+                    <div class="card-body">
+                      <h5 class="card-title"><b>{{ item.name }}</b></h5>
+                      <p class="card-text">R {{ item.price.toFixed(2) }}</p>
+                    </div>
                   </div>
                 </div>
               </div>
+              <hr/>
             </div>
-            <hr/>
           </div>
         </div>
       </div>
@@ -68,8 +70,7 @@ export default Vue.extend({
       // const response = await $axios.get<Menu>("/restaurants/menu/6")
       const response = fakeMenu;
       this.menu = response
-
-      this.menuGroups = response.menuGroups.map(item => {
+      this.menuGroups = response.menuGroups.filter(x => x.items != null).map(item => {
         return {
           name: item.name,
           length: item.items?.length
@@ -115,7 +116,7 @@ export default Vue.extend({
 
 .card-img-top {
   width: 100%;
-  height: 12vw;
+  min-height: 12vw;
   object-fit: cover;
 }
 

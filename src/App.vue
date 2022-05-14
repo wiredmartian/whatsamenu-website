@@ -29,4 +29,9 @@ export default Vue.extend({
   color: #2c3e50;
 }
 
+a, a:hover {
+  color: #2c3e50;
+  text-decoration: none;
+
+}
 </style>

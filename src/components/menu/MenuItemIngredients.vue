@@ -1,9 +1,9 @@
 <template>
   <div class="row mt-5">
     <div class="col-sm-12">
-      <h3 class="display-4 text-center">Ingredients</h3>
-      <div class="row align-items-center h-100 mb-3">
-        <div class="col-md-4" v-for="item of ingredients" :key="item.name">
+      <h3 class="display-4 text-center mb-5">Ingredients</h3>
+      <div class="row align-items-center mb-3">
+        <div class="col-md-4 mb-3" v-for="item of ingredients" :key="item.name">
           <div class="row align-items-center h-100">
             <div class="col-sm-6">
               <img src="https://www.mcdonalds.co.za/media/products/big-mac/McDonalds-Image-Resize.psdBig-mac.png"

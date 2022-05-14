@@ -216,7 +216,7 @@ export const fakeMenu: Menu = {
         "summary": "Main menu",
         "items": [
             {
-                "menuItemId": "4",
+                "menuItemId": "7",
                 "menuId": "1",
                 "menuGroupId": "4",
                 "name": "Prince Burger",
@@ -228,7 +228,7 @@ export const fakeMenu: Menu = {
                 "updated": "2022-04-18 18:43:32",
                 "created": "2022-03-27 10:26:52"
             }, {
-                "menuItemId": "3",
+                "menuItemId": "8",
                 "menuId": "1",
                 "menuGroupId": "4",
                 "name": "Cheesey Chips",
