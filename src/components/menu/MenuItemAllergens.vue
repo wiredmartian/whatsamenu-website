@@ -5,7 +5,7 @@
       <div class="align-items-center mb-3">
         <ul class="list-group list-group-flush">
           <li v-for="item of allergens" :key="item.name" class="list-group-item border-0">
-            <p class="lead">{{ item.name }}</p>
+            <p class="lead">> {{ item.name }}</p>
           </li>
         </ul>
       </div>

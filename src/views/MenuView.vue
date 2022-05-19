@@ -18,19 +18,16 @@
                 <h3>{{ group.name }}</h3>
               </div>
               <div class="col-md-3 col-sm-6 mb-4" v-for="(item, i) of group.items" :key="`col-${i}${item.menuItemId}`">
-                <router-link to="menu/item">
+                <router-link to="menu/item" v-if="item.imageUrl">
                   <div class="card menu-card h-100">
                     <div class="menu-card-content">
-                      <!--                  <img v-if="item.imageUrl" v-bind:src="`http://localhost:9200/`+item.imageUrl" class="card-img-top"-->
-                      <!--                       alt="...">-->
-                      <img
-                          v-bind:src="`https://www.mcdonalds.co.za/media/products/big-mac/McDonalds-Image-Resize.psdBig-mac.png`"
-                          class="card-img-top"
-                          alt="...">
-                      <!--                  <img v-else-->
-                      <!--                       v-bind:src="`https://www.mcdonalds.co.za/media/products/big-mac/McDonalds-Image-Resize.psdBig-mac.png`"-->
-                      <!--                       class="card-img-top"-->
-                      <!--                       alt="...">-->
+                      <img v-if="item.imageUrl" v-bind:src="`https://menu.core.wiredmartians.co.za/`+item.imageUrl"
+                           class="card-img-top"
+                           alt="...">
+                      <img v-else
+                           src="https://menu.core.wiredmartians.co.za/public/placeholder.png"
+                           class="card-img-top"
+                           alt="...">
                       <div class="card-body">
                         <h5 class="card-title"><b>{{ item.name }}</b></h5>
                         <p class="card-text">R {{ item.price.toFixed(2) }}</p>
@@ -53,6 +50,7 @@ import {Menu} from "@/types/types"
 import MenuGroupSidebar from "@/components/menu/MenuGroupSidebar.vue"
 import Vue from "vue"
 import {fakeMenu} from "@/fake"
+import {$axios} from "@/api/common";
 
 export default Vue.extend({
   components: {
@@ -70,10 +68,11 @@ export default Vue.extend({
   },
   methods: {
     async getMenu() {
-      // const response = await $axios.get<Menu>("/restaurants/menu/6")
-      const response = fakeMenu;
-      this.menu = response
-      this.menuGroups = response.menuGroups.filter(x => x.items != null).map(item => {
+      const response = await $axios.get<Menu>("/restaurants/menu/6")
+      // console.log(res.data);
+      // const response = fakeMenu;
+      this.menu = response.data
+      this.menuGroups = response.data.menuGroups.filter(x => x.items != null).map(item => {
         return {
           name: item.name,
           length: item.items?.length

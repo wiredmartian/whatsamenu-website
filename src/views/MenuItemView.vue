@@ -28,6 +28,7 @@
 import Vue from 'vue'
 import {fakeIngredients, fakeAllergens} from "@/fake";
 import {MenuItemIngredient, MenuItemAllergen} from "@/types/types";
+import {$axios} from "@/api/common";
 
 export default Vue.extend({
   name: "MenuItemView",
@@ -41,9 +42,23 @@ export default Vue.extend({
       allergens: [] as MenuItemAllergen[]
     }
   },
-  mounted() {
+  async mounted() {
     this.ingredients = fakeIngredients;
     this.allergens = fakeAllergens;
+
+    await this.getIngredients()
+    await this.getAllergens()
+  },
+  methods: {
+
+    async getIngredients() {
+      const response = await $axios.get<MenuItemIngredient[]>('/menu-item/2/ingredients');
+      this.ingredients = response.data
+    },
+    async getAllergens() {
+      const response = await $axios.get<MenuItemAllergen[]>('/menu-item/2/allergens')
+      this.allergens = response.data
+    }
   }
 })
 </script>
