@@ -7,11 +7,14 @@
     </div>
     <div class="row">
       <div class="col-md-3 col-sm-12">
-        <MenuGroupSidebar :menuGroups="menuGroups"/>
+        <menu-group-sidebar :menuGroups="menuGroups"/>
       </div>
       <div class="col-md-9 col-sm-12">
         <div class="main-content">
-          <div class="row" :id="group.name.split(' ').join('-')" v-for="group of menu.menuGroups"
+          <div v-if="isLoading">
+            <app-spinner/>
+          </div>
+          <div v-else class="row" :id="group.name.split(' ').join('-')" v-for="group of menu.menuGroups"
                :key="`row-`+group.menuGroupId">
             <div class="row" v-if="group.items !== null">
               <div class="col-12 mb-3 mt-3">
@@ -47,17 +50,17 @@
 
 <script lang="ts">
 import {Menu} from "@/types/types"
-import MenuGroupSidebar from "@/components/menu/MenuGroupSidebar.vue"
 import Vue from "vue"
-import {fakeMenu} from "@/fake"
-import {$axios} from "@/api/common";
+import {apiAdapter} from "@/api/adapter";
 
 export default Vue.extend({
   components: {
-    MenuGroupSidebar
+    MenuGroupSidebar: () => import("@/components/menu/MenuGroupSidebar.vue"),
+    AppSpinner: () => import("@/components/ui/Spinner.vue")
   },
   data() {
     return {
+      isLoading: false,
       menu: {} as Menu,
       menuGroups: [] as Array<Record<string, string | number | undefined>>
     }
@@ -68,9 +71,8 @@ export default Vue.extend({
   },
   methods: {
     async getMenu() {
-      const response = await $axios.get<Menu>("/restaurants/menu/6")
-      // console.log(res.data);
-      // const response = fakeMenu;
+      this.isLoading = true
+      const response = await apiAdapter.get<Menu>("/restaurants/menu/6")
       this.menu = response.data
       this.menuGroups = response.data.menuGroups.filter(x => x.items != null).map(item => {
         return {
@@ -78,6 +80,7 @@ export default Vue.extend({
           length: item.items?.length
         }
       })
+      this.isLoading = false
     },
     smoothScroll() {
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
