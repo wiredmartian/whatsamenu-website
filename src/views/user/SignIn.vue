@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import {SignInUser} from "@/types/types";
+import {SignInUserRequest} from "@/types/types";
 import Vue from "vue";
 import {apiAdapter} from "@/api/adapter";
 
@@ -30,13 +30,13 @@ export default Vue.extend({
   name: "SignIn",
   data() {
     return {
-      model: {} as SignInUser
+      model: {} as SignInUserRequest
     }
   },
   methods: {
     async signIn() {
       try {
-        const response = await apiAdapter.putOrPost<SignInUser, { token: string }>("/user/sign-in", "POST", this.model)
+        const response = await apiAdapter.putOrPost<SignInUserRequest, { token: string }>("/user/sign-in", "POST", this.model)
         if (response.status === 200 && response.data) {
           sessionStorage.setItem("menu_access_token", response.data.token)
         }

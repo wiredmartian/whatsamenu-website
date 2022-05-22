@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import {SignUpUser} from "@/types/types";
+import {SignUpUserRequest} from "@/types/types";
 import Vue from "vue";
 import {apiAdapter} from "@/api/adapter";
 
@@ -30,13 +30,13 @@ export default Vue.extend({
   name: "SignUp",
   data() {
     return {
-      model: {} as SignUpUser
+      model: {} as SignUpUserRequest
     }
   },
   methods: {
     async signIn() {
       try {
-        const response = await apiAdapter.putOrPost<SignUpUser, { data: string }>("/user/sign-up", "POST", this.model)
+        const response = await apiAdapter.putOrPost<SignUpUserRequest, { data: string }>("/user/sign-up", "POST", this.model)
         if (response.status === 200) {
           console.log(response.data)
         }

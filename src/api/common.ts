@@ -9,7 +9,7 @@ axios.interceptors.request.use(
         if (!config.headers) {
             return Promise.reject("config headers is null")
         }
-        const token = sessionStorage.get("menu_access_token");
+        const token = sessionStorage.getItem("menu_access_token");
         config.headers["Content-Type"] = "application/json";
         if (
             config.baseURL?.indexOf("/user/sign-up") == -1 ||

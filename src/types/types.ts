@@ -48,8 +48,25 @@ export type MenuItemAllergen = {
 
 
 // create and update models
-export type SignUpUser = {
+export type SignUpUserRequest = {
     email: string;
     password: string;
 }
-export type SignInUser = SignUpUser
+export type SignInUserRequest = SignUpUserRequest
+
+
+// restaurant create models
+
+export type AddRestaurantRequest = {
+    name: string;
+    summary: string;
+
+    // address
+    line1: string;
+    line2: string;
+    city: string;
+    state: string;
+    country: string;
+    latitude: number;
+    longitude: number;
+}

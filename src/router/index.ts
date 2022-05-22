@@ -33,6 +33,11 @@ const routes: Array<RouteConfig> = [
         component: () => import("@/views/user/SignUp.vue")
     },
     {
+        path: '/manage/restaurant/add',
+        name: 'add restaurant',
+        component: () => import("@/views/manage/restaurant/AddRestaurant.vue")
+    },
+    {
         path: '/about',
         name: 'about',
         // route level code-splitting
