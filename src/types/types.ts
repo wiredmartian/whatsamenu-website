@@ -46,3 +46,10 @@ export type MenuItemAllergen = {
     summary: string;
 }
 
+
+// create and update models
+export type SignUpUser = {
+    email: string;
+    password: string;
+}
+export type SignInUser = SignUpUser

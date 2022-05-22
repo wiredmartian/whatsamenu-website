@@ -23,6 +23,16 @@ const routes: Array<RouteConfig> = [
         component: MenuItemView
     },
     {
+        path: '/sign-in',
+        name: 'sign in',
+        component: () => import("@/views/user/SignIn.vue")
+    },
+    {
+        path: '/sign-up',
+        name: 'sign up',
+        component: () => import("@/views/user/SignUp.vue")
+    },
+    {
         path: '/about',
         name: 'about',
         // route level code-splitting
