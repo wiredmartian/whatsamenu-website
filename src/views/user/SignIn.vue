@@ -2,6 +2,9 @@
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col-md-6 col-sm-12">
+        <div class="mt-5 mb-5 d-block text-center">
+          <h2 class="font-weight-bolder">Sign In</h2>
+        </div>
         <form @submit.prevent="signIn" :model="model">
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
@@ -14,7 +17,7 @@
             <input v-model="model.password" type="password" class="form-control" id="exampleInputPassword1"
                    placeholder="Password">
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-block btn-dark">Sign In</button>
         </form>
       </div>
     </div>

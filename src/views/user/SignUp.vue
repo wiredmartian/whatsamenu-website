@@ -2,19 +2,21 @@
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col-md-6 col-sm-12">
+        <div class="mt-5 mb-5 d-block text-center">
+          <h2 class="font-weight-bolder">Sign Up</h2>
+        </div>
         <form @submit.prevent="signIn" :model="model">
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input v-model="model.email" type="email" class="form-control" id="exampleInputEmail1"
-                   aria-describedby="emailHelp"
-                   placeholder="Enter email">
+            <label for="emailAddress">Email address</label>
+            <input v-model="model.email" type="email" class="form-control" id="emailAddress"
+                   placeholder="hello@example.com">
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input v-model="model.password" type="password" class="form-control" id="exampleInputPassword1"
+            <label for="password">Password</label>
+            <input v-model="model.password" type="password" class="form-control" id="password"
                    placeholder="Password">
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-block btn-dark">Sign Up</button>
         </form>
       </div>
     </div>
