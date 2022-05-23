@@ -28,7 +28,6 @@
 import Vue from 'vue'
 import {fakeIngredients, fakeAllergens} from "@/fake";
 import {MenuItemIngredient, MenuItemAllergen} from "@/types/types";
-import {$axios} from "@/api/common";
 import {apiAdapter} from "@/api/adapter";
 
 export default Vue.extend({

@@ -46,6 +46,28 @@ export type MenuItemAllergen = {
     summary: string;
 }
 
+export type Restaurant = {
+    restaurantId: string;
+    name: string;
+    summary: string;
+    distance: string | number;
+    imageUrl: string | null;
+    address: Address;
+    updated: string | Date;
+    created: string | Date;
+}
+
+export type Address = {
+    addressId: string;
+    line1: string;
+    line2: string;
+    city: string;
+    state: string;
+    country: string;
+    latitude: string | number;
+    longitude: string | number;
+}
+
 
 // create and update models
 export type SignUpUserRequest = {
