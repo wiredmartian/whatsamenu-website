@@ -64,8 +64,8 @@ export type Address = {
     city: string;
     state: string;
     country: string;
-    latitude: string | number;
-    longitude: string | number;
+    latitude: number;
+    longitude: number;
 }
 
 

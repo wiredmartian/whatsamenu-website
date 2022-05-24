@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter, {RouteConfig} from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import MenuView from '../views/MenuView.vue'
 import MenuItemView from '../views/MenuItemView.vue'
 
 Vue.use(VueRouter)
@@ -13,9 +12,9 @@ const routes: Array<RouteConfig> = [
         component: HomeView
     },
     {
-        path: '/menu',
+        path: '/restaurant/menu/:id',
         name: 'menu',
-        component: MenuView
+        component: () => import("@/views/MenuView.vue")
     },
     {
         path: '/menu/item',
