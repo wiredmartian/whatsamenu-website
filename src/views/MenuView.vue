@@ -36,23 +36,21 @@
                 <h3>{{ group.name }}</h3>
               </div>
               <div class="col-md-3 col-sm-6 mb-4" v-for="(item, i) of group.items" :key="`col-${i}${item.menuItemId}`">
-                <router-link to="menu/item" v-if="item.imageUrl">
-                  <div class="card menu-card h-100">
-                    <div class="menu-card-content">
-                      <img v-if="item.imageUrl" v-bind:src="`https://menu.core.wiredmartians.co.za/`+item.imageUrl"
-                           class="card-img-top"
-                           alt="...">
-                      <img v-else
-                           src="https://menu.core.wiredmartians.co.za/public/placeholder.png"
-                           class="card-img-top"
-                           alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title"><b>{{ item.name }}</b></h5>
-                        <p class="card-text">R {{ item.price.toFixed(2) }}</p>
-                      </div>
+                <div class="card menu-card h-100" @click="pushMenuData(item)">
+                  <div class="menu-card-content">
+                    <img v-if="item.imageUrl" v-bind:src="`https://menu.core.wiredmartians.co.za/`+item.imageUrl"
+                         class="card-img-top"
+                         alt="...">
+                    <img v-else
+                         src="https://menu.core.wiredmartians.co.za/public/placeholder.png"
+                         class="card-img-top"
+                         alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title"><b>{{ item.name }}</b></h5>
+                      <p class="card-text">R {{ item.price.toFixed(2) }}</p>
                     </div>
                   </div>
-                </router-link>
+                </div>
               </div>
               <hr/>
             </div>
@@ -61,7 +59,7 @@
                 <h3>{{ group.name }}</h3>
               </div>
               <div class="col-md-12 mb-4">
-                <p class="lead text-muted">No menu items yet</p>
+                <p class="text-muted">No menu items yet</p>
               </div>
             </div>
           </div>
@@ -108,7 +106,7 @@ export default Vue.extend({
   methods: {
     async getMenu() {
       this.isLoading = true
-      const response = await apiAdapter.get<Menu>(`/restaurants/menu/${this.restaurantId}`)
+      const response = await apiAdapter.get<Menu>(`/restaurants/${this.restaurantId}/menu`)
       this.menu = response.data
       this.menuGroups = response.data.menuGroups.map(item => {
         return {
@@ -126,6 +124,9 @@ export default Vue.extend({
       } catch (e) {
         console.log(e)
       }
+    },
+    pushMenuData(item: any) {
+      this.$router.push({path: `/restaurant/menu/menu-item/${item.menuItemId}`, params: {data: JSON.stringify(item)}})
     },
     smoothScroll() {
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {

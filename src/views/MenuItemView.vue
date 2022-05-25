@@ -10,12 +10,10 @@
       <div class="col-md-5 mt-5">
         <div class="description-content">
           <h1 class="display-4 font-weight-bold">
-            Steers Prince Burger
+            {{ menuItem.name }}
           </h1>
-          <p class="lead">The wacky wednesday special gives you 2 chicken or beef burgers and small chips. A fully
-            loaded
-            burger box
-            for the price of one</p>
+          <p class="lead">{{ menuItem.description }}</p>
+          <p class="text-muted">{{ menuItem.summary }}</p>
         </div>
       </div>
     </div>
@@ -26,9 +24,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import {fakeIngredients, fakeAllergens} from "@/fake";
-import {MenuItemIngredient, MenuItemAllergen} from "@/types/types";
+import {MenuItemIngredient, MenuItemAllergen, MenuItem} from "@/types/types";
 import {apiAdapter} from "@/api/adapter";
+import {$axios} from "@/api/common";
 
 export default Vue.extend({
   name: "MenuItemView",
@@ -38,27 +36,34 @@ export default Vue.extend({
   },
   data() {
     return {
+      menuItemId: "",
+      menuItem: {} as MenuItem,
       ingredients: [] as MenuItemIngredient[],
-      allergens: [] as MenuItemAllergen[]
+      allergens: [] as MenuItemAllergen[],
     }
   },
   async mounted() {
-    this.ingredients = fakeIngredients;
-    this.allergens = fakeAllergens;
-
-    await this.getIngredients()
-    await this.getAllergens()
+    this.menuItemId = this.$route.params['id']
+    await Promise.all([this.getMenuItem(), this.getIngredients(), this.getAllergens()])
+    // await this.getIngredients()
+    // await this.getAllergens()
+  },
+  created() {
+    console.log(this.$route.params.data)
   },
   methods: {
-
     async getIngredients() {
-      const response = await apiAdapter.get<MenuItemIngredient[]>('/menu-item/2/ingredients');
+      const response = await apiAdapter.get<MenuItemIngredient[]>(`/menu-item/${this.menuItemId}/ingredients`);
       this.ingredients = response.data
     },
     async getAllergens() {
-      const response = await apiAdapter.get<MenuItemAllergen[]>('/menu-item/2/allergens')
+      const response = await apiAdapter.get<MenuItemAllergen[]>(`/menu-item/${this.menuItemId}/allergens`)
       this.allergens = response.data
-    }
+    },
+    async getMenuItem() {
+      const response = await apiAdapter.get<MenuItem>(`/menu-item/${this.menuItemId}`)
+      this.menuItem = response.data
+    },
   }
 })
 </script>

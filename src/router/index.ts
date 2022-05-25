@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter, {RouteConfig} from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import MenuItemView from '../views/MenuItemView.vue'
 
 Vue.use(VueRouter)
 
@@ -17,9 +16,9 @@ const routes: Array<RouteConfig> = [
         component: () => import("@/views/MenuView.vue")
     },
     {
-        path: '/menu/item',
+        path: '/restaurant/menu/menu-item/:id',
         name: 'menu-item',
-        component: MenuItemView
+        component: () => import("@/views/MenuItemView.vue")
     },
     {
         path: '/sign-in',
