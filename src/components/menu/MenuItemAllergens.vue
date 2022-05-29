@@ -24,11 +24,15 @@
             </button>
           </div>
           <div class="modal-body">
+            <div v-if="isLoading">
+              <app-spinner/>
+            </div>
+            <div v-else>
             {{ modal.extract }}
+            </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-dark" data-dismiss="modal">Okay</button>
           </div>
         </div>
       </div>
@@ -42,12 +46,16 @@ import {MenuItemAllergen} from "@/types/types";
 
 export default Vue.extend({
   name: "MenuItemAllergens",
+  components: {
+    AppSpinner: () => import("@/components/ui/Spinner.vue")
+  },
   data() {
     return {
       modal: {
         title: "",
         extract: ""
-      }
+      },
+      isLoading: false
     }
   },
   props: {
@@ -58,12 +66,14 @@ export default Vue.extend({
   },
   methods: {
     async wikiLookupAllergen(searchTerm: string) {
+      this.isLoading = true
       const response = await fetch(`https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&exintro&explaintext&generator=search&gsrnamespace=0&gsrlimit=1&gsrsearch='${searchTerm} allergen'`)
       const data = await response.json()
       for (let i in data.query.pages) {
         this.modal.title = searchTerm
         this.modal.extract = data.query.pages[i].extract
       }
+      this.isLoading = false
     }
   }
 })
@@ -71,5 +81,7 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-
+  .list-group-item {
+    cursor: pointer;
+  }
 </style>

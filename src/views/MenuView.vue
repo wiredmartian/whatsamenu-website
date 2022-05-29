@@ -1,6 +1,8 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
+    <page-load-spinner v-if="isPageLoading" :showSpinner="isPageLoading"/>
+    <div v-else>
+          <div class="row">
       <!--      <img v-if="restaurant.imageUrl"-->
       <!--           :src="restaurant.imageUrl"-->
       <!--           class="img-fluid">-->
@@ -8,20 +10,10 @@
           src="https://thumbs.dreamstime.com/b/mexican-food-panoramic-header-blue-background-nachos-chili-con-carne-tacos-chicken-various-dips-top-shot-210526469.jpg"
           class="img-fluid">
     </div>
-    <div class="row" v-if="restaurant">
-      <div class="col-md-6 col-sm-12">
-        <div class="mt-5 d-block pl-4">
-          <h2 class="font-weight-bolder">{{ restaurant.name }}</h2>
-        </div>
-        <p v-if="restaurant.address" class="text-muted pl-4">{{ restaurant.address.line1 }}, {{
-            restaurant.address.line2
-          }} <br/>
-          {{ restaurant.address.city }}, {{ restaurant.address.state }}
-        </p>
-      </div>
-    </div>
     <div class="row">
       <div class="col-md-3 col-sm-12">
+        <restaurant-info :restaurant="restaurant"/>
+        <hr/>
         <menu-group-sidebar :menuGroups="menuGroups"/>
       </div>
       <div class="col-md-9 col-sm-12">
@@ -46,7 +38,7 @@
                          class="card-img-top"
                          alt="...">
                     <div class="card-body">
-                      <h5 class="card-title"><b>{{ item.name }}</b></h5>
+                      <h5 class="card-title">{{ item.name }}</h5>
                       <p class="card-text">R {{ item.price.toFixed(2) }}</p>
                     </div>
                   </div>
@@ -66,13 +58,13 @@
         </div>
       </div>
     </div>
-
     <div class="row">
       <div class="col-md-12">
         <location-map v-if="restaurant && restaurant.address"
                       :longitude="restaurant.address.longitude"
                       :latitude="restaurant.address.latitude"/>
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -86,11 +78,14 @@ export default Vue.extend({
   components: {
     MenuGroupSidebar: () => import("@/components/menu/MenuGroupSidebar.vue"),
     LocationMap: () => import("@/components/restaurant/LocationMap.vue"),
-    AppSpinner: () => import("@/components/ui/Spinner.vue")
-  },
+    AppSpinner: () => import("@/components/ui/Spinner.vue"),
+    PageLoadSpinner: () => import("@/components/ui/PageLoadSpinner.vue"),
+    RestaurantInfo: () => import("@/components/restaurant/RestaurantInfo.vue")
+},
   data() {
     return {
       isLoading: false,
+      isPageLoading: false,
       restaurantId: "",
       menu: {} as Menu,
       menuGroups: [] as Array<Record<string, string | number | undefined>>,
@@ -98,10 +93,12 @@ export default Vue.extend({
     }
   },
   async mounted() {
+    this.isPageLoading = true
     this.restaurantId = this.$route.params['id']
     await this.getMenu()
     await this.getRestaurant()
     this.smoothScroll()
+    this.isPageLoading = false
   },
   methods: {
     async getMenu() {
@@ -155,10 +152,13 @@ export default Vue.extend({
 .card {
   border: none;
   cursor: pointer;
+  background-color: #2c3e50;
+  color: #FFFF;
+  border-radius: .5rem;
 }
 
 .card-body {
-  padding: 0.5rem 0 0.5rem 0;
+  padding: 0.5rem;
 }
 
 .card-title {
@@ -172,7 +172,7 @@ export default Vue.extend({
 }
 
 .menu-card-content {
-  padding: 10px;
+  /* padding: 10px; */
 }
 
 .menu-card {

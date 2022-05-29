@@ -92,3 +92,24 @@ export type AddRestaurantRequest = {
     latitude: number;
     longitude: number;
 }
+
+// Wikipedia query response
+export type WikipediaQueryResponse = {
+    query: {
+        pages: Array<WikipediaPage>
+    };
+}
+type WikipediaPage = {
+    title: string;
+    missing?: boolean;
+    thumbnail: {source: string};
+    terms: WikipediaTerms
+}
+
+type WikipediaTerms = {
+    alias: string[];
+    label: string[];
+    description: string[];
+}
+
+export const DISAMBIGUATION_PAGE = "Wikimedia disambiguation page"

@@ -1,6 +1,8 @@
 <template>
   <div class="container h-100">
-    <div class="row align-items-center h-100">
+    <page-load-spinner v-if="isPageLoading" :showSpinner="isPageLoading"/>
+    <div v-else>
+      <div class="row align-items-center h-100">
       <div class="col-md-7 mt-5">
         <img
             v-bind:src="`https://www.mcdonalds.co.za/media/products/big-mac/McDonalds-Image-Resize.psdBig-mac.png`"
@@ -17,8 +19,9 @@
         </div>
       </div>
     </div>
-    <MenuItemIngredients :ingredients="ingredients"/>
-    <MenuItemAllergens :allergens="allergens"/>
+    <menu-item-ingredients :ingredients="ingredients"/>
+    <menu-item-allergens :allergens="allergens"/>
+    </div>
   </div>
 </template>
 
@@ -26,16 +29,17 @@
 import Vue from 'vue'
 import {MenuItemIngredient, MenuItemAllergen, MenuItem} from "@/types/types";
 import {apiAdapter} from "@/api/adapter";
-import {$axios} from "@/api/common";
 
 export default Vue.extend({
   name: "MenuItemView",
   components: {
     MenuItemIngredients: () => import("@/components/menu/MenuItemIngredients.vue"),
-    MenuItemAllergens: () => import("@/components/menu/MenuItemAllergens.vue")
+    MenuItemAllergens: () => import("@/components/menu/MenuItemAllergens.vue"),
+    PageLoadSpinner: () => import("@/components/ui/PageLoadSpinner.vue")
   },
   data() {
     return {
+      isPageLoading: false,
       menuItemId: "",
       menuItem: {} as MenuItem,
       ingredients: [] as MenuItemIngredient[],
@@ -43,13 +47,10 @@ export default Vue.extend({
     }
   },
   async mounted() {
+    this.isPageLoading = true
     this.menuItemId = this.$route.params['id']
     await Promise.all([this.getMenuItem(), this.getIngredients(), this.getAllergens()])
-    // await this.getIngredients()
-    // await this.getAllergens()
-  },
-  created() {
-    console.log(this.$route.params.data)
+    this.isPageLoading = false
   },
   methods: {
     async getIngredients() {

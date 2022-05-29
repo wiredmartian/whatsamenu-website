@@ -22,16 +22,18 @@ export default Vue.extend({
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300 !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   color: #2c3e50;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 300;
 }
 
 a, a:hover {
   color: #2c3e50;
   text-decoration: none;
-
 }
 </style>
