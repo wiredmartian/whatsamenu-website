@@ -1,6 +1,6 @@
 <template>
   <div class="row mt-5">
-    <div class="col-sm-12">
+    <div class="col-sm-12" v-if="allergens.length > 0">
       <h3 class="text-center mb-5">Allergens</h3>
       <div class="align-items-center mb-3">
         <ul class="list-group list-group-flush">
