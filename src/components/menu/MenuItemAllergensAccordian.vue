@@ -58,15 +58,17 @@ export default Vue.extend({
   },
   methods: {
     async wikiLookupAllergen(searchTerm: string, id: string) {
-      document.querySelector(`collapse${id}`)?.classList.add('show')
-      this.isLoading = true
-      const response = await fetch(`https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&exintro&explaintext&generator=search&gsrnamespace=0&gsrlimit=1&gsrsearch='${searchTerm} allergen'`)
-      const data = await response.json()
-      for (let i in data.query.pages) {
-        this.modal.title = searchTerm
-        this.modal.extract = data.query.pages[i].extract
+      const element = document.querySelector(`#collapse${id}`)
+      if (!element?.classList.contains("show")) {
+        this.isLoading = true
+        const response = await fetch(`https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&exintro&explaintext&generator=search&gsrnamespace=0&gsrlimit=1&gsrsearch='${searchTerm} allergen'`)
+        const data = await response.json()
+        for (let i in data.query.pages) {
+          this.modal.title = searchTerm
+          this.modal.extract = data.query.pages[i].extract
+        }
+        this.isLoading = false
       }
-      this.isLoading = false
     }
   }
 })

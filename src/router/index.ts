@@ -11,14 +11,14 @@ const routes: Array<RouteConfig> = [
         component: HomeView
     },
     {
-        path: '/restaurant/menu/:id',
+        path: '/restaurant/:id/menu',
         name: 'menu',
-        component: () => import("@/views/MenuView.vue")
+        component: () => import("@/views/menu/MenuView.vue")
     },
     {
         path: '/restaurant/menu/menu-item/:id',
         name: 'menu-item',
-        component: () => import("@/views/MenuItemView.vue")
+        component: () => import("@/views/menu/MenuItemView.vue")
     },
     {
         path: '/sign-in',
