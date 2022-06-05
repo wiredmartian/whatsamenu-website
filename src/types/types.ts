@@ -68,6 +68,11 @@ export type Address = {
     longitude: number;
 }
 
+// coordinates
+export type GeoCoordinates = {
+    latitude: number;
+    longitude: number;
+}
 
 // create and update models
 export type SignUpUserRequest = {
@@ -78,7 +83,6 @@ export type SignInUserRequest = SignUpUserRequest
 
 
 // restaurant create models
-
 export type AddRestaurantRequest = {
     name: string;
     summary: string;
@@ -102,7 +106,7 @@ export type WikipediaQueryResponse = {
 type WikipediaPage = {
     title: string;
     missing?: boolean;
-    thumbnail: {source: string};
+    thumbnail: { source: string };
     terms: WikipediaTerms
 }
 
@@ -113,3 +117,9 @@ type WikipediaTerms = {
 }
 
 export const DISAMBIGUATION_PAGE = "Wikimedia disambiguation page"
+
+
+// Errors
+export type HttpResponseError = {
+    error: string
+}

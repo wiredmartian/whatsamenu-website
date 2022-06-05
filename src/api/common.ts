@@ -17,12 +17,14 @@ axios.interceptors.request.use(
         ) {
             config.headers["Authorization"] = `Bearer ${token}`;
         }
+        config.validateStatus = (status) => status >= 200 && status <= 404
         return config;
     },
     error => {
         return Promise.reject(error);
     }
 );
+
 //
 // axios.interceptors.response.use(
 //     (response: AxiosResponse) => response,

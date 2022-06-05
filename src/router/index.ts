@@ -11,7 +11,7 @@ const routes: Array<RouteConfig> = [
         component: HomeView
     },
     {
-        path: '/restaurant/:id/menu',
+        path: '/restaurants/:id/menu',
         name: 'menu',
         component: () => import("@/views/menu/MenuView.vue")
     },
@@ -45,14 +45,6 @@ const routes: Array<RouteConfig> = [
         name: 'my restaurants',
         component: () => import("@/views/manage/restaurant/ListRestaurant.vue")
     },
-    {
-        path: '/about',
-        name: 'about',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-    }
 ]
 
 const router = new VueRouter({

@@ -11,7 +11,7 @@
                  alt="A generic square placeholder image with rounded corners in a figure.">
             <figcaption class="figure-caption text-center">
               <p class="lead">{{ item.name }}
-              <span class="badge badge-dark rounded-pill" @click="wikiLookup(item.name)">?</span>
+                <span class="badge badge-dark rounded-pill" @click="wikiLookup(item.name)">?</span>
               </p>
             </figcaption>
           </figure>
@@ -25,7 +25,8 @@
       <div class="modal-dialog modal-dialog-centered modal-md" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle" v-if="wikiData.query">{{ wikiData.query.pages[0].title || "No Data"}}</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle" v-if="wikiData.query">
+              {{ wikiData.query.pages[0].title || "No Data" }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -39,13 +40,13 @@
                 <p class="lead text-center">No results were found</p>
               </div>
               <div v-else>
-                 <img v-if="wikiData.query" class="img-fluid" :src="wikiData.query.pages[0].thumbnail.source"/>
+                <img v-if="wikiData.query" class="img-fluid" :src="wikiData.query.pages[0].thumbnail.source"/>
                 <p class="lead mt-2" v-if="wikiData.query">{{ wikiData.query.pages[0].terms.description[0] }}</p>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-              <button type="button" data-dismiss="modal" class="btn btn-dark">Okay</button>
+            <button type="button" data-dismiss="modal" class="btn btn-dark">Okay</button>
           </div>
         </div>
       </div>
@@ -78,7 +79,7 @@ export default Vue.extend({
   methods: {
     async wikiLookup(searchTerm: string) {
       this.isLoading = true;
-      const response = await fetch(`https://en.wikipedia.org/w/api.php?action=query&&origin=*&format=json&formatversion=2&prop=pageimages|pageterms&piprop=thumbnail&pithumbsize=500&titles=${searchTerm}`)
+      const response = await fetch(`https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&formatversion=2&prop=pageimages|pageterms&piprop=thumbnail&pithumbsize=500&titles=${searchTerm}`)
       const data: WikipediaQueryResponse = await response.json()
 
       this.isLoading = false
@@ -96,7 +97,7 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-  .badge {
-    cursor: pointer;
-  }
+.badge {
+  cursor: pointer;
+}
 </style>
