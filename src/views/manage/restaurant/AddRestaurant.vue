@@ -5,7 +5,7 @@
         <div class="mt-5 mb-5 d-block text-center">
           <h2 class="font-weight-bolder">Add Restaurant</h2>
         </div>
-        <form @submit.prevent="addRestaurant" :v-model="model">
+        <form @submit.prevent="addRestaurant" :model="model">
           <div class="form-group">
             <label for="name">Name</label>
             <input name="name" v-model="model.name" type="text" class="form-control" id="name" placeholder="Name">
@@ -84,10 +84,10 @@ export default Vue.extend({
     async getRestaurant() {
       if (this.restaurantId) {
         try {
-          const response = await apiAdapter.get<Restaurant[]>(`/restaurants/${this.restaurantId}`)
+          const response = await apiAdapter.get<Restaurant>(`/restaurants/${this.restaurantId}`)
           if (response.status === 200 && response.data) {
-            console.log(response.data[0])
-            const data = response.data[0]
+            console.log(response.data)
+            const data = response.data
             this.model.name = data.name
             this.model.summary = data.summary
             this.model.line1 = data.address.line1

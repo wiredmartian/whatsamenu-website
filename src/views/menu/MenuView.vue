@@ -126,7 +126,6 @@ export default Vue.extend({
           this.responseErrorMessage = (response.data as HttpResponseError).error
           this.responseErrorStatus = response.status
         }
-        this.isLoading = false
       } catch (e) {
         this.isLoading = false
         console.log(e)
@@ -134,10 +133,12 @@ export default Vue.extend({
     },
     async getRestaurant() {
       try {
-        const response = await apiAdapter.get<Restaurant[]>(`/restaurants/${this.restaurantId}`)
-        this.restaurant = response.data[0]
-        console.log(response.data)
+        this.isLoading = true
+        const response = await apiAdapter.get<Restaurant>(`/restaurants/${this.restaurantId}`)
+        this.restaurant = response.data
+        this.isLoading = false
       } catch (e) {
+        this.isLoading = false
         console.log(e)
       }
     },

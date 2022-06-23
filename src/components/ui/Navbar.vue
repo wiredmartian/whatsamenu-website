@@ -13,13 +13,16 @@
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <router-link class="nav-link" to="/manage/restaurant/add">Add Restaurant</router-link>
           </li>
-        </ul>
-        <ul class="navbar-nav">
+          <li class="nav-item">
+            <router-link class="nav-link" to="/manage/my-restaurants">My Restaurant</router-link>
+          </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/profile">Profile</router-link>
           </li>
+        </ul>
+        <ul class="navbar-nav">
           <li class="nav-item">
             <router-link class="nav-link" to="/sign-in">Sign In</router-link>
           </li>
