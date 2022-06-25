@@ -1,3 +1,5 @@
+import { ENTITY_TYPE } from "./enums";
+
 export type Menu = {
     menuId: string;
     name: string;
@@ -74,7 +76,8 @@ export type GeoCoordinates = {
     longitude: number;
 }
 
-// create and update models
+
+/** CREATE AND UPDATE DATA MODELS */
 export type SignUpUserRequest = {
     email: string;
     password: string;
@@ -82,20 +85,19 @@ export type SignUpUserRequest = {
 export type SignInUserRequest = SignUpUserRequest
 
 
-// restaurant create models
-export type AddRestaurantRequest = {
-    name: string;
-    summary: string;
+export type AddRestaurantRequest = Omit<Address, "addressId"> & { name: string; summary: string }
 
-    // address
-    line1: string;
-    line2: string;
-    city: string;
-    state: string;
-    country: string;
-    latitude: number;
-    longitude: number;
+export type AddMenuItemRequest = Pick<MenuItem, "name" | "summary" | "description" | "price" | "imageUrl" | "menuGroupId">
+
+export type AddMenuGroupRequest = Pick<MenuGroup, "name" | "summary">
+
+export type UploadImageRequest = {
+    entityType: ENTITY_TYPE,
+    enityId: number,
+    fileData: any
 }
+
+/** END CREATE AND UPDATE DATA MODELS */
 
 // Wikipedia query response
 export type WikipediaQueryResponse = {

@@ -45,6 +45,12 @@ const routes: Array<RouteConfig> = [
         name: 'my restaurants',
         component: () => import("@/views/manage/restaurant/ListRestaurant.vue")
     },
+
+    {
+        path: '/menu/:id/menu-item/add',
+        name: 'add menu item',
+        component: () => import("@/components/menu/builder/menu-item/AddMenuItem.vue")
+    },
 ]
 
 const router = new VueRouter({
