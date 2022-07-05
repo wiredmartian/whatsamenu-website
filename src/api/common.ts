@@ -15,7 +15,9 @@ axios.interceptors.request.use(
             config.baseURL?.indexOf("/user/sign-up") == -1 ||
             config.baseURL?.indexOf("/user/sign-in") == -1
         ) {
-            config.headers["Authorization"] = `Bearer ${token}`;
+            if (token) {
+                config.headers["Authorization"] = `Bearer ${token}`;
+            }
         }
         config.validateStatus = (status) => status >= 200 && status <= 404
         return config;

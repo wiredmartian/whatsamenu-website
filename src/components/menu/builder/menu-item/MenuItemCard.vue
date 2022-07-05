@@ -14,7 +14,7 @@
       </div>
       <div class="card-footer">
         <button class="btn btn-sm btn-outline-dark mr-2"><i class="bi bi-pencil-square"></i> Edit</button>
-        <button class="btn btn-sm btn-outline-dark"><i class="bi bi-cloud-upload"></i> Image</button>
+        <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
       </div>
     </div>
   </div>

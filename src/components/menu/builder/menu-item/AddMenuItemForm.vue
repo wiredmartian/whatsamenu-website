@@ -67,8 +67,16 @@ export default Vue.extend({
         console.log(e)
       }
     },
-    addMenuItem() {
-      console.log("hello")
+    async addMenuItem() {
+      try {
+        this.model.price = parseFloat(this.model.price.toString())
+        const response = await apiAdapter.putOrPost<AddMenuItemRequest, { data: string }>(`/menu-groups/${this.model.menuGroupId}/menu-items`, "POST", this.model)
+        if (response.status === 201 && response.data) {
+          console.log(response.data)
+        }
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 })
