@@ -58,9 +58,14 @@
     <div class="col-md-9 mt-5">
       <h4 v-if="selectedMenuGroup" class="display-4 mb-5">{{ selectedMenuGroup }}</h4>
 
+      <!--      <div class="row">-->
+      <!--        <div class="col-md-3 col-sm-6 mb-4" :key="item.name" v-for="item of menuItems">-->
+      <!--          <menu-item-card :menu-item="item"/>-->
+      <!--        </div>-->
+      <!--      </div>-->
       <div class="row">
-        <div class="col-md-3 col-sm-6 mb-4" :key="item.name" v-for="item of menuItems">
-          <menu-item-card :menu-item="item"/>
+        <div class="col-md-12">
+          <menu-item-table :menu-items="menuItems" :menu-group="selectedMenuGroup"/>
         </div>
       </div>
       <div class="row">
@@ -101,8 +106,9 @@ export default Vue.extend({
   name: "AddMenuGroup",
   components: {
     "loading-spinner": () => import("@/components/ui/Spinner.vue"),
-    "menu-item-card": () => import("@/components/menu/builder/menu-item/MenuItemCard.vue"),
-    "add-menu-item-form": () => import("@/components/menu/builder/menu-item/AddMenuItemForm.vue")
+    // "menu-item-card": () => import("@/components/menu/builder/menu-item/MenuItemCard.vue"),
+    "add-menu-item-form": () => import("@/components/menu/builder/menu-item/AddMenuItemForm.vue"),
+    "menu-item-table": () => import("@/components/menu/builder/menu-item/MenuItemTable.vue")
   },
   props: {
     menuId: {

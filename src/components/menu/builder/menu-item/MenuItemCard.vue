@@ -13,8 +13,8 @@
         <p class="card-text">R {{ menuItem.price.toFixed(2) }}</p>
       </div>
       <div class="card-footer">
-        <button class="btn btn-sm btn-outline-dark mr-2"><i class="bi bi-pencil-square"></i> Edit</button>
-        <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
+        <button class="btn btn-sm btn-outline-dark btn-block"><i class="bi bi-pencil-square"></i> Edit</button>
+        <button class="btn btn-sm btn-outline-danger btn-block"><i class="bi bi-trash"></i> Delete</button>
       </div>
     </div>
   </div>
