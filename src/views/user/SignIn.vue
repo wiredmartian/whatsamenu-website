@@ -39,7 +39,7 @@ export default Vue.extend({
   methods: {
     async signIn() {
       try {
-        const response = await apiAdapter.putOrPost<SignInUserRequest, { token: string }>("/user/sign-in", "POST", this.model)
+        const response = await apiAdapter.putOrPost<SignInUserRequest, { token: string }>("/users/sign-in", "POST", this.model)
         if (response.status === 200 && response.data) {
           sessionStorage.setItem("menu_access_token", response.data.token)
         }

@@ -1,11 +1,9 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-md-center">
-      <add-menu-group v-if="menu.menuId" :menu-id="menu.menuId"/>
-    </div>
-    <div class="row justify-content-md-center">
-      <add-menu-item v-if="menu.menuId" :menu-id="menu.menuId"/>
-    </div>
+  <div class="container-fluid">
+    <add-menu-group v-if="menu.menuId" :menu-id="menu.menuId"/>
+    <!--    <div class="row justify-content-md-center">-->
+    <!--      <add-menu-item v-if="menu.menuId" :menu-id="menu.menuId"/>-->
+    <!--    </div>-->
   </div>
 </template>
 
@@ -18,7 +16,7 @@ export default Vue.extend({
   name: "ManageMenu",
   components: {
     "add-menu-group": () => import("@/components/menu/builder/AddMenuGroups.vue"),
-    "add-menu-item": () => import("@/components/menu/builder/menu-item/AddMenuItem.vue")
+    // "add-menu-item": () => import("@/components/menu/builder/menu-item/AddMenuItem.vue")
   },
   data() {
     return {

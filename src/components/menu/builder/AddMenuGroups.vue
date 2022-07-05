@@ -1,39 +1,108 @@
 <template>
-  <div class="col-md-6 col-sm-12">
-    <div class="mt-5 mb-5 d-block text-center">
-      <h2 class="font-weight-bolder">Add Menu Group/Sub-category</h2>
-    </div>
-    <form @submit.prevent="addMenuGroup" :model="model">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <textarea name="name" v-model="model.name" class="form-control" id="name"
-                  rows="3"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="summary">Summary (Optional)</label>
-        <textarea name="summary" v-model="model.summary" class="form-control" id="summary" rows="3"></textarea>
-      </div>
+  <div class="row">
+    <div class="col-md-3">
+      <!--  Menu Groups  -->
+      <div class="sidebar-section mt-5">
+        <div class="sidebar-item sticky-top">
+          <div class="sidebar-content">
+            <ul class="list-group">
+              <li v-for="g of menuGroups" :key="`group-`+g.name"
+                  class="list-group-item d-flex justify-content-between align-items-start border-0">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">
+                    <h5><a v-on:click="getMenuGroupMenuItems(g.menuGroupId, g.name)">{{ g.name }}</a></h5>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <button type="button" data-toggle="modal" data-target="#menuGroupModal"
+                    class="btn btn-block btn-dark ml-3 mr-3"><i class="bi bi-plus-square"></i> Menu Group
+            </button>
+          </div>
+        </div>
+        <!--  End Menu Groups  -->
 
-      <button v-if="!isLoading" type="submit" class="btn btn-block btn-dark">Save Changes</button>
-      <loading-spinner v-else/>
-      <div class="mt-2">
-        <a href="#" class="badge badge-light mr-2 mb-2" v-for="item of menuGroups" :key="item.name">
-          <h5 class="mb-0">{{ item.name }}</h5>
-        </a>
+        <!-- Modal -->
+        <div class="modal fade" id="menuGroupModal" tabindex="-1" role="dialog" aria-labelledby="menuGroupTitle"
+             aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="Add Menu Group/Sub-category">New menu group</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form @submit.prevent="addMenuGroup" :model="model">
+                  <div class="form-group">
+                    <label for="name">Name</label>
+                    <input name="name" v-model="model.name" class="form-control" id="name"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="summary">Summary (Optional)</label>
+                    <textarea name="summary" v-model="model.summary" class="form-control" id="summary"
+                              rows="3"></textarea>
+                  </div>
+                  <button v-if="!isLoading" type="submit" class="btn btn-block btn-dark">Save Changes</button>
+                  <loading-spinner v-else/>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Modal -->
       </div>
-    </form>
+    </div>
+    <div class="col-md-9 mt-5">
+      <h4 v-if="selectedMenuGroup" class="display-4 mb-5">{{ selectedMenuGroup }}</h4>
+
+      <div class="row">
+        <div class="col-md-3 col-sm-6 mb-4" :key="item.name" v-for="item of menuItems">
+          <menu-item-card :menu-item="item"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <button type="button" data-toggle="modal" data-target="#menuItemModal"
+                  class="btn btn-dark"><i class="bi bi-plus-square"></i> Menu Item
+          </button>
+        </div>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="menuItemModal" tabindex="-1" role="dialog" aria-labelledby="menuItemModalTitle"
+           aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="Add Menu Group/Sub-category">Add Menu Item</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <add-menu-item-form :menu-id="menuId"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Modal -->
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import {apiAdapter} from "@/api/adapter"
-import {AddMenuGroupRequest, MenuGroup} from "@/types"
+import {AddMenuGroupRequest, MenuGroup, MenuItem} from "@/types"
 import Vue from "vue"
 
 export default Vue.extend({
   name: "AddMenuGroup",
   components: {
-    "loading-spinner": () => import("@/components/ui/Spinner.vue")
+    "loading-spinner": () => import("@/components/ui/Spinner.vue"),
+    "menu-item-card": () => import("@/components/menu/builder/menu-item/MenuItemCard.vue"),
+    "add-menu-item-form": () => import("@/components/menu/builder/menu-item/AddMenuItemForm.vue")
   },
   props: {
     menuId: {
@@ -44,7 +113,9 @@ export default Vue.extend({
   data() {
     return {
       model: {} as AddMenuGroupRequest,
+      selectedMenuGroup: "",
       menuGroups: [] as MenuGroup[],
+      menuItems: [] as MenuItem[],
       isLoading: false
     }
   },
@@ -73,6 +144,19 @@ export default Vue.extend({
         this.isLoading = false
       } catch (e) {
         this.isLoading = false
+      }
+    },
+    async getMenuGroupMenuItems(menuGroupId: number | string, menuGroup: string) {
+      this.isLoading = true
+      try {
+        this.selectedMenuGroup = menuGroup
+        const response = await apiAdapter.get<MenuItem[]>(`/menu-groups/${menuGroupId}/menu-items`)
+        if (response.data) {
+          this.menuItems = response.data
+        }
+        this.isLoading = false
+      } catch (e) {
+        console.log(e)
       }
     }
   }

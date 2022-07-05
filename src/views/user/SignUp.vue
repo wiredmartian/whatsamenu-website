@@ -38,7 +38,7 @@ export default Vue.extend({
   methods: {
     async signIn() {
       try {
-        const response = await apiAdapter.putOrPost<SignUpUserRequest, { data: string }>("/user/sign-up", "POST", this.model)
+        const response = await apiAdapter.putOrPost<SignUpUserRequest, { data: string }>("/users/sign-up", "POST", this.model)
         if (response.status === 200) {
           console.log(response.data)
         }
