@@ -7,16 +7,18 @@
           <div class="sidebar-content">
             <ul class="list-group">
               <li v-for="g of menuGroups" :key="`group-`+g.name"
-                  class="list-group-item d-flex justify-content-between align-items-start border-0">
+                  class="list-group-item d-flex justify-content-between align-items-start border-0 p-0">
                 <div class="ms-2 me-auto">
                   <div class="fw-bold">
-                    <h5><a v-on:click="getMenuGroupMenuItems(g.menuGroupId, g.name)">{{ g.name }}</a></h5>
+                    <h5><a class="btn btn-light" v-on:click="getMenuGroupMenuItems(g.menuGroupId, g.name)">{{
+                        g.name
+                      }}</a></h5>
                   </div>
                 </div>
               </li>
             </ul>
             <button type="button" data-toggle="modal" data-target="#menuGroupModal"
-                    class="btn btn-block btn-dark ml-3 mr-3"><i class="bi bi-plus-square"></i> Menu Group
+                    class="btn btn-block btn-dark"><i class="bi bi-plus-square"></i> Menu Group
             </button>
           </div>
         </div>
@@ -56,7 +58,7 @@
       </div>
     </div>
     <div class="col-md-9 mt-5">
-      <h4 v-if="selectedMenuGroup" class="display-4 mb-5">{{ selectedMenuGroup }}</h4>
+      <h2 v-if="selectedMenuGroup" class="mb-4">{{ selectedMenuGroup }}</h2>
 
       <!--      <div class="row">-->
       <!--        <div class="col-md-3 col-sm-6 mb-4" :key="item.name" v-for="item of menuItems">-->
@@ -70,9 +72,11 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <button type="button" data-toggle="modal" data-target="#menuItemModal"
-                  class="btn btn-dark"><i class="bi bi-plus-square"></i> Menu Item
-          </button>
+          <div class="float-right">
+            <button type="button" data-toggle="modal" data-target="#menuItemModal"
+                    class="btn btn-dark"><i class="bi bi-plus-square"></i>
+            </button>
+          </div>
         </div>
       </div>
       <!-- Modal -->

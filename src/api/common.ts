@@ -11,9 +11,12 @@ axios.interceptors.request.use(
         }
         const token = sessionStorage.getItem("menu_access_token");
         config.headers["Content-Type"] = "application/json";
+        if (config.url?.indexOf("/upload") !== -1) {
+            config.headers["Content-Type"] = "multipart/form-data"
+        }
         if (
-            config.baseURL?.indexOf("/user/sign-up") == -1 ||
-            config.baseURL?.indexOf("/user/sign-in") == -1
+            config.url?.indexOf("/user/sign-up") == -1 ||
+            config.url?.indexOf("/user/sign-in") == -1
         ) {
             if (token) {
                 config.headers["Authorization"] = `Bearer ${token}`;

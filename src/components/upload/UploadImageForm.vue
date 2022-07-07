@@ -12,14 +12,10 @@
       />
     </label>
     <div class="row mb-4">
-      <div
-          class="col-sm-12 col-lg-4"
-          v-for="(item, i) in selectedFiles"
-          :key="i"
-      >
-        <div class="card mt-4">
+      <div v-if="selectedFile" class="col-sm-12">
+        <div class="card mt-2">
           <div class="card-img">
-            <img :src="item" class="img-fluid" alt=""/>
+            <img :src="selectedFile" class="img-fluid" alt=""/>
           </div>
         </div>
       </div>
@@ -57,26 +53,21 @@ export default vue.extend({
     return {
       isLoading: false,
       errorMessage: "",
-      selectedFiles: [] as string[],
-      uploadFiles: []
+      selectedFile: "",
+      uploadFile: null as any
     };
   },
   methods: {
     async uploadImage() {
       try {
         this.isLoading = true;
-        const id = this.$route.params.id;
         const fd = new FormData();
+        console.log(this.$props)
         fd.append("entityType", this.entityType);
         fd.append("entityId", this.entityId)
-        for (let f = 0; f < this.uploadFiles.length; f++) {
-          fd.append("fileData", this.uploadFiles[f]);
-        }
+        fd.append("fileData", this.uploadFile);
         const response = await apiAdapter.putOrPost<FormData, { data: string }>(`/upload`, "PUT", fd);
         console.log(response.data)
-        if (response.data) {
-          await this.$router.push(`/product/${id}`);
-        }
         this.isLoading = false;
       } catch (e) {
         this.isLoading = false;
@@ -89,11 +80,9 @@ export default vue.extend({
     },
     displayImages(event: any) {
       if (event.target.files != null && event.target.files.length > 0) {
-        const files = event.target.files;
-        this.uploadFiles = files;
-        for (let f = 0; f < files.length; f++) {
-          this.selectedFiles.push(window.URL.createObjectURL(files[f]));
-        }
+        const file = event.target.files[0];
+        this.uploadFile = file;
+        this.selectedFile = window.URL.createObjectURL(file)
       }
     }
   }
