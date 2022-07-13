@@ -1,4 +1,4 @@
-import { ENTITY_TYPE } from "./enums";
+import {ENTITY_TYPE} from "./enums";
 
 export type Menu = {
     menuId: string;
@@ -48,6 +48,8 @@ export type MenuItemAllergen = {
     summary: string;
 }
 
+export type Allergen = Omit<MenuItemAllergen, "menuItemId">
+
 export type Restaurant = {
     restaurantId: string;
     name: string;
@@ -87,13 +89,15 @@ export type SignInUserRequest = SignUpUserRequest
 
 export type AddRestaurantRequest = Omit<Address, "addressId"> & { name: string; summary: string }
 
-export type AddMenuItemRequest = Pick<MenuItem, "name" | "summary" | "description" | "price" | "imageUrl" | "menuGroupId">
+export type AddMenuItemRequest =
+    Pick<MenuItem, "name" | "summary" | "description" | "price" | "imageUrl" | "menuGroupId">
+    & { allergens: string[] }
 
 export type AddMenuGroupRequest = Pick<MenuGroup, "name" | "summary">
 
 export type UploadImageRequest = {
     entityType: ENTITY_TYPE,
-    enityId: number,
+    entityId: number,
     fileData: any
 }
 

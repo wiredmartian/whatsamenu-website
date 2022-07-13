@@ -29,13 +29,18 @@
       <textarea name="description" v-model="model.description" class="form-control" id="description"
                 rows="3"></textarea>
     </div>
+    <div class="form-group form-check form-check-inline" v-for="item in allergens" :key="item.name">
+      <input v-model="checkedAllergens" class="form-check-input" type="checkbox" :id="`allergen-${item.allergenId}`"
+             :value="item.allergenId">
+      <label class="form-check-label" :for="`allergen-${item.allergenId}`">{{ item.name }}</label>
+    </div>
     <button type="submit" class="btn btn-block btn-dark">Save Changes</button>
   </form>
 </template>
 
 <script lang="ts">
 import {apiAdapter} from "@/api/adapter"
-import {AddMenuItemRequest, MenuGroup} from "@/types"
+import {AddMenuItemRequest, Allergen, MenuGroup} from "@/types"
 import Vue from "vue"
 
 export default Vue.extend({
@@ -50,11 +55,13 @@ export default Vue.extend({
     return {
       model: {} as AddMenuItemRequest,
       menuGroups: [] as MenuGroup[],
+      allergens: [] as Allergen[],
+      checkedAllergens: [],
       isLoading: false,
     }
   },
   async mounted() {
-    await this.getMenuGroups()
+    await Promise.all([this.getMenuGroups(), this.getAllergens()])
   },
   methods: {
     async getMenuGroups() {
@@ -69,6 +76,7 @@ export default Vue.extend({
     },
     async addMenuItem() {
       try {
+        this.model.allergens = this.checkedAllergens
         this.model.price = parseFloat(this.model.price.toString())
         const response = await apiAdapter.putOrPost<AddMenuItemRequest, { data: string }>(`/menu-groups/${this.model.menuGroupId}/menu-items`, "POST", this.model)
         if (response.status === 201 && response.data) {
@@ -76,6 +84,16 @@ export default Vue.extend({
         }
       } catch (e) {
         console.log(e)
+      }
+    },
+    async getAllergens() {
+      try {
+        const response = await apiAdapter.get<Allergen[]>(`/allergens`)
+        if (response.status == 200 && response.data) {
+          this.allergens = response.data
+        }
+      } catch (e) {
+        console.error(e)
       }
     }
   }

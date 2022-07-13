@@ -26,12 +26,12 @@
         <td>{{ menuGroup }}</td>
         <td>R{{ item.price.toFixed(2) }}</td>
         <td>
-          <button class="btn btn-sm btn-outline-dark"><i class="bi bi-pencil-square"></i> Edit</button> &nbsp;
-          <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Delete</button> &nbsp;
+          <button class="btn btn-sm btn-outline-dark"><i class="bi bi-pencil-square"></i> Manage</button> &nbsp;
           <button v-on:click="setSelectedMenuItemId(item.menuItemId)" data-toggle="modal" data-target="#menuItemUpload"
                   class="btn btn-sm btn-outline-secondary"><i
               class="bi bi-image"></i> Upload
-          </button>
+          </button> &nbsp;
+          <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Delete</button>
         </td>
       </tr>
       </tbody>
