@@ -80,18 +80,23 @@ export type GeoCoordinates = {
 
 
 /** CREATE AND UPDATE DATA MODELS */
+
 export type SignUpUserRequest = {
     email: string;
     password: string;
 }
-export type SignInUserRequest = SignUpUserRequest
 
+export type SignInUserRequest = SignUpUserRequest
 
 export type AddRestaurantRequest = Omit<Address, "addressId"> & { name: string; summary: string }
 
 export type AddMenuItemRequest =
     Pick<MenuItem, "name" | "summary" | "description" | "price" | "imageUrl" | "menuGroupId">
     & { allergens: string[] }
+
+export type AddIngredientRequest = {
+    name: string;
+}
 
 export type AddMenuGroupRequest = Pick<MenuGroup, "name" | "summary">
 

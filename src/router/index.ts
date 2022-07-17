@@ -54,6 +54,11 @@ const routes: Array<RouteConfig> = [
         path: '/manage/restaurants/:id/menu',
         name: 'manage restaurant menu',
         component: () => import("@/views/manage/menu/ManageMenu.vue")
+    },
+    {
+        path: '/manage/menu/:mid/menu-item/:id',
+        name: 'manage menu item',
+        component: () => import("@/views/manage/menu-item/ManageMenuItem.vue")
     }
 ]
 

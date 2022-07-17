@@ -26,7 +26,9 @@
         <td>{{ menuGroup }}</td>
         <td>R{{ item.price.toFixed(2) }}</td>
         <td>
-          <button class="btn btn-sm btn-outline-dark"><i class="bi bi-pencil-square"></i> Manage</button> &nbsp;
+          <router-link :to="`/manage/menu/${item.menuId}/menu-item/${item.menuItemId}`" class="btn btn-sm btn-outline-dark">
+          <i class="bi bi-pencil-square"></i> Manage
+          </router-link> &nbsp;
           <button v-on:click="setSelectedMenuItemId(item.menuItemId)" data-toggle="modal" data-target="#menuItemUpload"
                   class="btn btn-sm btn-outline-secondary"><i
               class="bi bi-image"></i> Upload

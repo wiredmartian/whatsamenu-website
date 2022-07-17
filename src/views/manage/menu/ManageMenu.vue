@@ -1,9 +1,6 @@
 <template>
   <div class="container-fluid">
-    <add-menu-group v-if="menu.menuId" :menu-id="menu.menuId"/>
-    <!--    <div class="row justify-content-md-center">-->
-    <!--      <add-menu-item v-if="menu.menuId" :menu-id="menu.menuId"/>-->
-    <!--    </div>-->
+    <build-menu v-if="menu.menuId" :menu-id="menu.menuId"/>
   </div>
 </template>
 
@@ -15,17 +12,13 @@ import {HttpResponseError, Menu} from "@/types";
 export default Vue.extend({
   name: "ManageMenu",
   components: {
-    "add-menu-group": () => import("@/components/menu/builder/AddMenuGroups.vue"),
-    // "add-menu-item": () => import("@/components/menu/builder/menu-item/AddMenuItem.vue")
+    "build-menu": () => import("@/components/menu/builder/menu-item/BuildMenu.vue"),
   },
   data() {
     return {
       menu: {} as Menu,
-      responseErrorStatus: 0,
-      responseErrorMessage: "",
       restaurantId: "",
       isLoading: false,
-      isPageLoading: false,
     }
   },
   mounted() {
@@ -40,10 +33,7 @@ export default Vue.extend({
         if (response.status === 200) {
           this.menu = response.data as Menu
           console.log(this.menu)
-        } else {
-          this.responseErrorMessage = (response.data as HttpResponseError).error
-          this.responseErrorStatus = response.status
-        }
+        } 
         this.isLoading = false
       } catch (e) {
         this.isLoading = false
