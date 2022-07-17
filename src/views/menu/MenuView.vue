@@ -21,7 +21,7 @@
             <div v-if="isLoading">
               <app-spinner/>
             </div>
-            <div v-else class="row" :id="`${group.menuGroupId}-` + group.name.split(' ')[0].toLowerCase()"
+            <div v-else :id="`${group.menuGroupId}-` + group.name.split(' ')[0].toLowerCase()"
                  v-for="group of menu.menuGroups"
                  :key="`row-`+group.menuGroupId">
               <div class="row" v-if="group.items !== null">
@@ -46,7 +46,6 @@
                     </div>
                   </div>
                 </div>
-                <hr/>
               </div>
               <div v-else class="row">
                 <div class="col-12 mb-3 mt-3">

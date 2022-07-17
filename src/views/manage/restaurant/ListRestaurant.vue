@@ -22,7 +22,9 @@
             <td>
               <router-link :to="`/manage/restaurant/add/${item.restaurantId}`" class="btn btn-sm btn-dark mr-1">Update
               </router-link>
-              <button type="button" class="btn btn-sm btn-dark mr-1">Menu</button>
+              <router-link :to="`/manage/restaurants/${item.restaurantId}/menu`" type="button"
+                           class="btn btn-sm btn-dark mr-1">Menu
+              </router-link>
               <button type="button" class="btn btn-sm btn-danger mr-1">Delete</button>
             </td>
           </tr>
