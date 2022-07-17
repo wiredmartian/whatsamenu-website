@@ -12,7 +12,7 @@ import {HttpResponseError, Menu} from "@/types";
 export default Vue.extend({
   name: "ManageMenu",
   components: {
-    "build-menu": () => import("@/components/menu/builder/menu-item/BuildMenu.vue"),
+    "build-menu": () => import("@/components/menu/builder/BuildMenu.vue"),
   },
   data() {
     return {
@@ -33,7 +33,7 @@ export default Vue.extend({
         if (response.status === 200) {
           this.menu = response.data as Menu
           console.log(this.menu)
-        } 
+        }
         this.isLoading = false
       } catch (e) {
         this.isLoading = false
