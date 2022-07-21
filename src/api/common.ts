@@ -1,7 +1,7 @@
 import axios, {AxiosRequestConfig} from "axios"
 
-axios.defaults.baseURL = "http://localhost:9200/api/v1"
-// axios.defaults.baseURL = "https://menu.core.wiredmartians.co.za/api/v1"
+// axios.defaults.baseURL = "http://localhost:9200/api/v1"
+axios.defaults.baseURL = "https://menu.core.wiredmartians.co.za/api/v1"
 
 
 axios.interceptors.request.use(
@@ -43,4 +43,6 @@ axios.interceptors.request.use(
 // );
 
 export const $axios = axios
+
+export const IMGCDN = "https://menu.core.wiredmartians.co.za"
 

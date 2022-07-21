@@ -2,7 +2,7 @@
   <router-link :to="`/restaurant/menu/menu-item/${menuItem.menuItemId}`">
     <div class="media mb-2" :key="menuItem.name">
       <!--      <img class="align-self-center rounded mr-3 w-25" :src="menuItem.imageUrl" :alt="menuItem.name">-->
-      <img v-if="menuItem.imageUrl" v-bind:src="`http://localhost:9200/`+menuItem.imageUrl"
+      <img v-if="menuItem.imageUrl" v-bind:src="`${imgCDN}/`+menuItem.imageUrl"
            class="align-self-center rounded"
            :alt="menuItem.name">
       <svg v-else class="align-self-center rounded" width="100%" height="auto"
@@ -28,6 +28,7 @@
 <script lang="ts">
 import Vue from "vue";
 import {MenuItem} from "@/types";
+import { IMGCDN } from "@/api/common";
 
 export default Vue.extend({
   name: "MenuItemMedia",
@@ -36,6 +37,11 @@ export default Vue.extend({
       type: Object,
       default: () => ({} as MenuItem),
       required: true
+    }
+  },
+  data() {
+    return {
+      imgCDN: IMGCDN
     }
   }
 })

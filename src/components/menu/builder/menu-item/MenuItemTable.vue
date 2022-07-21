@@ -17,7 +17,7 @@
           {{ item.menuItemId }}
         </td>
         <th>
-          <img v-if="item.imageUrl" v-bind:src="`http://localhost:9200/`+item.imageUrl"
+          <img v-if="item.imageUrl" v-bind:src="`${imgCND}/`+item.imageUrl"
                class="img-small"
                :alt="item.name">
           <p v-else class="text-muted">No Image</p>
@@ -65,13 +65,15 @@
 <script lang="ts">
 import Vue from "vue"
 import {ENTITY_TYPE, MenuItem} from "@/types";
+import { IMGCDN } from "@/api/common";
 
 export default Vue.extend({
   name: "MenuItemTable",
   data() {
     return {
       entityType: ENTITY_TYPE.MENUITEM,
-      selectedMenuItemId: ""
+      selectedMenuItemId: "",
+      imgCND: IMGCDN
     }
   },
   components: {
