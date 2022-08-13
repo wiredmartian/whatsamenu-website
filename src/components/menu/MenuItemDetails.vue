@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <page-load-spinner v-if="isPageLoading" :showSpinner="isPageLoading"/>
+    <page-load-spinner class="text-center" v-if="isPageLoading" :showSpinner="isPageLoading"/>
     <div v-else>
       <div class="col">
         <img

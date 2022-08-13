@@ -31,7 +31,7 @@
                 <div class="col-md-6 mb-4" v-for="(item, i) of group.items"
                      :key="`col-${i}${item.menuItemId}`">
                   <div class="media mb-2" :key="item.name" data-toggle="modal"
-                       data-target="#menuItemDetail" v-on:click="setSelectedItem(item)">
+                       data-target="#menuItemDetail" role="button" v-on:click="setSelectedItem(item)">
                     <img v-if="item.imageUrl" v-bind:src="`${imgCDN}/`+item.imageUrl"
                          class="align-self-center rounded"
                          :alt="item.name">

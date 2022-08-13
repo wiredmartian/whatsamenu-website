@@ -4,8 +4,7 @@
     <!--  </router-link>x-->
 
 
-    <div class="media mb-2" :key="menuItem.name" data-toggle="modal"
-         :data-target="`#menuItemDetail-${menuItem.menuItemId}`">
+    <div class="media mb-2" :key="menuItem.name">
       <!--      <img class="align-self-center rounded mr-3 w-25" :src="menuItem.imageUrl" :alt="menuItem.name">-->
       <img v-if="menuItem.imageUrl" v-bind:src="`${imgCDN}/`+menuItem.imageUrl"
            class="align-self-center rounded"
