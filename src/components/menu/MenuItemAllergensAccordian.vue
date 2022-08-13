@@ -1,7 +1,7 @@
 <template>
-  <div class="row mt-5">
+  <div class="row">
     <div class="col-sm-12" v-if="allergens.length > 0">
-      <h3 class="text-center mb-5">Allergens</h3>
+      <h3 class="text-center mb-3">Allergens</h3>
 
       <div class="accordion" id="allergenAccordian">
         <div v-for="item of allergens" :key="item.name" class="card border-0"

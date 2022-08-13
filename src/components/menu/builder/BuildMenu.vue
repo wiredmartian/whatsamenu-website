@@ -112,7 +112,7 @@ export default Vue.extend({
     "loading-spinner": () => import("@/components/ui/Spinner.vue"),
     // "menu-item-card": () => import("@/components/menu/builder/menu-item/MenuItemCard.vue"),
     "add-menu-item-form": () => import("@/components/menu/builder/menu-item/AddMenuItemForm.vue"),
-    "menu-item-table": () => import("@/components/menu/builder/menu-item/MenuItemTable.vue")
+    "menu-item-table": () => import("@/components/menu/MenuItemTable.vue")
   },
   props: {
     menuId: {

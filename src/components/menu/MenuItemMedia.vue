@@ -1,6 +1,11 @@
 <template>
-  <router-link :to="`/restaurant/menu/menu-item/${menuItem.menuItemId}`">
-    <div class="media mb-2" :key="menuItem.name">
+  <div>
+    <!--  <router-link :to="`/restaurant/menu/menu-item/${menuItem.menuItemId}`">-->
+    <!--  </router-link>x-->
+
+
+    <div class="media mb-2" :key="menuItem.name" data-toggle="modal"
+         :data-target="`#menuItemDetail-${menuItem.menuItemId}`">
       <!--      <img class="align-self-center rounded mr-3 w-25" :src="menuItem.imageUrl" :alt="menuItem.name">-->
       <img v-if="menuItem.imageUrl" v-bind:src="`${imgCDN}/`+menuItem.imageUrl"
            class="align-self-center rounded"
@@ -17,7 +22,7 @@
         <span><b>R{{ menuItem.price.toFixed(2) }}</b></span>
       </div>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script lang="ts">

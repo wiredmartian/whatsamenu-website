@@ -30,7 +30,23 @@
                 </div>
                 <div class="col-md-6 mb-4" v-for="(item, i) of group.items"
                      :key="`col-${i}${item.menuItemId}`">
-                  <menu-item-media :menu-item="item"/>
+                  <div class="media mb-2" :key="item.name" data-toggle="modal"
+                       data-target="#menuItemDetail" v-on:click="setSelectedItem(item)">
+                    <img v-if="item.imageUrl" v-bind:src="`${imgCDN}/`+item.imageUrl"
+                         class="align-self-center rounded"
+                         :alt="item.name">
+                    <svg v-else class="align-self-center rounded" width="100%" height="auto"
+                         xmlns="http://www.w3.org/2000/svg" role="img" :aria-label="item.name"
+                         preserveAspectRatio="xMidYMid slice" focusable="false">
+                      <rect width="100%" height="100%" fill="#6c757d"></rect>
+                    </svg>
+                    <div class="media-body align-self-center pl-3">
+                      <h5 class="mt-0"> {{ item.name }}</h5>
+                      <p class="block-ellipsis mb-0">{{ item.summary }}
+                      </p>
+                      <span><b>R{{ item.price.toFixed(2) }}</b></span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -47,18 +63,41 @@
     </div>
     <pretty-error v-if="responseErrorStatus" :request-status="responseErrorStatus"
                   :error-message="responseErrorMessage"/>
+
+    <!-- Modal -->
+    <div v-if="Object.keys(selectedMenuItem).length" :key="selectedMenuItem.menuItemId" class="modal fade"
+         id="menuItemDetail" tabindex="-1" role="dialog"
+         aria-labelledby="menuItemDetailTitle"
+         aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="Add Menu Group/Sub-category">{{ selectedMenuItem.name }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <menu-item-details :menu-item-id="selectedMenuItem.menuItemId"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal -->
+
   </div>
 </template>
 
 <script lang="ts">
-import {HttpResponseError, Menu, Restaurant} from "@/types/types"
+import {HttpResponseError, Menu, MenuItem, Restaurant} from "@/types/types"
 import Vue from "vue"
 import {apiAdapter} from "@/api/adapter";
+import {IMGCDN} from "@/api/common";
 
 export default Vue.extend({
   components: {
+    MenuItemDetails: () => import("@/components/menu/MenuItemDetails.vue"),
     MenuGroupSidebar: () => import("@/components/menu/MenuGroupSidebar.vue"),
-    MenuItemMedia: () => import("@/components/menu/builder/menu-item/MenuItemMedia.vue"),
     LocationMap: () => import("@/components/restaurant/LocationMap.vue"),
     RestaurantInfo: () => import("@/components/restaurant/RestaurantInfo.vue"),
     AppSpinner: () => import("@/components/ui/Spinner.vue"),
@@ -73,8 +112,10 @@ export default Vue.extend({
       responseErrorMessage: "",
       restaurantId: "",
       menu: {} as Menu,
+      selectedMenuItem: {} as MenuItem,
       menuGroups: [] as Array<Record<string, string | number | undefined>>,
-      restaurant: {} as Restaurant
+      restaurant: {} as Restaurant,
+      imgCDN: IMGCDN
     }
   },
   async mounted() {
@@ -122,6 +163,10 @@ export default Vue.extend({
     },
     pushMenuData(item: any) {
       this.$router.push({path: `/restaurant/menu/menu-item/${item.menuItemId}`, params: {data: JSON.stringify(item)}})
+    },
+    setSelectedItem(item: MenuItem) {
+      console.log(item)
+      this.selectedMenuItem = item
     },
     smoothScroll() {
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -181,5 +226,22 @@ export default Vue.extend({
 .menu-card:hover {
   box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
   transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.media img, .media svg {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.block-ellipsis {
+  display: block;
+  display: -webkit-box;
+  max-width: 100%;
+  height: auto;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
