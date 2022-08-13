@@ -23,7 +23,7 @@ export type MenuGroup = {
 export type MenuItem = {
     menuItemId: string;
     menuId: string;
-    menuGroupId: string;
+    menuGroupId: number;
     name: string;
     summary: string;
     description: string;

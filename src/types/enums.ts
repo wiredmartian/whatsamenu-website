@@ -11,6 +11,7 @@ export enum PROVINCES {
 }
 
 export enum ENTITY_TYPE {
+    RESTAURANT = "RESTAURANT",
     MENUITEM = "MENUITEM",
     INGREDIENT = "INGREDIENT",
     ALLERGEN = "ALLERGEN",

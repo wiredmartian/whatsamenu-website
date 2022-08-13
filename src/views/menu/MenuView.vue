@@ -31,32 +31,8 @@
                 <div class="col-md-6 mb-4" v-for="(item, i) of group.items"
                      :key="`col-${i}${item.menuItemId}`">
                   <menu-item-media :menu-item="item"/>
-
-                  <!--                  <div class="card menu-card h-100" @click="pushMenuData(item)">-->
-                  <!--                    <div class="menu-card-content">-->
-                  <!--                      <img v-if="item.imageUrl" v-bind:src="`http://localhost:9200/`+item.imageUrl"-->
-                  <!--                           class="card-img-top"-->
-                  <!--                           alt="...">-->
-                  <!--                      <img v-else-->
-                  <!--                           src="/placeholder.png"-->
-                  <!--                           class="card-img-top"-->
-                  <!--                           alt="...">-->
-                  <!--                      <div class="card-body">-->
-                  <!--                        <h5 class="card-title">{{ item.name }}</h5>-->
-                  <!--                        <p class="card-text">R {{ item.price.toFixed(2) }}</p>-->
-                  <!--                      </div>-->
-                  <!--                    </div>-->
-                  <!--                  </div>-->
                 </div>
               </div>
-              <!--              <div v-else class="row">-->
-              <!--                <div class="col-12 mb-3 mt-3">-->
-              <!--                  <h3>{{ group.name }}</h3>-->
-              <!--                </div>-->
-              <!--                <div class="col-md-12 mb-4">-->
-              <!--                  <p class="text-muted">No menu items yet</p>-->
-              <!--                </div>-->
-              <!--              </div>-->
             </div>
           </div>
         </div>

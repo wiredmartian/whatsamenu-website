@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <build-menu-item :menu-item-id="menuItemId"/>
+    <build-menu-item v-if="menuItemId" :menu-item-id="menuItemId"/>
   </div>
 </template>
 
@@ -21,8 +21,6 @@ export default Vue.extend({
   mounted() {
     this.menuId = this.$route.params['mid']
     this.menuItemId = this.$route.params['id']
-    console.log(this.menuItemId)
-    console.log(this.menuId)
   },
 })
 </script>

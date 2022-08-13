@@ -15,11 +15,6 @@
         <p class="block-ellipsis mb-0">{{ menuItem.summary }}
         </p>
         <span><b>R{{ menuItem.price.toFixed(2) }}</b></span>
-        <!--        <p v-if="restaurant.address" class="text-muted">{{ restaurant.address.line1 }}, {{-->
-        <!--            restaurant.address.line2-->
-        <!--          }} <br/>-->
-        <!--          {{ restaurant.address.city }}, {{ restaurant.address.state }}-->
-        <!--        </p>-->
       </div>
     </div>
   </router-link>
@@ -28,7 +23,7 @@
 <script lang="ts">
 import Vue from "vue";
 import {MenuItem} from "@/types";
-import { IMGCDN } from "@/api/common";
+import {IMGCDN} from "@/api/common";
 
 export default Vue.extend({
   name: "MenuItemMedia",

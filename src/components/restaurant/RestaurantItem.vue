@@ -1,18 +1,24 @@
 <template>
   <router-link :to="`restaurants/${restaurant.restaurantId}/menu`">
     <div class="media mb-4" :key="restaurant.name">
-      <img class="align-self-center rounded mr-3 w-25" :src="restaurant.imageUrl" :alt="restaurant.name">
-      <div class="media-body align-self-center">
-        <h5 class="mt-0"> {{ restaurant.name }}</h5>
-        <p>{{ restaurant.summary }}</p>
-        <p v-if="restaurant.address" class="text-muted">{{ restaurant.address.line1 }}, {{
-            restaurant.address.line2
-          }} <br/>
-          {{ restaurant.address.city }}, {{ restaurant.address.state }}
-        </p>
-        <p class="lead">
-          <span class="badge badge-dark rounded-pill">{{ restaurant.distance.toFixed(2) }}km away</span>
-        </p>
+      <div class="row">
+        <div class="col-md-4">
+          <img class="align-self-center rounded mr-3 w-100" :src="restaurant.imageUrl" :alt="restaurant.name">
+        </div>
+        <div class="col-md-8">
+          <div class="media-body align-self-center pt-4">
+            <h5 class="mt-0"> {{ restaurant.name }}</h5>
+            <p>{{ restaurant.summary }}</p>
+            <p v-if="restaurant.address" class="text-muted">{{ restaurant.address.line1 }}, {{
+                restaurant.address.line2
+              }} <br/>
+              {{ restaurant.address.city }}, {{ restaurant.address.state }}
+            </p>
+            <p class="lead">
+              <span class="badge badge-dark rounded-pill">{{ restaurant.distance.toFixed(2) }}km away</span>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </router-link>

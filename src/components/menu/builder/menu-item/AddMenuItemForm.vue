@@ -78,6 +78,7 @@ export default Vue.extend({
       try {
         this.model.allergens = this.checkedAllergens
         this.model.price = parseFloat(this.model.price.toString())
+        this.model.menuGroupId = parseInt(this.model.menuGroupId.toString())
         const response = await apiAdapter.putOrPost<AddMenuItemRequest, { data: string }>(`/menu-groups/${this.model.menuGroupId}/menu-items`, "POST", this.model)
         if (response.status === 201 && response.data) {
           console.log(response.data)
