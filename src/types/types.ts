@@ -1,5 +1,3 @@
-import {ENTITY_TYPE} from "./enums";
-
 export type Menu = {
     menuId: string;
     name: string;
@@ -48,7 +46,6 @@ export type MenuItemAllergen = {
     summary: string;
 }
 
-export type Allergen = Omit<MenuItemAllergen, "menuItemId">
 
 export type Restaurant = {
     restaurantId: string;
@@ -78,35 +75,12 @@ export type GeoCoordinates = {
     longitude: number;
 }
 
-
-/** CREATE AND UPDATE DATA MODELS */
-
 export type SignUpUserRequest = {
     email: string;
     password: string;
 }
 
 export type SignInUserRequest = SignUpUserRequest
-
-export type AddRestaurantRequest = Omit<Address, "addressId"> & { name: string; summary: string }
-
-export type AddMenuItemRequest =
-    Pick<MenuItem, "name" | "summary" | "description" | "price" | "imageUrl" | "menuGroupId">
-    & { allergens: string[] }
-
-export type AddIngredientRequest = {
-    name: string;
-}
-
-export type AddMenuGroupRequest = Pick<MenuGroup, "name" | "summary">
-
-export type UploadImageRequest = {
-    entityType: ENTITY_TYPE,
-    entityId: number,
-    fileData: any
-}
-
-/** END CREATE AND UPDATE DATA MODELS */
 
 // Wikipedia query response
 export type WikipediaQueryResponse = {
@@ -126,9 +100,6 @@ type WikipediaTerms = {
     label: string[];
     description: string[];
 }
-
-export const DISAMBIGUATION_PAGE = "Wikimedia disambiguation page"
-
 
 // Errors
 export type HttpResponseError = {

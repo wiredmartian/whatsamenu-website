@@ -16,9 +16,14 @@
     </div>
     <div class="container mt-5">
       <div class="row">
-        <div class="col-md-12" v-for="item of restaurantList" :key="item.name">
+        <div class="col-md-4 col-sm-6" v-for="item of restaurantList" :key="item.name">
           <restaurant-item :restaurant="item"/>
         </div>
+      </div>
+    </div>
+    <div v-if="error" class="container mt-5">
+      <div class="row justify-content-md-center">
+        <p class="lead alert alert-danger">{{ error }}</p>
       </div>
     </div>
   </div>
@@ -36,6 +41,7 @@ export default Vue.extend({
   },
   data() {
     return {
+      error: "",
       restaurantList: [] as Restaurant[]
     }
   },
@@ -46,10 +52,10 @@ export default Vue.extend({
     getCurrentUserLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.getPlacesNearMe, positionError => {
-          console.log(positionError)
+          this.showError(positionError)
         });
       } else {
-        // x.innerHTML = "Geolocation is not supported by this browser.";
+        this.error = "Geolocation is not supported by this browser. Use our search functionality instead";
       }
     },
     // eslint-disable-next-line no-undef
@@ -65,21 +71,22 @@ export default Vue.extend({
         console.log(e)
       }
     },
-    showError(error: any) {
-      switch (error.code) {
-        case error.PERMISSION_DENIED:
-          // x.innerHTML = "User denied the request for Geolocation."
+    showError(err: any) {
+      switch (err.code) {
+        case err.PERMISSION_DENIED:
+          this.error = "User denied the request for Geolocation."
           break;
-        case error.POSITION_UNAVAILABLE:
-          // x.innerHTML = "Location information is unavailable."
+        case err.POSITION_UNAVAILABLE:
+          this.error = "Location information is unavailable."
           break;
-        case error.TIMEOUT:
-          // x.innerHTML = "The request to get user location timed out."
+        case err.TIMEOUT:
+          this.error = "The request to get user location timed out."
           break;
-        case error.UNKNOWN_ERROR:
-          // x.innerHTML = "An unknown error occurred."
+        case err.UNKNOWN_ERROR:
+          this.error = "An unknown error occurred."
           break;
       }
+      this.error = this.error + " Please try refreshing the page"
     }
   }
 })

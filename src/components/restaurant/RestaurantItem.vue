@@ -2,11 +2,12 @@
   <router-link :to="`restaurants/${restaurant.restaurantId}/menu`">
     <div class="media mb-4" :key="restaurant.name">
       <div class="row">
-        <div class="col-md-4">
-          <img class="align-self-center rounded mr-3 w-100" :src="restaurant.imageUrl" :alt="restaurant.name">
+        <div class="col-md-12">
+          <img class="img-restaurant rounded mr-3 w-100" :src="restaurant.imageUrl"
+               :alt="restaurant.name">
         </div>
-        <div class="col-md-8">
-          <div class="media-body align-self-center pt-4">
+        <div class="col-md-12">
+          <div class="media-body pt-2">
             <h5 class="mt-0"> {{ restaurant.name }}</h5>
             <p>{{ restaurant.summary }}</p>
             <p v-if="restaurant.address" class="text-muted">{{ restaurant.address.line1 }}, {{
@@ -15,7 +16,7 @@
               {{ restaurant.address.city }}, {{ restaurant.address.state }}
             </p>
             <p class="lead">
-              <span class="badge badge-dark rounded-pill">{{ restaurant.distance.toFixed(2) }}km away</span>
+              <span class="badge badge-dark rounded-pill">{{ formatDistance(restaurant.distance) }}</span>
             </p>
           </div>
         </div>
@@ -36,10 +37,25 @@ export default Vue.extend({
       default: () => ({} as Restaurant),
       required: true
     }
+  },
+  methods: {
+    // distance in km
+    formatDistance(distance: number) {
+      if (!distance) {
+        return "Not available"
+      }
+      if (distance < 1) {
+        return `${(distance * 1000).toFixed(2)}m away`
+      }
+      return `${distance.toFixed(1)}km away`
+    }
   }
 })
 </script>
 
 <style scoped>
-
+.img-restaurant {
+  object-fit: cover;
+  height: 200px;
+}
 </style>

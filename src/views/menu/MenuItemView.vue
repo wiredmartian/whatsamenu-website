@@ -14,8 +14,8 @@
             <h1 class="display-4 font-weight-bold">
               {{ menuItem.name }}
             </h1>
-            <p class="lead">{{ menuItem.description }}</p>
-            <p class="text-muted">{{ menuItem.summary }}</p>
+            <p class="lead p-2">{{ menuItem.description }}</p>
+            <p class="text-muted p-2">{{ menuItem.summary }}</p>
           </div>
         </div>
       </div>
