@@ -20,16 +20,14 @@
       </div>
       <div class="col" v-if="ingredients.length">
         <h3 class="text-center mb-4">Ingredients</h3>
-        <ul class="list-group">
+        <ul class="list-group list-group-horizontal row">
           <li v-for="g of ingredients" :key="`ing-`+g.name"
-              class="list-group-item d-flex align-items-start border-0">
-            <div class="ms-2 me-auto">
-              <div class="fw-bold">
-                <p role="button" v-on:click="askGoogle(g.name)" class="lead mb-0">{{ g.name }} <span
-                    class="badge badge-light rounded-pill"
-                >?</span>
-                </p>
-              </div>
+              class="list-group-item col-md-6 border-0">
+            <div class="fw-bold">
+              <p role="button" v-on:click="askGoogle(g.name)" class="lead mb-0">{{ g.name }} <span
+                  class="badge badge-light rounded-pill"
+              >?</span>
+              </p>
             </div>
           </li>
         </ul>
