@@ -16,6 +16,9 @@
           <hr/>
           <menu-group-sidebar :menuGroups="menuGroups"/>
           <hr/>
+          <location-map class="d-md-block d-lg-block d-none" v-if="restaurant && restaurant.address"
+                        :longitude="restaurant.address.longitude"
+                        :latitude="restaurant.address.latitude"/>
         </div>
         <div class="col-md-9 col-sm-12">
           <div class="main-content">
@@ -49,7 +52,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row d-md-none d-lg-none">
         <div class="col-md-12">
           <location-map v-if="restaurant && restaurant.address"
                         :longitude="restaurant.address.longitude"
