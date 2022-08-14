@@ -30,36 +30,6 @@ const routes: Array<RouteConfig> = [
         name: 'sign up',
         component: () => import("@/views/user/SignUp.vue")
     },
-    {
-        path: '/manage/restaurant/add',
-        name: 'add restaurant',
-        component: () => import("@/views/manage/restaurant/AddRestaurant.vue")
-    },
-    {
-        path: '/manage/restaurant/add/:id',
-        name: 'update restaurant',
-        component: () => import("@/views/manage/restaurant/AddRestaurant.vue")
-    },
-    {
-        path: '/manage/my-restaurants',
-        name: 'my restaurants',
-        component: () => import("@/views/manage/restaurant/ListRestaurant.vue")
-    },
-    {
-        path: '/menu/:id/menu-item/add',
-        name: 'add menu item',
-        component: () => import("@/components/menu/builder/menu-item/AddMenuItemForm.vue")
-    },
-    {
-        path: '/manage/restaurants/:id/menu',
-        name: 'manage restaurant menu',
-        component: () => import("@/views/manage/menu/ManageMenu.vue")
-    },
-    {
-        path: '/manage/menu/:mid/menu-item/:id',
-        name: 'manage menu item',
-        component: () => import("@/views/manage/menu-item/ManageMenuItem.vue")
-    }
 ]
 
 const router = new VueRouter({
