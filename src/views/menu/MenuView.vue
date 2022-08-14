@@ -15,6 +15,7 @@
           <restaurant-info :restaurant="restaurant"/>
           <hr/>
           <menu-group-sidebar :menuGroups="menuGroups"/>
+          <hr/>
         </div>
         <div class="col-md-9 col-sm-12">
           <div class="main-content">
@@ -28,19 +29,14 @@
                 <div class="col-12 mb-3 mt-3">
                   <h3>{{ group.name }}</h3>
                 </div>
-                <div class="col-md-6 mb-4" v-for="(item, i) of group.items"
+                <div class="col-md-6 col-sm-12 mb-4" v-for="(item, i) of group.items"
                      :key="`col-${i}${item.menuItemId}`">
                   <div class="media mb-2" :key="item.name" data-toggle="modal"
                        data-target="#menuItemDetail" role="button" v-on:click="setSelectedItem(item)">
                     <img v-if="item.imageUrl" v-bind:src="`${imgCDN}/`+item.imageUrl"
-                         class="align-self-center rounded"
+                         class="align-self-center rounded mr-3"
                          :alt="item.name">
-                    <svg v-else class="align-self-center rounded" width="100%" height="auto"
-                         xmlns="http://www.w3.org/2000/svg" role="img" :aria-label="item.name"
-                         preserveAspectRatio="xMidYMid slice" focusable="false">
-                      <rect width="100%" height="100%" fill="#6c757d"></rect>
-                    </svg>
-                    <div class="media-body align-self-center pl-3">
+                    <div class="media-body align-self-center">
                       <h5 class="mt-0"> {{ item.name }}</h5>
                       <p class="block-ellipsis mb-0">{{ item.summary }}
                       </p>
@@ -190,42 +186,6 @@ export default Vue.extend({
 .main-content {
   min-height: 100vh;
   padding: 1em;
-}
-
-.card {
-  border: none;
-  cursor: pointer;
-  background-color: #2c3e50;
-  color: #FFFF;
-  border-radius: .5rem;
-}
-
-.card-body {
-  padding: 0.5rem;
-}
-
-.card-title {
-  margin-bottom: 0;
-}
-
-.card-img-top {
-  width: 100%;
-  min-height: 12vw;
-  object-fit: cover;
-}
-
-.menu-card-content {
-  /* padding: 10px; */
-}
-
-.menu-card {
-  transition: box-shadow 0.3s ease-in-out 0s;
-  transition: transform .5s; /* Animation */
-}
-
-.menu-card:hover {
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
-  transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
 .media img, .media svg {
