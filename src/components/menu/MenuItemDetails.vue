@@ -1,12 +1,12 @@
 <template>
   <div class="row">
     <page-load-spinner class="text-center" v-if="isPageLoading" :showSpinner="isPageLoading"/>
-    <div v-else>
+    <div class="w-100" v-else>
       <div class="col">
-        <img
-            v-bind:src="`https://www.mcdonalds.co.za/media/products/big-mac/McDonalds-Image-Resize.psdBig-mac.png`"
-            class="w-75 d-block m-auto"
-            :alt="menuItem.name">
+        <img v-if="menuItem.imageUrl"
+             v-bind:src="`${cdn}/${menuItem.imageUrl}`"
+             class="w-75 d-block m-auto"
+             :alt="menuItem.name">
       </div>
       <div class="col mt-2 mb-4">
         <div class="description-content">
@@ -45,6 +45,7 @@
 import Vue from 'vue'
 import {MenuItemIngredient, MenuItemAllergen, MenuItem} from "@/types/types";
 import {apiAdapter} from "@/api/adapter";
+import {IMGCDN} from "@/api/common";
 
 export default Vue.extend({
   name: "MenuItemView",
@@ -65,6 +66,7 @@ export default Vue.extend({
       menuItem: {} as MenuItem,
       ingredients: [] as MenuItemIngredient[],
       allergens: [] as MenuItemAllergen[],
+      cdn: IMGCDN
     }
   },
   async mounted() {
