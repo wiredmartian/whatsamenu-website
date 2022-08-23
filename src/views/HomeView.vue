@@ -8,8 +8,8 @@
             <p>You are what you eat</p>
           </div>
           <form class="text-center">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-lg btn-dark mt-4" type="submit">Search</button>
+            <input class="form-control mr-sm-2" v-model="searchInput" type="search" placeholder="Search" aria-label="Search">
+            <button type="button" class="btn btn-lg btn-dark mt-4" v-on:click="searchRestaurants">Search</button>
           </form>
         </div>
       </div>
@@ -42,6 +42,7 @@ export default Vue.extend({
   data() {
     return {
       error: "",
+      searchInput: "",
       restaurantList: [] as Restaurant[]
     }
   },
@@ -69,6 +70,23 @@ export default Vue.extend({
         this.restaurantList = response.data
       } catch (e) {
         console.log(e)
+      }
+    },
+    async searchRestaurants(event: any) {
+      if (this.searchInput.length > 3) {
+        console.log(event)
+        setTimeout(async () => {
+          try {
+            const response = await apiAdapter.get<Restaurant[]>(`restaurants/search?query=${this.searchInput}&limit=10`)
+
+            if (response.status === 200 && response.data) {
+              this.restaurantList = response.data
+            }
+            
+          } catch (e) {
+            console.log(e)
+          }
+        }, 300)
       }
     },
     showError(err: any) {
