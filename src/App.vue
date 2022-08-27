@@ -21,6 +21,9 @@ export default Vue.extend({
 </script>
 
 <style>
+html {
+  scroll-behavior:smooth
+}
 #app {
   font-family: 'Roboto', sans-serif;
   font-weight: 300 !important;

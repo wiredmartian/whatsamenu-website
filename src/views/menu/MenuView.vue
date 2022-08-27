@@ -3,12 +3,12 @@
     <page-load-spinner v-if="isPageLoading" :showSpinner="isPageLoading"/>
     <div v-else-if="!isPageLoading && !responseErrorStatus">
       <div class="row">
-        <!--      <img v-if="restaurant.imageUrl"-->
-        <!--           :src="restaurant.imageUrl"-->
-        <!--           class="img-fluid">-->
-        <img
+             <img v-if="restaurant.imageUrl"
+                  :src="restaurant.imageUrl"
+                  class="img-fluid img-header">
+        <!-- <img
             src="https://thumbs.dreamstime.com/b/mexican-food-panoramic-header-blue-background-nachos-chili-con-carne-tacos-chicken-various-dips-top-shot-210526469.jpg"
-            class="img-fluid">
+            class="img-fluid"> -->
       </div>
       <div class="row">
         <div class="col-md-3 col-sm-12">
@@ -195,6 +195,13 @@ export default Vue.extend({
   width: 100px;
   height: 100px;
   object-fit: cover;
+}
+
+.img-header {
+  width: 100vw;
+  height: 35vh;
+  object-fit: cover;
+  object-position: center;
 }
 
 .block-ellipsis {
