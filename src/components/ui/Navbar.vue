@@ -13,20 +13,12 @@
             <router-link class="nav-link" to="/">Home <span class="sr-only">(current)</span></router-link>
           </li>
         </ul>
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/sign-in">Sign In</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/sign-up">Sign Up</router-link>
-          </li>
-        </ul>
       </div>
     </nav>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "AppNavbar"
 }

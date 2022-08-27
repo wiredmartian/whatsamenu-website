@@ -19,17 +19,7 @@ const routes: Array<RouteConfig> = [
         path: '/restaurant/menu/menu-item/:id',
         name: 'menu-item',
         component: () => import("@/views/menu/MenuItemView.vue")
-    },
-    {
-        path: '/sign-in',
-        name: 'sign in',
-        component: () => import("@/views/user/SignIn.vue")
-    },
-    {
-        path: '/sign-up',
-        name: 'sign up',
-        component: () => import("@/views/user/SignUp.vue")
-    },
+    }
 ]
 
 const router = new VueRouter({

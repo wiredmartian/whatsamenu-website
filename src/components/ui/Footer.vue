@@ -1,14 +1,19 @@
 <template>
   <footer class="footer">
     <div class="container">
-      <span class="text-muted">&copy; whatsamenu.co.za | powered by wiredmartians</span>
+      <span class="text-muted">&copy;whatsamenu.co.za 2021 - {{year}} | powered by wiredmartians</span>
     </div>
   </footer>
 </template>
 
 <script lang="ts">
 export default {
-  name: "AppFooter"
+  name: "AppFooter",
+  data() {
+    return {
+      year: new Date(Date.now()).getFullYear()
+    }
+  }
 }
 </script>
 
