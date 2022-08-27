@@ -15,6 +15,9 @@
       </div>
     </div>
     <div class="container mt-5">
+       <div v-if="isLoading">
+            <app-spinner/>
+        </div>
       <div class="row">
         <div class="col-md-4 col-sm-6" v-for="item of restaurantList" :key="item.name">
           <restaurant-item :restaurant="item"/>
@@ -37,12 +40,14 @@ import {Restaurant, GeoCoordinates} from "@/types/types";
 export default Vue.extend({
   name: 'HomeView',
   components: {
-    RestaurantItem: () => import("@/components/restaurant/RestaurantItem.vue")
+    RestaurantItem: () => import("@/components/restaurant/RestaurantItem.vue"),
+    AppSpinner: () => import("@/components/ui/Spinner.vue"),
   },
   data() {
     return {
       error: "",
       searchInput: "",
+      isLoading: false,
       restaurantList: [] as Restaurant[]
     }
   },
@@ -62,31 +67,30 @@ export default Vue.extend({
     // eslint-disable-next-line no-undef
     async getPlacesNearMe(position: GeolocationPosition) {
       try {
+        this.isLoading = true
         const coordinates: GeoCoordinates = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         }
         const response = await apiAdapter.putOrPost<GeoCoordinates, Restaurant[]>("restaurants/near-me", "POST", coordinates)
         this.restaurantList = response.data
+        this.isLoading = false
       } catch (e) {
+        this.isLoading = false
         console.log(e)
       }
     },
     async searchRestaurants(event: any) {
-      if (this.searchInput.length > 3) {
-        console.log(event)
-        setTimeout(async () => {
-          try {
-            const response = await apiAdapter.get<Restaurant[]>(`restaurants/search?query=${this.searchInput}&limit=10`)
-
-            if (response.status === 200 && response.data) {
-              this.restaurantList = response.data
-            }
-            
-          } catch (e) {
-            console.log(e)
-          }
-        }, 300)
+      try {
+        this.isLoading = true
+        const response = await apiAdapter.get<Restaurant[]>(`restaurants/search?query=${this.searchInput}&limit=10`)
+        if (response.status === 200 && response.data) {
+          this.restaurantList = response.data
+        }
+        this.isLoading = false
+      } catch (e) {
+        this.isLoading = false
+        console.log(e)
       }
     },
     showError(err: any) {

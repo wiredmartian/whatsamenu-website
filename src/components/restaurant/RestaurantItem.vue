@@ -3,7 +3,7 @@
     <div class="media mb-4" :key="restaurant.name">
       <div class="row">
         <div class="col-md-12">
-          <img class="img-restaurant rounded mr-3 w-100" :src="restaurant.imageUrl"
+          <img v-if="restaurant.imageUrl" class="img-restaurant rounded mr-3 w-100" :src="restaurant.imageUrl"
                :alt="restaurant.name">
         </div>
         <div class="col-md-12">
