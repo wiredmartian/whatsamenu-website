@@ -5,7 +5,7 @@
       <div class="col">
         <img v-if="menuItem.imageUrl"
              v-bind:src="`${cdn}/${menuItem.imageUrl}`"
-             class="w-75 d-block m-auto"
+             class="w-100 d-block m-auto"
              :alt="menuItem.name">
       </div>
       <div class="col mt-2 mb-4">
