@@ -3,7 +3,7 @@
     <div class="media mb-4" :key="restaurant.name">
       <div class="row">
         <div class="col-md-12">
-          <img v-if="restaurant.imageUrl" class="img-restaurant rounded mr-3 w-100" :src="restaurant.imageUrl"
+          <img v-if="restaurant.imageUrl" class="img-restaurant rounded mr-3 w-100" :src="`${imgCDN}/${restaurant.imageUrl}`"
                :alt="restaurant.name">
         </div>
         <div class="col-md-12">
@@ -28,9 +28,15 @@
 <script lang="ts">
 import Vue from "vue"
 import {Restaurant} from "@/types/types";
+import { IMGCDN } from "@/api/common";
 
 export default Vue.extend({
   name: "RestaurantItem",
+  data() {
+    return {
+      imgCDN: IMGCDN
+    }
+  },
   props: {
     restaurant: {
       type: Object,

@@ -4,7 +4,7 @@
     <div v-else-if="!isPageLoading && !responseErrorStatus">
       <div class="row">
              <img v-if="restaurant.imageUrl"
-                  :src="restaurant.imageUrl"
+                  :src="`${imgCDN}/${restaurant.imageUrl}`"
                   class="img-fluid img-header">
         <!-- <img
             src="https://thumbs.dreamstime.com/b/mexican-food-panoramic-header-blue-background-nachos-chili-con-carne-tacos-chicken-various-dips-top-shot-210526469.jpg"
@@ -124,6 +124,8 @@ export default Vue.extend({
     await this.getRestaurant()
     this.isPageLoading = false
     this.smoothScroll()
+
+    console.log(this.imgCDN)
   },
   methods: {
     async getMenu() {
