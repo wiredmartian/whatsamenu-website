@@ -5,7 +5,7 @@ on:
     branches: [ main, develop/** ]
 
 jobs:
-  build_and_test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -17,6 +17,6 @@ jobs:
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: whatsamenu-client-build
+          name: prod-whatsamenu-client
           path: dist
-          retention-days: 2
+          retention-days: 1
