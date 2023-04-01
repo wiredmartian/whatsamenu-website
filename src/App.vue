@@ -22,10 +22,11 @@ export default Vue.extend({
 
 <style>
 html {
-  scroll-behavior:smooth
+  scroll-behavior: smooth
 }
+
 #app {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Ubuntu Condensed', sans-serif;
   font-weight: 300 !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -34,8 +35,9 @@ html {
   flex-direction: column;
   min-height: 100vh;
 }
+
 h1, h2, h3, h4, h5, h6 {
-	font-weight: 300;
+  font-weight: 300;
 }
 
 a, a:hover {

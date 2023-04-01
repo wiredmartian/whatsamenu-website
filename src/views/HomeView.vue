@@ -8,16 +8,20 @@
             <p>You are what you eat</p>
           </div>
           <form class="text-center">
-            <input class="form-control mr-sm-2" v-model="searchInput" type="search" placeholder="Search" aria-label="Search">
-            <button type="button" class="btn btn-lg btn-dark mt-4" v-on:click="searchRestaurants">Search</button>
+            <input class="form-control mr-sm-2" v-model="searchInput" type="search" placeholder="e.g: Lupa"
+                   aria-label="Search">
+            <button type="button" class="btn btn-lg btn-dark mt-4 text-uppercase w-50" v-on:click="searchRestaurants">
+              Search
+            </button>
           </form>
         </div>
       </div>
     </div>
     <div class="container mt-5">
-       <div v-if="isLoading">
-            <app-spinner/>
-        </div>
+      <hr class="clearfix" v-if="restaurantList.length"/>
+      <div v-if="isLoading">
+        <app-spinner/>
+      </div>
       <div class="row">
         <div class="col-md-4 col-sm-6" v-for="item of restaurantList" :key="item.name">
           <restaurant-item :restaurant="item"/>
