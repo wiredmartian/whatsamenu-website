@@ -2,7 +2,7 @@ import axios, {AxiosRequestConfig} from "axios"
 
 // axios.defaults.baseURL = "http://localhost:9200/api/v1"
 axios.defaults.timeout = 10000
-axios.defaults.baseURL = "https://menu.core.wiredmartians.co.za/api/v1"
+axios.defaults.baseURL = "https://whatsamenu.core.wiredmartians.com/whatsamenu/v1"
 
 
 axios.interceptors.request.use(
@@ -29,5 +29,5 @@ axios.interceptors.request.use(
 
 export const $axios = axios
 
-export const IMGCDN = "https://menu.core.wiredmartians.co.za"
+export const IMGCDN = "http://localhost:9200"
 
