@@ -5,7 +5,7 @@
         <div class="col-md-6">
           <div class="mt-5 mb-4 d-block text-center">
             <h1 class="font-weight-bolder">Whats A Menu?</h1>
-            <p>You are what you eat</p>
+            <p>A verbose menu for your restaurant</p>
           </div>
           <form class="text-center">
             <input class="form-control mr-sm-2" v-model="searchInput" type="search" placeholder="e.g: Lupa"

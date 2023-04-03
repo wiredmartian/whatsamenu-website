@@ -29,5 +29,5 @@ axios.interceptors.request.use(
 
 export const $axios = axios
 
-export const IMGCDN = "http://localhost:9200"
+export const IMGCDN = "https://whatsamenu.core.wiredmartians.com"
 
