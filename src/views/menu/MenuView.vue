@@ -18,7 +18,7 @@
           <hr/>
           <img v-if="qrCode"
                :src="qrCode"
-               class="img-fluid d-block">
+               class="img-fluid d-block m-auto d-md-block d-lg-block d-none">
           <hr/>
           <location-map class="d-md-block d-lg-block d-none" v-if="restaurant && restaurant.address"
                         :longitude="restaurant.address.longitude"
