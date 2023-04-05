@@ -128,8 +128,6 @@ export default Vue.extend({
     await Promise.all([this.getMenu(), this.getRestaurant(), this.getQrCode()])
     this.isPageLoading = false
     this.smoothScroll()
-
-    console.log(this.imgCDN)
   },
   methods: {
     async getMenu() {
