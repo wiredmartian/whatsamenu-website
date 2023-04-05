@@ -3,9 +3,9 @@
     <page-load-spinner v-if="isPageLoading" :showSpinner="isPageLoading"/>
     <div v-else-if="!isPageLoading && !responseErrorStatus">
       <div class="row">
-             <img v-if="restaurant.imageUrl"
-                  :src="`${imgCDN}/${restaurant.imageUrl}`"
-                  class="img-fluid img-header">
+        <img v-if="restaurant.imageUrl"
+             :src="`${imgCDN}/${restaurant.imageUrl}`"
+             class="img-fluid img-header">
         <!-- <img
             src="https://thumbs.dreamstime.com/b/mexican-food-panoramic-header-blue-background-nachos-chili-con-carne-tacos-chicken-various-dips-top-shot-210526469.jpg"
             class="img-fluid"> -->
@@ -15,6 +15,10 @@
           <restaurant-info :restaurant="restaurant"/>
           <hr/>
           <menu-group-sidebar :menuGroups="menuGroups"/>
+          <hr/>
+          <img v-if="qrCode"
+               :src="qrCode"
+               class="img-fluid d-block">
           <hr/>
           <location-map class="d-md-block d-lg-block d-none" v-if="restaurant && restaurant.address"
                         :longitude="restaurant.address.longitude"
@@ -114,14 +118,14 @@ export default Vue.extend({
       selectedMenuItem: {} as MenuItem,
       menuGroups: [] as Array<Record<string, string | number | undefined>>,
       restaurant: {} as Restaurant,
+      qrCode: "",
       imgCDN: IMGCDN
     }
   },
   async mounted() {
     this.isPageLoading = true
     this.restaurantId = this.$route.params['id']
-    await this.getMenu()
-    await this.getRestaurant()
+    await Promise.all([this.getMenu(), this.getRestaurant(), this.getQrCode()])
     this.isPageLoading = false
     this.smoothScroll()
 
@@ -160,6 +164,13 @@ export default Vue.extend({
       } catch (e) {
         this.isLoading = false
         console.log(e)
+      }
+    },
+    async getQrCode() {
+      const response = await apiAdapter.get<{ imageUri: string }>(`/restaurants/${this.restaurantId}/qrcode`)
+      if (response.status == 200 && response.data) {
+        // 
+        this.qrCode = `data:image/png;base64,${response.data.imageUri}`
       }
     },
     pushMenuData(item: any) {
