@@ -9,12 +9,12 @@
         </div>
         <div class="col-md-12">
           <div class="media-body pt-2">
-            <h5 class="mt-0"> {{ restaurant.name }}</h5>
+            <h4 class="mt-0"> {{ restaurant.name }}</h4>
             <p>{{ restaurant.summary }}</p>
             <p v-if="restaurant.address" class="text-muted">{{ restaurant.address.line1 }}, {{
                 restaurant.address.line2
               }} <br/>
-              {{ restaurant.address.city }}, {{ restaurant.address.state }}
+              {{ restaurant.address.city }}, {{ provinceMap[restaurant.address.state] }}
             </p>
             <p class="lead">
               <span class="badge badge-dark rounded-pill p-2">{{
@@ -30,13 +30,14 @@
 
 <script lang="ts">
 import Vue from "vue"
-import {Restaurant} from "@/types/types";
+import {ProvincesMap, Restaurant} from "@/types"
 import {IMGCDN} from "@/api/common";
 
 export default Vue.extend({
   name: "RestaurantItem",
   data() {
     return {
+      provinceMap: ProvincesMap,
       imgCDN: IMGCDN
     }
   },

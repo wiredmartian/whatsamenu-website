@@ -16,10 +16,10 @@
           <hr/>
           <menu-group-sidebar :menuGroups="menuGroups"/>
           <hr/>
-          <img v-if="qrCode"
+          <img alt="QR Code" v-if="qrCode"
                :src="qrCode"
-               class="img-fluid d-block m-auto d-md-block d-lg-block d-none">
-          <hr/>
+               class="img-fluid m-auto d-md-block d-lg-block d-none">
+          <hr class="d-md-block d-lg-block d-none"/>
           <location-map class="d-md-block d-lg-block d-none" v-if="restaurant && restaurant.address"
                         :longitude="restaurant.address.longitude"
                         :latitude="restaurant.address.latitude"/>
@@ -34,7 +34,7 @@
                  :key="`row-`+group.menuGroupId">
               <div class="row" v-if="group.items !== null">
                 <div class="col-12 mb-3 mt-3">
-                  <h3>{{ group.name }}</h3>
+                  <h3 class="text-uppercase">{{ group.name }}</h3>
                 </div>
                 <div class="col-md-6 col-sm-12 mb-4" v-for="(item, i) of group.items"
                      :key="`col-${i}${item.menuItemId}`">
@@ -47,7 +47,7 @@
                       <h5 class="mt-0"> {{ item.name }}</h5>
                       <p class="block-ellipsis mb-0">{{ item.summary }}
                       </p>
-                      <span><b>R{{ item.price.toFixed(2) }}</b></span>
+                      <span class="font-weight-bold"><b>R{{ item.price.toFixed(2) }}</b></span>
                     </div>
                   </div>
                 </div>
