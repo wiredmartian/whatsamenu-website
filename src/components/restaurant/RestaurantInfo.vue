@@ -6,17 +6,22 @@
     <p v-if="restaurant.address" class="text-muted pl-4">{{ restaurant.address.line1 }}, {{
         restaurant.address.line2
       }} <br/>
-      {{ restaurant.address.city }}, {{ restaurant.address.state }}
+      {{ restaurant.address.city }}, {{ provinceMap[restaurant.address.state] }}
     </p>
   </div>
 </template>
 
 <script lang="ts">
-import {Restaurant} from "@/types/types"
+import {ProvincesMap, Restaurant} from "@/types"
 import Vue from "vue"
 
 export default Vue.extend({
   name: "RestaurantInfo",
+  data() {
+    return {
+      provinceMap: ProvincesMap
+    }
+  },
   props: {
     restaurant: {
       type: Object,

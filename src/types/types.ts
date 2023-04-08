@@ -1,3 +1,5 @@
+import {PROVINCES} from "@/types/enums";
+
 export type Menu = {
     menuId: string;
     name: string;
@@ -63,7 +65,7 @@ export type Address = {
     line1: string;
     line2: string;
     city: string;
-    state: string;
+    state: PROVINCES;
     country: string;
     latitude: number;
     longitude: number;

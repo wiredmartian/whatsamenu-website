@@ -10,6 +10,18 @@ export enum PROVINCES {
     WESTERN_CAPE = "WESTERN_CAPE",
 }
 
+export const ProvincesMap: Record<PROVINCES, string> = {
+    EASTERN_CAPE: "Eastern Cape",
+    FREE_STATE: "Free State",
+    GAUTENG: "Gauteng",
+    KWAZULU_NATAL: "KwaZulu-Natal",
+    LIMPOPO: "Limpopo",
+    MPUMALANGA: "Mpumalanga",
+    NORTHERN_CAPE: "Northern Cape",
+    NORTH_WEST: "North West",
+    WESTERN_CAPE: "Western Cape"
+}
+
 export enum ENTITY_TYPE {
     RESTAURANT = "RESTAURANT",
     MENUITEM = "MENUITEM",
