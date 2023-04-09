@@ -35,6 +35,13 @@
               <div class="row" v-if="group.items !== null">
                 <div class="col-12 mb-3 mt-3">
                   <h3 class="text-uppercase">{{ group.name }}</h3>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <p class="text-muted" v-if="group.summary">
+                        <small>{{ group.summary }}</small>
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-md-6 col-sm-12 mb-4" v-for="(item, i) of group.items"
                      :key="`col-${i}${item.menuItemId}`">
@@ -196,6 +203,10 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+
+small {
+  font-size: 90%;
+}
 
 .main-content {
   min-height: 100vh;
