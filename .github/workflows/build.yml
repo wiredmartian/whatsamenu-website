@@ -23,5 +23,14 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: prod-whatsamenu-client
+          path: dist
       - name: Display structure of downloaded files
         run: ls -R
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          key: ${{ secrets.SSH_KEY }}
+          username: ${{ secrets.SSH_USERNAME }}
+          source: "dist/"
+          target: "~/apps/whatsamenu-client"
