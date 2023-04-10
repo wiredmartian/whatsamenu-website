@@ -10,11 +10,16 @@
       </div>
       <div class="col mt-2 mb-4">
         <div class="description-content">
-          <h2 class="font-weight-normal text-center pb-2">
-            {{ menuItem.name }}
-          </h2>
-          <p class="lead">{{ menuItem.description }}</p>
+          <!--          <h2 class="font-weight-normal text-center pb-2">-->
+          <!--            {{ menuItem.name }}-->
+          <!--          </h2>-->
           <p class="text-muted">{{ menuItem.summary }}</p>
+          <hr v-if="menuItem.description"/>
+          <p v-if="menuItem.description">{{ menuItem.description }}</p>
+          <p class="alert alert-info text-center mt-4" v-if="!menuItem.price">
+            The price of {{ menuItem.name }} differs depending on multiple factors.
+            Please ask your waiter/waitress for the price
+          </p>
         </div>
         <hr/>
       </div>
