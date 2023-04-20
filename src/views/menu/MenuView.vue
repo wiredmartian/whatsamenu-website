@@ -16,10 +16,10 @@
           <hr/>
           <menu-group-sidebar :menuGroups="menuGroups"/>
           <hr/>
-          <img alt="QR Code" v-if="qrCode"
-               :src="qrCode"
-               class="img-fluid m-auto d-md-block d-lg-block d-none">
-          <hr class="d-md-block d-lg-block d-none"/>
+          <!--          <img alt="QR Code" v-if="qrCode"-->
+          <!--               :src="qrCode"-->
+          <!--               class="img-fluid m-auto d-md-block d-lg-block d-none">-->
+          <!--          <hr class="d-md-block d-lg-block d-none"/>-->
           <location-map class="d-md-block d-lg-block d-none" v-if="restaurant && restaurant.address"
                         :longitude="restaurant.address.longitude"
                         :latitude="restaurant.address.latitude"/>

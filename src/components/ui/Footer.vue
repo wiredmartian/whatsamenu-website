@@ -15,10 +15,9 @@
           <h5 class="text-uppercase text-center">Contact Us</h5>
 
           <ul class="list-unstyled text-center">
-            <li>
-              <a href="mailto:solomzi.jikani@gmail.com">solomzi.jikani@gmail.com</a> /
-              +27 82 450 3880
-            </li>
+            <!--            <li>-->
+            <!--              <a href="mailto:solomzi.jikani@gmail.com">solomzi.jikani@gmail.com</a>-->
+            <!--            </li>-->
             <li>
               <a href="#!"></a>
             </li>
@@ -38,8 +37,8 @@
     <!-- Footer Links -->
     <hr class="clearfix w-100">
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">© 2021 - {{ year }} Copyright:
-      <a href="/"> whatsamenu.co.za</a>
+    <div class="footer-copyright text-center py-3">© {{ year }} copyright:
+      <a href="/"> whatsamenu.co.za</a> // created by wiredmartian
     </div>
     <!-- Copyright -->
 

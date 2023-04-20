@@ -62,10 +62,11 @@ export default Vue.extend({
     getCurrentUserLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.getPlacesNearMe, positionError => {
-          this.showError(positionError)
+          this.getAllRestaurants()
+          // this.showError(positionError)
         });
       } else {
-        this.error = "Geolocation is not supported by this browser. Use our search functionality instead";
+        this.getAllRestaurants()
       }
     },
     // eslint-disable-next-line no-undef
@@ -78,6 +79,19 @@ export default Vue.extend({
         }
         const response = await apiAdapter.putOrPost<GeoCoordinates, Restaurant[]>("restaurants/near-me", "POST", coordinates)
         this.restaurantList = response.data
+        this.isLoading = false
+      } catch (e) {
+        this.isLoading = false
+        console.log(e)
+      }
+    },
+    async getAllRestaurants() {
+      try {
+        this.isLoading = true
+        const response = await apiAdapter.get<Restaurant[]>(`restaurants`)
+        if (response.status === 200 && response.data) {
+          this.restaurantList = response.data
+        }
         this.isLoading = false
       } catch (e) {
         this.isLoading = false

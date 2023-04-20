@@ -16,7 +16,7 @@
               }} <br/>
               {{ restaurant.address.city }}, {{ provinceMap[restaurant.address.state] }}
             </p>
-            <p class="lead">
+            <p class="lead" v-if="restaurant.distance">
               <span class="badge badge-dark rounded-pill p-2">{{
                   formatDistance(restaurant.distance)
                 }}</span>
@@ -50,7 +50,7 @@ export default Vue.extend({
   },
   methods: {
     // distance in km
-    formatDistance(distance: number) {
+    formatDistance(distance: number): string {
       if (!distance) {
         return "Not available"
       }
