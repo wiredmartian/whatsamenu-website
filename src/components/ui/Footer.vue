@@ -9,7 +9,7 @@
       <div class="row">
 
         <!-- Grid column -->
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-6">
 
           <!-- Links -->
           <h5 class="text-uppercase text-center">Contact Us</h5>
@@ -28,6 +28,19 @@
 
         </div>
 
+        <div class="col-md-6">
+
+          <!-- Links -->
+          <h5 class="text-uppercase text-center">For Developers</h5>
+
+          <ul class="list-unstyled text-center">
+            <li>
+              <a href="https://github.com/wiredmartian/whatsamenu-api-doc" target="_blank">API Documentation</a>
+            </li>
+          </ul>
+
+        </div>
+
         <!-- Grid column -->
 
       </div>
@@ -38,7 +51,7 @@
     <hr class="clearfix w-100">
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© {{ year }} copyright:
-      <a href="/"> whatsamenu.co.za</a> // created by wiredmartian
+      <a href="/"> whatsamenu.co.za</a> // v0.1.0
     </div>
     <!-- Copyright -->
 

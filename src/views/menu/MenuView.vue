@@ -1,37 +1,40 @@
 <template>
   <div class="container-fluid">
-    <page-load-spinner v-if="isPageLoading" :showSpinner="isPageLoading"/>
+    <page-load-spinner v-if="isPageLoading" :showSpinner="isPageLoading" />
     <div v-else-if="!isPageLoading && !responseErrorStatus">
       <div class="row">
-        <img v-if="restaurant.imageUrl"
-             :src="`${imgCDN}/${restaurant.imageUrl}`"
-             class="img-fluid img-header">
+        <img v-if="restaurant.imageUrl" :src="`${imgCDN}/${restaurant.imageUrl}`" class="img-fluid img-header">
         <!-- <img
             src="https://thumbs.dreamstime.com/b/mexican-food-panoramic-header-blue-background-nachos-chili-con-carne-tacos-chicken-various-dips-top-shot-210526469.jpg"
             class="img-fluid"> -->
       </div>
       <div class="row">
         <div class="col-md-3 col-sm-12">
-          <restaurant-info :restaurant="restaurant"/>
-          <hr/>
-          <menu-group-sidebar :menuGroups="menuGroups"/>
-          <hr/>
+          <restaurant-info :restaurant="restaurant" />
+          <hr />
+          <menu-group-sidebar :menuGroups="menuGroups" />
+          <hr />
+          <ul class="list-group list-group-flush">
+            <a href="#" v-for="item of menuList" :key="item.menuId" @click="getMenuById(item.menuId)" class="list-group-item list-group-item-action">
+              {{ item.name }}
+            </a>
+          </ul>
+          <hr />
           <!--          <img alt="QR Code" v-if="qrCode"-->
           <!--               :src="qrCode"-->
           <!--               class="img-fluid m-auto d-md-block d-lg-block d-none">-->
           <!--          <hr class="d-md-block d-lg-block d-none"/>-->
           <location-map class="d-md-block d-lg-block d-none" v-if="restaurant && restaurant.address"
-                        :longitude="restaurant.address.longitude"
-                        :latitude="restaurant.address.latitude"/>
+            :longitude="restaurant.address.longitude" :latitude="restaurant.address.latitude" />
         </div>
         <div class="col-md-9 col-sm-12">
           <div class="main-content">
             <div v-if="isLoading">
-              <app-spinner/>
+              <app-spinner />
             </div>
-            <div v-else :id="`${group.menuGroupId}-` + group.name.split(' ')[0].toLowerCase()"
-                 v-for="group of menu.menuGroups"
-                 :key="`row-`+group.menuGroupId">
+            <div v-else>
+              <div :id="`${group.menuGroupId}-` + group.name.split(' ')[0].toLowerCase()"
+              v-for="group of menu.menuGroups" :key="`row-` + group.menuGroupId">
               <div class="row" v-if="group.items !== null">
                 <div class="col-12 mb-3 mt-3">
                   <h3 class="text-uppercase">{{ group.name }}</h3>
@@ -43,13 +46,11 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6 col-sm-12 mb-4" v-for="(item, i) of group.items"
-                     :key="`col-${i}${item.menuItemId}`">
-                  <div class="media mb-2" :key="item.name" data-toggle="modal"
-                       data-target="#menuItemDetail" role="button" v-on:click="setSelectedItem(item)">
-                    <img v-if="item.imageUrl" v-bind:src="`${imgCDN}/`+item.imageUrl"
-                         class="align-self-center rounded mr-3"
-                         :alt="item.name">
+                <div class="col-md-6 col-sm-12 mb-4" v-for="(item, i) of group.items" :key="`col-${i}${item.menuItemId}`">
+                  <div class="media mb-2" :key="item.name" data-toggle="modal" data-target="#menuItemDetail" role="button"
+                    v-on:click="setSelectedItem(item)">
+                    <img v-if="item.imageUrl" v-bind:src="`${imgCDN}/` + item.imageUrl"
+                      class="align-self-center rounded mr-3" :alt="item.name">
                     <div class="media-body align-self-center">
                       <h5 class="mt-0"> {{ item.name }}</h5>
                       <p class="block-ellipsis mb-0">{{ item.summary }}
@@ -63,25 +64,23 @@
                 </div>
               </div>
             </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="row d-md-none d-lg-none">
         <div class="col-md-12">
-          <location-map v-if="restaurant && restaurant.address"
-                        :longitude="restaurant.address.longitude"
-                        :latitude="restaurant.address.latitude"/>
+          <location-map v-if="restaurant && restaurant.address" :longitude="restaurant.address.longitude"
+            :latitude="restaurant.address.latitude" />
         </div>
       </div>
     </div>
     <pretty-error v-if="responseErrorStatus" :request-status="responseErrorStatus"
-                  :error-message="responseErrorMessage"/>
+      :error-message="responseErrorMessage" />
 
     <!-- Modal -->
     <div v-if="Object.keys(selectedMenuItem).length" :key="selectedMenuItem.menuItemId" class="modal fade"
-         id="menuItemDetail" tabindex="-1" role="dialog"
-         aria-labelledby="menuItemDetailTitle"
-         aria-hidden="true">
+      id="menuItemDetail" tabindex="-1" role="dialog" aria-labelledby="menuItemDetailTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-md" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -91,7 +90,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <menu-item-details :menu-item-id="selectedMenuItem.menuItemId"/>
+            <menu-item-details :menu-item-id="selectedMenuItem.menuItemId" />
           </div>
         </div>
       </div>
@@ -102,10 +101,10 @@
 </template>
 
 <script lang="ts">
-import {HttpResponseError, Menu, MenuItem, Restaurant} from "@/types/types"
+import { HttpResponseError, Menu, MenuItem, Restaurant } from "@/types/types"
 import Vue from "vue"
-import {apiAdapter} from "@/api/adapter";
-import {IMGCDN} from "@/api/common";
+import { apiAdapter } from "@/api/adapter";
+import { IMGCDN } from "@/api/common";
 
 export default Vue.extend({
   components: {
@@ -124,6 +123,7 @@ export default Vue.extend({
       responseErrorStatus: 0,
       responseErrorMessage: "",
       restaurantId: "",
+      menuList: [] as Menu[],
       menu: {} as Menu,
       selectedMenuItem: {} as MenuItem,
       menuGroups: [] as Array<Record<string, string | number | undefined>>,
@@ -135,29 +135,52 @@ export default Vue.extend({
   async mounted() {
     this.isPageLoading = true
     this.restaurantId = this.$route.params['id']
-    await Promise.all([this.getMenu(), this.getRestaurant(), this.getQrCode()])
+    await Promise.all([this.listMenus(), this.getRestaurant()])
     this.isPageLoading = false
     this.smoothScroll()
   },
   methods: {
-    async getMenu() {
+    async listMenus() {
       try {
         this.isLoading = true
-        const response = await apiAdapter.get<Menu | HttpResponseError>(`/restaurants/${this.restaurantId}/menu`)
+        const response = await apiAdapter.get<Menu[] | HttpResponseError>(`/restaurants/${this.restaurantId}/menus`)
         if (response.status === 200) {
-          const data = response.data as Menu
-          this.menu = data
-          this.menuGroups = data.menuGroups.filter(x => x.items?.length).map(item => {
-            return {
-              id: item.menuGroupId,
-              name: item.name,
-              length: item.items?.length
-            }
-          })
+          const data = response.data as Menu[]
+          this.menuList = data
+          await this.getMenuById(data[0].menuId)
         } else {
           this.responseErrorMessage = (response.data as HttpResponseError).error
           this.responseErrorStatus = response.status
         }
+        this.isLoading = false
+      } catch (e) {
+        this.isLoading = false
+        console.log(e)
+      }
+    },
+    async getMenuById(menuId: string) {
+      try {
+        this.isLoading = true
+        const response = await apiAdapter.get<Menu | HttpResponseError>(`/menu/${menuId}`)
+        if (response.status === 200) {
+          const data = response.data as Menu
+          this.menu = data
+          if (data.menuGroups) {
+            this.menuGroups = data.menuGroups.filter(x => x.items?.length).map(item => {
+              return {
+                id: item.menuGroupId,
+                name: item.name,
+                length: item.items?.length
+              }
+            })
+          } else {
+            this.menuGroups = []
+          }
+        } else {
+          this.responseErrorMessage = (response.data as HttpResponseError).error
+          this.responseErrorStatus = response.status
+        }
+        this.isLoading = false
       } catch (e) {
         this.isLoading = false
         console.log(e)
@@ -182,7 +205,7 @@ export default Vue.extend({
       }
     },
     pushMenuData(item: any) {
-      this.$router.push({path: `/restaurant/menu/menu-item/${item.menuItemId}`, params: {data: JSON.stringify(item)}})
+      this.$router.push({ path: `/restaurant/menu/menu-item/${item.menuItemId}`, params: { data: JSON.stringify(item) } })
     },
     setSelectedItem(item: MenuItem) {
       console.log(item)
@@ -206,7 +229,6 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-
 small {
   font-size: 90%;
 }
@@ -216,7 +238,8 @@ small {
   padding: 1em;
 }
 
-.media img, .media svg {
+.media img,
+.media svg {
   width: 100px;
   height: 100px;
   object-fit: cover;
