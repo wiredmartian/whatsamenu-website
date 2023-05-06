@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar-section mt-4">
-    <div class="sidebar-item sticky-top">
+    <div class="sidebar-item">
       <div class="sidebar-content">
         <ul class="list-group">
           <li v-for="g of menuGroups" :key="`group-`+g.name"

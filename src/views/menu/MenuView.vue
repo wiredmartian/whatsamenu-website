@@ -11,21 +11,31 @@
       <div class="row">
         <div class="col-md-3 col-sm-12">
           <restaurant-info :restaurant="restaurant" />
+          <hr v-if="menuList.length > 1"/>
+          <!-- No point showing a dropdown with 1 item -->
+          <div v-if="menuList.length > 1" class="pl-2 pr-2">
+            <h4>Menus</h4>
+            <p class="text-muted">Select to see any addition/extra menus from {{ restaurant.name }}</p>
+            <div class="btn-group btn-block dropright">
+              <button type="button" class="btn btn-secondary btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ activeMenuName }}
+              </button>
+              <div class="dropdown-menu w-100">
+                <a class="dropdown-item" href="#" v-for="item of menuList" :key="item.menuId" @click="getMenuById(item.menuId)">
+                {{ item.name }}
+              </a>
+              </div>
+            </div>
+          </div>
           <hr />
-          <menu-group-sidebar :menuGroups="menuGroups" />
-          <hr />
-          <ul class="list-group list-group-flush">
-            <a href="#" v-for="item of menuList" :key="item.menuId" @click="getMenuById(item.menuId)" class="list-group-item list-group-item-action">
-              {{ item.name }}
-            </a>
-          </ul>
+          <menu-group-sidebar v-if="!isLoading" :menuGroups="menuGroups" />
           <hr />
           <!--          <img alt="QR Code" v-if="qrCode"-->
           <!--               :src="qrCode"-->
           <!--               class="img-fluid m-auto d-md-block d-lg-block d-none">-->
           <!--          <hr class="d-md-block d-lg-block d-none"/>-->
-          <location-map class="d-md-block d-lg-block d-none" v-if="restaurant && restaurant.address"
-            :longitude="restaurant.address.longitude" :latitude="restaurant.address.latitude" />
+          <!-- <location-map class="d-md-block d-lg-block d-none" v-if="restaurant && restaurant.address"
+            :longitude="restaurant.address.longitude" :latitude="restaurant.address.latitude" /> -->
         </div>
         <div class="col-md-9 col-sm-12">
           <div class="main-content">
@@ -68,7 +78,7 @@
           </div>
         </div>
       </div>
-      <div class="row d-md-none d-lg-none">
+      <div class="row">
         <div class="col-md-12">
           <location-map v-if="restaurant && restaurant.address" :longitude="restaurant.address.longitude"
             :latitude="restaurant.address.latitude" />
@@ -129,7 +139,8 @@ export default Vue.extend({
       menuGroups: [] as Array<Record<string, string | number | undefined>>,
       restaurant: {} as Restaurant,
       qrCode: "",
-      imgCDN: IMGCDN
+      imgCDN: IMGCDN,
+      activeMenuName: "Other Menus"
     }
   },
   async mounted() {
@@ -165,6 +176,7 @@ export default Vue.extend({
         if (response.status === 200) {
           const data = response.data as Menu
           this.menu = data
+          this.activeMenuName = data.name
           if (data.menuGroups) {
             this.menuGroups = data.menuGroups.filter(x => x.items?.length).map(item => {
               return {
