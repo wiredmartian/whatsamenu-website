@@ -78,12 +78,6 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <location-map v-if="restaurant && restaurant.address" :longitude="restaurant.address.longitude"
-            :latitude="restaurant.address.latitude" />
-        </div>
-      </div>
     </div>
     <pretty-error v-if="responseErrorStatus" :request-status="responseErrorStatus"
       :error-message="responseErrorMessage" />
@@ -120,7 +114,6 @@ export default Vue.extend({
   components: {
     MenuItemDetails: () => import("@/components/menu/MenuItemDetails.vue"),
     MenuGroupSidebar: () => import("@/components/menu/MenuGroupSidebar.vue"),
-    LocationMap: () => import("@/components/restaurant/LocationMap.vue"),
     RestaurantInfo: () => import("@/components/restaurant/RestaurantInfo.vue"),
     AppSpinner: () => import("@/components/ui/Spinner.vue"),
     PageLoadSpinner: () => import("@/components/ui/PageLoadSpinner.vue"),
