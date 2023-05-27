@@ -3,7 +3,8 @@
     <div class="mt-4 d-block pl-4">
       <h1 class="font-weight-bolder">{{ restaurant.name }}</h1>
     </div>
-    <p v-if="restaurant.address" class="text-muted pl-4">{{ restaurant.address.line1 }}, {{
+    <p v-if="restaurant.address" class="text-muted pl-4">
+      <i class="bi bi-geo-alt"></i> {{ restaurant.address.line1 }}, {{
         restaurant.address.line2
       }} <br/>
       {{ restaurant.address.city }}, {{ provinceMap[restaurant.address.state] }} &nbsp; 
@@ -36,6 +37,12 @@
                         {{ restaurant.name }}
                       </h2>
                       <p class="text-muted">{{ restaurant.summary }}</p>
+                      <hr/>
+                      <p v-if="restaurant.address" class="text-muted">
+                        <i class="bi bi-geo-alt-fill"></i> {{ restaurant.address.line1 }}, {{
+                          restaurant.address.line2
+                        }}, {{ restaurant.address.city }}
+                      </p>
                       <hr/>
                       <location-map v-if="restaurant && restaurant.address" :longitude="restaurant.address.longitude"
             :latitude="restaurant.address.latitude" />
