@@ -30,7 +30,7 @@
               class="list-group-item col-md-6 border-0">
             <div class="fw-bold">
               <p role="button" v-on:click="askGoogle(g.name)" class="lead mb-0">{{ g.name }} <span
-                  class="badge badge-light rounded-pill"
+                  class="badge"
               ><i class="bi bi-arrow-up-right-square"></i> </span>
               </p>
             </div>

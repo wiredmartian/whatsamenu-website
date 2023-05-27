@@ -7,7 +7,7 @@
         scrolling="no"
         marginheight="0"
         marginwidth="0"
-        :src="`https://maps.google.com/maps?q=${latitude},${longitude}&hl=en&z=14&amp;output=embed`"
+        :src="`https://maps.google.com/maps?q=${restaurantName},${address}&hl=en&z=14&amp;output=embed`"
     >
     </iframe>
     <br/>
@@ -24,17 +24,19 @@
 </template>
 
 <script lang="ts">
-export default {
+import vue from 'vue'
+
+export default vue.extend({
   name: "LocationMap",
   props: {
-    latitude: {
-      type: Number, required: true
+    address: {
+      type: String, required: false
     },
-    longitude: {
-      type: Number, required: true
+    restaurantName: {
+      type: String, required: true
     }
   }
-}
+})
 </script>
 
 <style scoped>

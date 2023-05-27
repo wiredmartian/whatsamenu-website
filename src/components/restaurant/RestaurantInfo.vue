@@ -44,8 +44,7 @@
                         }}, {{ restaurant.address.city }}
                       </p>
                       <hr/>
-                      <location-map v-if="restaurant && restaurant.address" :longitude="restaurant.address.longitude"
-            :latitude="restaurant.address.latitude" />
+                      <location-map v-if="restaurant && restaurant.address" :address="formattedAddress" :restaurantName="restaurant.name" />
                     </div>
                     <hr/>
                   </div>
@@ -67,12 +66,13 @@ import {IMGCDN} from "@/api/common";
 export default Vue.extend({
   name: "RestaurantInfo",
   components: {
-    "location-map": () => import("@/components/restaurant/LocationMap.vue"),
+    locationMap: () => import("@/components/restaurant/LocationMap.vue"),
   },
   data() {
     return {
       provinceMap: ProvincesMap,
-      cdn: IMGCDN
+      cdn: IMGCDN,
+      formattedAddress: `${this.restaurant.address.line1},${this.restaurant.address.line2},${this.restaurant.address.city}`
     }
   },
   props: {
