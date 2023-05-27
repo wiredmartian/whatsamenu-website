@@ -51,7 +51,7 @@
     <hr class="clearfix w-100">
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© {{ year }} copyright:
-      <a href="/"> whatsamenu.co.za</a> // v0.1.0
+      <a href="/"> whatsamenu.co.za</a> // v0.1.1
     </div>
     <!-- Copyright -->
 
