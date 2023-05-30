@@ -1,13 +1,17 @@
 import axios, {AxiosRequestConfig} from "axios"
 
-// axios.defaults.baseURL = "http://localhost:9200/api/v1"
-axios.defaults.timeout = 10000
-axios.defaults.baseURL = "https://whatsamenu.core.wiredmartians.com/whatsamenu/v1"
+axios.defaults.baseURL = "http://localhost:9200/whatsamenu/v1"
+axios.defaults.timeout = 10000 // 10 seconds
+// axios.defaults.baseURL = "https://whatsamenu.core.wiredmartians.com/whatsamenu/v1"
 
 
 axios.interceptors.request.use(
     (config: AxiosRequestConfig) => {
         config.validateStatus = (status) => status >= 200 && status <= 404
+
+        if (config.url?.includes('/gpt/enquire')) {
+            config.timeout = 120000 // 2 minutes
+        }
         return config;
     },
     error => {
