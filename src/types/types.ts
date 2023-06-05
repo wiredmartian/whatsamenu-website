@@ -118,6 +118,7 @@ export type Message = {
     message: string
     userId: string
     menuId: string
+    status: "Sending" | "Sent" | "Failed, try again"
 }
 
 export type Reply = {
@@ -139,5 +140,6 @@ export type Reply = {
 		prompt_tokens: number
 		completion_tokens: number
 		total_tokens: number
-	}
+	},
+    typing: boolean
 }

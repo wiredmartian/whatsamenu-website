@@ -30,6 +30,7 @@
           <hr />
           <menu-group-sidebar v-if="!isLoading" :menuGroups="menuGroups" />
           <hr />
+          <a href="#" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#virtualAssistant" role="button">Ask the waiter</a>
           <!--          <img alt="QR Code" v-if="qrCode"-->
           <!--               :src="qrCode"-->
           <!--               class="img-fluid m-auto d-md-block d-lg-block d-none">-->
@@ -101,6 +102,25 @@
     </div>
     <!-- End Modal -->
 
+     <!-- Virtual Assistant Modal -->
+     <div class="modal fade"
+      id="virtualAssistant" tabindex="-1" role="dialog" aria-labelledby="virtualAssistantTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="Add Menu Group/Sub-category">Ask about {{ activeMenuName }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <virtual-assistant v-if="menu.menuId" :menuId="menu.menuId"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Virtual Assistant Modal -->
+
   </div>
 </template>
 
@@ -112,6 +132,7 @@ import { IMGCDN } from "@/api/common";
 
 export default Vue.extend({
   components: {
+    VirtualAssistant: () => import("@/components/gpt/MenuEnqure.vue"),
     MenuItemDetails: () => import("@/components/menu/MenuItemDetails.vue"),
     MenuGroupSidebar: () => import("@/components/menu/MenuGroupSidebar.vue"),
     RestaurantInfo: () => import("@/components/restaurant/RestaurantInfo.vue"),
@@ -149,6 +170,11 @@ export default Vue.extend({
         this.isLoading = true
         const response = await apiAdapter.get<Menu[] | HttpResponseError>(`/restaurants/${this.restaurantId}/menus`)
         if (response.status === 200) {
+          if (Array.isArray(response.data) && response.data.length === 0) {
+            this.responseErrorMessage = `Looks like this restaurant does not have a menu yet`
+            this.responseErrorStatus = 404
+            return
+          }
           const data = response.data as Menu[]
           this.menuList = data
           await this.getMenuById(data[0].menuId)
