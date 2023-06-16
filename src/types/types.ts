@@ -111,10 +111,10 @@ export type HttpResponseError = {
 // Menu enquiry types
 
 export type ConversationInput = {
-    message: Message
+    prompt: Prompt
     reply?: Reply
 }
-export type Message = {
+export type Prompt = {
     message: string
     userId: string
     menuId: string
@@ -122,24 +122,22 @@ export type Message = {
 }
 
 export type Reply = {
-	id: string
-	object: string
-	created: number
-	model: string
-	choices: [
-		{
-			index: number,
-			message: {
-				role: string,
-				content: string // actual response/reply
-			},
-			finish_reason: string
-		}
-	],
-	usage: {
-		prompt_tokens: number
-		completion_tokens: number
-		total_tokens: number
-	},
+    text: string
     typing: boolean
 }
+
+export type GPTDataChunk =  {
+    id: string;
+    object: string;
+    created: number;
+    model: string;
+    choices: {
+      delta: {
+        content?: string;
+        role?: string;
+      };
+      index: number;
+      finish_reason: string | null;
+    }[];
+  };
+  

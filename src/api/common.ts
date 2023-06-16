@@ -34,4 +34,5 @@ axios.interceptors.request.use(
 export const $axios = axios
 
 export const IMGCDN = "https://whatsamenu.core.wiredmartians.com"
+export const MENU_API_V1 = "http://localhost:9200/whatsamenu/v1"
 
