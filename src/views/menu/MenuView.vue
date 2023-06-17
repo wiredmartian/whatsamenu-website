@@ -103,9 +103,8 @@
     <!-- End Modal -->
 
      <!-- Virtual Assistant Modal -->
-     <div class="modal fade"
-      id="virtualAssistant" tabindex="-1" role="dialog" aria-labelledby="virtualAssistantTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+     <div class="modal fade" id="virtualAssistant" tabindex="-1" role="dialog" aria-labelledby="virtualAssistantTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-bottom-right modal-md" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="Add Menu Group/Sub-category">Ask about {{ activeMenuName }}</h5>
@@ -254,7 +253,7 @@ export default Vue.extend({
           }
         });
       });
-    }
+    },
   }
 })
 </script>
@@ -298,4 +297,22 @@ small {
 .info-sq {
   font-size: 1rem;
 }
+
+/** chat modal */
+.modal-dialog-bottom-right {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+}
+
+/* .modal.fade .modal-dialog.modal-dialog-bottom-right {
+  transform: translate(25%, 105%);
+} */
+
+.modal-content {
+  width: 300px;
+  margin-right: auto;
+}
+
 </style>
