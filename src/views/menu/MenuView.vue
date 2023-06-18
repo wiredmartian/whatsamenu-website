@@ -104,7 +104,7 @@
 
      <!-- Virtual Assistant Modal -->
      <div class="modal fade" id="virtualAssistant" tabindex="-1" role="dialog" aria-labelledby="virtualAssistantTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-bottom-right modal-md" role="document">
+      <div class="modal-dialog modal-dialog-bottom-right modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="Add Menu Group/Sub-category">Ask about {{ activeMenuName }}</h5>
@@ -311,7 +311,7 @@ small {
 } */
 
 .modal-content {
-  width: 300px;
+  width: 400px;
   margin-right: auto;
 }
 

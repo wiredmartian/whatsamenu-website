@@ -3,7 +3,7 @@
         <div class="row rounded-lg overflow-hidden">
             <!-- Chat Box-->
             <div class="col-12 px-0">
-                <div class="py-5 chat-box bg-white">
+                <div class="chat-box bg-white">
                     <div v-for="c, i of conversation" v-bind:key="i">
                         <!-- Reciever Message-->
                         <div class="media w-80 ml-5 mb-3">
@@ -94,7 +94,7 @@ export default Vue.extend({
                 prompt,
             }
             this.conversation.push(input)
-            const thisMessage = this.conversation.at(this.conversation.length)!
+            const thisMessage = this.conversation[this.conversation.length - 1]
 
             // fake sent message
             setTimeout(() => {
@@ -118,37 +118,29 @@ export default Vue.extend({
             }
 
             this.eventSource.onmessage = (event) => {
-
-                let eventData = event.data.trim().split("\n")
-
-                for (let line of eventData) {
-                    if (line.startsWith("data: ")) {
-                        line = line.substring(6).trim()
+                if (event.data === "[DONE]") {
+                    this.eventSource?.close()
+                    return
+                }
+                try {
+                    const response = JSON.parse(event.data) as { content: string }
+                    if (response.content && thisMessage.reply) {
+                        thisMessage.reply.text = (thisMessage.reply.text ?? '') + response.content
                     }
-
-                    if (line === '[DONE]') {
-                        this.eventSource?.close()
-                        return
-                    }
-                    if (line) {
-                        try {
-                            const response = JSON.parse(line) as GPTDataChunk
-                            const [{ delta }] = response.choices
-                            if (delta.content && thisMessage.reply) {
-                                thisMessage.reply.text = (thisMessage.reply.text ?? '') + delta.content
-                            }
-                            this.$forceUpdate()
-                        } catch (err) {
-                            console.log("cannot parse ", line)
-                        }
-                    }
+                    this.$forceUpdate()
+                } catch (err) {
+                    console.log("cannot parse ", event.data)
                 }
             }
 
-            this.eventSource.onerror = (error) => {
-                this.eventSource?.close()
-                prompt.status = "Failed, try again"
-                this.isSending = false
+            this.eventSource.onerror = (event) => {
+                if (event.eventPhase == EventSource.CLOSED) {
+                    this.eventSource?.close()
+                } else {
+                    this.eventSource?.close()
+                    prompt.status = "Failed, try again"
+                    this.isSending = false
+                }
             };
             this.model.message = ""
             this.$forceUpdate()
