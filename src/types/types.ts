@@ -107,3 +107,37 @@ type WikipediaTerms = {
 export type HttpResponseError = {
     error: string
 }
+
+// Menu enquiry types
+
+export type ConversationInput = {
+    prompt: Prompt
+    reply?: Reply
+}
+export type Prompt = {
+    message: string
+    userId: string
+    menuId: string
+    status: "Sending" | "Sent" | "Failed, try again"
+}
+
+export type Reply = {
+    text: string
+    typing: boolean
+}
+
+export type GPTDataChunk =  {
+    id: string;
+    object: string;
+    created: number;
+    model: string;
+    choices: {
+      delta: {
+        content?: string;
+        role?: string;
+      };
+      index: number;
+      finish_reason: string | null;
+    }[];
+  };
+  

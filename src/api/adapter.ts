@@ -1,16 +1,16 @@
 import {$axios} from "@/api/common";
-import {AxiosResponse} from "axios";
+import {AxiosRequestConfig, AxiosResponse} from "axios";
 
 class Adapter {
     async get<R>(path: string): Promise<AxiosResponse<R>> {
         return $axios.get<R>(path)
     }
 
-    async putOrPost<P, R = never>(path: string, method: 'PUT' | 'POST', payload: P): Promise<AxiosResponse<R>> {
+    async putOrPost<P, R = never>(path: string, method: 'PUT' | 'POST', payload: P, config?: AxiosRequestConfig<any>): Promise<AxiosResponse<R>> {
         if (method === 'PUT') {
             return $axios.put<R>(path, payload)
         }
-        return $axios.post<R>(path, payload)
+        return $axios.post<R>(path, payload, config)
     }
 
     async delete<R>(path: string): Promise<AxiosResponse<R>> {
