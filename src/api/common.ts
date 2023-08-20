@@ -1,15 +1,15 @@
 import axios, {AxiosRequestConfig} from "axios"
 
-axios.defaults.baseURL = "http://localhost:9200/whatsamenu/v1"
+// axios.defaults.baseURL = "http://localhost:9200/v1"
 axios.defaults.timeout = 10000 // 10 seconds
-// axios.defaults.baseURL = "https://whatsamenu.core.wiredmartians.com/whatsamenu/v1"
+axios.defaults.baseURL = "https://whatsamenu.core.wiredmartians.com/v1"
 
 
 axios.interceptors.request.use(
     (config: AxiosRequestConfig) => {
         config.validateStatus = (status) => status >= 200 && status <= 404
 
-        if (config.url?.includes('/gpt/enquire')) {
+        if (config.url?.includes('menu/enquire')) {
             config.timeout = 120000 // 2 minutes
         }
         return config;
@@ -34,5 +34,5 @@ axios.interceptors.request.use(
 export const $axios = axios
 
 export const IMGCDN = "https://whatsamenu.core.wiredmartians.com"
-export const MENU_API_V1 = "http://localhost:9200/whatsamenu/v1"
+export const MENU_API_V1 = "https://whatsamenu.core.wiredmartians.com.v1"
 

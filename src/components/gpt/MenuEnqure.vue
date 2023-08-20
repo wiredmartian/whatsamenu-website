@@ -1,5 +1,5 @@
 <template>
-    <div class="container py-5">
+    <div class="container py-2">
         <div class="row rounded-lg overflow-hidden">
             <!-- Chat Box-->
             <div class="col-12 px-0">
@@ -106,7 +106,7 @@ export default Vue.extend({
 
             this.isSending = true
 
-            const url = `${MENU_API_V1}/gpt/enquire?prompt=${encodeURIComponent(prompt.message)}&menuId=${prompt.menuId}&userId=${encodeURIComponent(prompt.userId)}`
+            const url = `${MENU_API_V1}/menu/enquire?prompt=${encodeURIComponent(prompt.message)}&menuId=${prompt.menuId}&userId=${encodeURIComponent(prompt.userId)}`
 
             this.eventSource = new EventSource(url)
 

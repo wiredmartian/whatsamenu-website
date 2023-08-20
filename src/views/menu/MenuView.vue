@@ -30,7 +30,7 @@
           <hr />
           <menu-group-sidebar v-if="!isLoading" :menuGroups="menuGroups" />
           <hr />
-          <a href="#" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#virtualAssistant" role="button">Ask the waiter</a>
+          <a v-if="enableGPT" href="#" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#virtualAssistant" role="button">Ask the waiter</a>
           <!--          <img alt="QR Code" v-if="qrCode"-->
           <!--               :src="qrCode"-->
           <!--               class="img-fluid m-auto d-md-block d-lg-block d-none">-->
@@ -153,7 +153,8 @@ export default Vue.extend({
       restaurant: {} as Restaurant,
       qrCode: "",
       imgCDN: IMGCDN,
-      activeMenuName: "Other Menus"
+      activeMenuName: "Other Menus",
+      enableGPT: false
     }
   },
   async mounted() {
