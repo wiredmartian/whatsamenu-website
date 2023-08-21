@@ -56,7 +56,7 @@ export default Vue.extend({
     }
   },
   mounted() {
-    this.getCurrentUserLocation()
+    this.getAllRestaurants()
   },
   methods: {
     getCurrentUserLocation() {
