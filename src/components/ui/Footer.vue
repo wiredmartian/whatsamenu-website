@@ -35,7 +35,13 @@
 
           <ul class="list-unstyled text-center">
             <li>
-              <a href="https://github.com/wiredmartian/whatsamenu-api-doc" target="_blank">API Documentation</a>
+              <a href="https://github.com/wiredmartian/whatsamenu-api-doc" target="_blank">API Documentation on Github</a>
+            </li>
+            <li>
+              <div class="postman-run-button" data-postman-action="collection/fork" data-postman-visibility="public"
+                data-postman-var-1="7238091-c337fbed-43fc-4a66-870c-3cfbdc1167e2"
+                data-postman-collection-url="entityId=7238091-c337fbed-43fc-4a66-870c-3cfbdc1167e2&entityType=collection&workspaceId=f7aedb7c-b2ff-43da-b219-270fbd08a6e3">
+              </div>
             </li>
           </ul>
 
@@ -85,12 +91,12 @@ footer hr {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-footer p, footer a {
+footer p,
+footer a {
   color: #ffffff;
 }
 
 footer a:hover {
   text-decoration: underline;
 }
-
 </style>
