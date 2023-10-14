@@ -160,7 +160,8 @@ export default Vue.extend({
   async mounted() {
     this.isPageLoading = true
     this.restaurantId = this.$route.params['id']
-    await Promise.all([this.listMenus(), this.getRestaurant()])
+    await this.getRestaurant()
+    await this.listMenus()
     this.isPageLoading = false
     this.smoothScroll()
   },
@@ -220,8 +221,13 @@ export default Vue.extend({
     async getRestaurant() {
       try {
         this.isLoading = true
-        const response = await apiAdapter.get<Restaurant>(`/restaurants/${this.restaurantId}`)
+        let resource = `/restaurants/${this.restaurantId}`
+        if (!/^\d+$/.test(this.restaurantId)) {
+          resource += "/alias"
+        }
+        const response = await apiAdapter.get<Restaurant>(resource)
         this.restaurant = response.data
+        this.restaurantId = response.data.restaurantId
         this.isLoading = false
       } catch (e) {
         this.isLoading = false
