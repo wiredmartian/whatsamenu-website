@@ -11,6 +11,11 @@ const routes: Array<RouteConfig> = [
         component: HomeView
     },
     {
+        path: '/get-started',
+        name: 'get-started',
+        component: () => import("@/views/GetStarted.vue")
+    },
+    {
         path: '/restaurants/:id/menu',
         name: 'menu',
         component: () => import("@/views/menu/MenuView.vue")

@@ -81,6 +81,7 @@ export type GeoCoordinates = {
 export type SignUpUserRequest = {
     email: string;
     password: string;
+    confirmPassword?: string;
 }
 
 export type SignInUserRequest = SignUpUserRequest

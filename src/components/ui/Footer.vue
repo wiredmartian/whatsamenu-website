@@ -23,6 +23,7 @@
             </li>
             <li>
               <a href="https://dev.wiredmartians.com" target="_blank">dev.wiredmartians.com</a>
+              / solomzi.jikani@gmail.com
             </li>
           </ul>
 
@@ -35,13 +36,7 @@
 
           <ul class="list-unstyled text-center">
             <li>
-              <a href="https://github.com/wiredmartian/whatsamenu-api-doc" target="_blank">API Documentation on Github</a>
-            </li>
-            <li>
-              <div class="postman-run-button" data-postman-action="collection/fork" data-postman-visibility="public"
-                data-postman-var-1="7238091-c337fbed-43fc-4a66-870c-3cfbdc1167e2"
-                data-postman-collection-url="entityId=7238091-c337fbed-43fc-4a66-870c-3cfbdc1167e2&entityType=collection&workspaceId=f7aedb7c-b2ff-43da-b219-270fbd08a6e3">
-              </div>
+              <routerLink to="get-started">Get Started</routerLink> / <a href="https://github.com/wiredmartian/whatsamenu-api-doc" target="_blank">API Docs</a>
             </li>
           </ul>
 

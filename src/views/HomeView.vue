@@ -61,7 +61,7 @@ export default Vue.extend({
   methods: {
     getCurrentUserLocation() {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.getPlacesNearMe, positionError => {
+        navigator.geolocation.getCurrentPosition(this.getPlacesNearMe, (_) => {
           this.getAllRestaurants()
           // this.showError(positionError)
         });
