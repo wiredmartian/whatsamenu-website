@@ -36,7 +36,7 @@
 
           <ul class="list-unstyled text-center">
             <li>
-              <routerLink to="get-started">Get Started</routerLink> / <a href="https://github.com/wiredmartian/whatsamenu-api-doc" target="_blank">API Docs</a>
+              <routerLink to="/get-started">Get Started</routerLink> / <a href="https://github.com/wiredmartian/whatsamenu-api-doc" target="_blank">API Docs</a>
             </li>
           </ul>
 
