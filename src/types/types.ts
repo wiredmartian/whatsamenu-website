@@ -51,6 +51,7 @@ export type MenuItemAllergen = {
 
 export type Restaurant = {
     restaurantId: string;
+    alias?: string
     name: string;
     summary: string;
     distance: string | number;
@@ -80,6 +81,7 @@ export type GeoCoordinates = {
 export type SignUpUserRequest = {
     email: string;
     password: string;
+    confirmPassword?: string;
 }
 
 export type SignInUserRequest = SignUpUserRequest

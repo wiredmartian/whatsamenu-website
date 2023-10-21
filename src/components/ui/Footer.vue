@@ -23,6 +23,7 @@
             </li>
             <li>
               <a href="https://dev.wiredmartians.com" target="_blank">dev.wiredmartians.com</a>
+              / solomzi.jikani@gmail.com
             </li>
           </ul>
 
@@ -35,7 +36,7 @@
 
           <ul class="list-unstyled text-center">
             <li>
-              <a href="https://github.com/wiredmartian/whatsamenu-api-doc" target="_blank">API Documentation</a>
+              <routerLink to="/get-started">Get Started</routerLink> / <a href="https://github.com/wiredmartian/whatsamenu-api-doc" target="_blank">API Docs</a>
             </li>
           </ul>
 
@@ -85,12 +86,12 @@ footer hr {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-footer p, footer a {
+footer p,
+footer a {
   color: #ffffff;
 }
 
 footer a:hover {
   text-decoration: underline;
 }
-
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`restaurants/${restaurant.restaurantId}/menu`">
+  <router-link :to="`restaurants/${restaurantIdentifier}/menu`">
     <div class="media mb-4" :key="restaurant.name">
       <div class="row">
         <div class="col-md-12">
@@ -38,7 +38,8 @@ export default Vue.extend({
   data() {
     return {
       provinceMap: ProvincesMap,
-      imgCDN: IMGCDN
+      imgCDN: IMGCDN,
+      restaurantIdentifier: ""
     }
   },
   props: {
@@ -47,6 +48,9 @@ export default Vue.extend({
       default: () => ({} as Restaurant),
       required: true
     }
+  },
+  mounted() {
+    this.restaurantIdentifier = this.restaurant.alias ?? this.restaurant.restaurantId
   },
   methods: {
     // distance in km
