@@ -20,6 +20,11 @@ const routes: Array<RouteConfig> = [
         component: () => import("@/views/account/UserLogin.vue")
     },
     {
+        path: '/account/api-keys',
+        name: 'api-keys',
+        component: () => import("@/views/account/CreateAPIKey.vue")
+    },
+    {
         path: '/restaurants/:id/menu',
         name: 'menu',
         component: () => import("@/views/menu/MenuView.vue")

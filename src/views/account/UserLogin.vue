@@ -32,6 +32,7 @@
 
 <script lang="ts">
 import { apiAdapter } from "@/api/adapter"
+import { Cookie } from "@/api/cookie"
 import Vue from "vue"
 
 export default Vue.extend({
@@ -57,12 +58,14 @@ export default Vue.extend({
                 const response = await apiAdapter.putOrPost("/auth/sign-in", "POST", this.model)
                 this.loading = false
                 if (response.status === 200) {
-                    sessionStorage.setItem("token", response.data.token)
+                    Cookie.set("auth_token", response.data.token, 1)
+                    this.$router.push({name: "api-keys"})
                 } else if (response.status === 401) {
                     this.serverError = response.data.error
                 }
-            } catch (e) {
-                console.log(e)
+            } catch (e: any) {
+                this.loading = false
+                this.serverError = `ERROR: ${e?.response?.data?.error ?? "Unknow error has occurred, please try again later"}`
             }
         },
     }
