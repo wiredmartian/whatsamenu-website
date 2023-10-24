@@ -6,7 +6,7 @@ class Adapter {
         return $axios.get<R>(path)
     }
 
-    async putOrPost<P, R = never>(path: string, method: 'PUT' | 'POST', payload: P, config?: AxiosRequestConfig<any>): Promise<AxiosResponse<R>> {
+    async putOrPost<P, R = any>(path: string, method: 'PUT' | 'POST', payload: P, config?: AxiosRequestConfig<any>): Promise<AxiosResponse<R>> {
         if (method === 'PUT') {
             return $axios.put<R>(path, payload)
         }

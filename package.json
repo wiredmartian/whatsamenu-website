@@ -13,7 +13,8 @@
     "bootstrap-icons": "^1.8.3",
     "core-js": "^3.8.3",
     "vue": "^2.6.14",
-    "vue-router": "^3.5.1"
+    "vue-router": "^3.5.1",
+    "vue-validate": "^1.0.1"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.4.0",
@@ -24,7 +25,10 @@
     "@vue/cli-service": "^5.0.0",
     "@vue/eslint-config-typescript": "^9.1.0",
     "eslint": "^7.32.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-vue": "^8.0.3",
+    "prettier": "^3.0.3",
     "typescript": "~4.5.5",
     "vue-template-compiler": "^2.6.14"
   }

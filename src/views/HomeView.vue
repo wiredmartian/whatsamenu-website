@@ -4,8 +4,8 @@
       <div class="row justify-content-md-center">
         <div class="col-md-6">
           <div class="mt-5 mb-4 d-block text-center">
-            <h1 class="font-weight-bolder">Whats A Menu?</h1>
-            <p>A verbose menu for your restaurant</p>
+            <h1 class="font-weight-bolder">WhatsAMenu</h1>
+            <p>A detailed look at what's on your plate.</p>
           </div>
           <form class="text-center">
             <input class="form-control mr-sm-2" v-model="searchInput" type="search" placeholder="e.g: Lupa"
@@ -61,7 +61,7 @@ export default Vue.extend({
   methods: {
     getCurrentUserLocation() {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(this.getPlacesNearMe, positionError => {
+        navigator.geolocation.getCurrentPosition(this.getPlacesNearMe, (_) => {
           this.getAllRestaurants()
           // this.showError(positionError)
         });

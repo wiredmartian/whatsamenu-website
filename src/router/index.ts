@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter, {RouteConfig} from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 Vue.use(VueRouter)
 
@@ -8,7 +7,22 @@ const routes: Array<RouteConfig> = [
     {
         path: '/',
         name: 'home',
-        component: HomeView
+        component: () => import("@/views/HomeView.vue")
+    },
+    {
+        path: '/get-started',
+        name: 'get-started',
+        component: () => import("@/views/account/GetStarted.vue")
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: () => import("@/views/account/UserLogin.vue")
+    },
+    {
+        path: '/account/api-keys',
+        name: 'api-keys',
+        component: () => import("@/views/account/CreateAPIKey.vue")
     },
     {
         path: '/restaurants/:id/menu',

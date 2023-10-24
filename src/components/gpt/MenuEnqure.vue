@@ -50,7 +50,7 @@
 
 <script lang="ts">
 import { MENU_API_V1 } from '@/api/common';
-import { ConversationInput, GPTDataChunk, Prompt } from '@/types';
+import { ConversationInput, Prompt } from '@/types';
 import Vue from 'vue'
 
 export default Vue.extend({
