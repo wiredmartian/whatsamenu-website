@@ -7,14 +7,6 @@ on:
       - feature/**
 
 jobs:
-  runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: yarn install, and build
-        run: |
-          yarn install --legacy-peer-deps
-          yarn run build --if-present
   deploy:
     runs-on: ubuntu-latest
 
