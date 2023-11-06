@@ -86,6 +86,7 @@ export default Vue.extend({
     methods: {
         async signIn() {
             try {
+                if (!this.model.email || !this.model.password) return
                 this.loading = true
                 const response = await apiAdapter.putOrPost(
                     "/auth/sign-in",
