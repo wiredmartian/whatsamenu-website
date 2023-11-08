@@ -2,7 +2,6 @@ import router from "@/router"
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 import { Cookie } from "./cookie"
 
-// axios.defaults.baseURL = "http://localhost:9200/v1"
 axios.defaults.timeout = 10000 // 10 seconds
 axios.defaults.baseURL = "https://whatsamenu.core.wiredmartians.com/v1"
 
