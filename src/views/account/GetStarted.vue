@@ -119,6 +119,9 @@ export default Vue.extend({
     methods: {
         async signUp() {
             this._validateForm()
+            if (Object.keys(this.errors).length > 0) {
+                return
+            }
             try {
                 this.loading = true
                 const response = await apiAdapter.putOrPost(
@@ -151,8 +154,14 @@ export default Vue.extend({
             if (this.model.password !== this.model.confirmPassword) {
                 this.errors["confirmPassword"] = "Passwords do not match"
             }
-            if (this.errors.length) {
-                return
+            if (!this.model.confirmPassword) {
+                this.errors["confirmPassword"] = "Confirm password is required"
+            }
+            if (!this.model.password) {
+                this.errors["password"] = "Password is required"
+            }
+            if (!this.model.email) {
+                this.errors["email"] = "Email address is required"
             }
         },
         _validEmail: (email: string) => {
