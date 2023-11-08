@@ -95,6 +95,7 @@ export default Vue.extend({
                 )
                 this.loading = false
                 if (response.status === 200) {
+                    Cookie.removeAll()
                     Cookie.set("auth_token", response.data.token, 1)
                     this.$router.push({ name: "api-keys" })
                 } else if (response.status === 401) {
