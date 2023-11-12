@@ -64,7 +64,6 @@
 
 <script lang="ts">
 import { apiAdapter } from "@/api/adapter"
-import { Cookie } from "@/api/cookie"
 import Vue from "vue"
 
 export default Vue.extend({
@@ -88,6 +87,7 @@ export default Vue.extend({
             try {
                 if (!this.model.email || !this.model.password) return
                 this.loading = true
+                localStorage.removeItem("wm_auth_token")
                 const response = await apiAdapter.putOrPost(
                     "/auth/sign-in",
                     "POST",
@@ -95,8 +95,7 @@ export default Vue.extend({
                 )
                 this.loading = false
                 if (response.status === 200) {
-                    Cookie.removeAll()
-                    Cookie.set("auth_token", response.data.token, 1)
+                    localStorage.setItem("wm_auth_token", response.data.token)
                     this.$router.push({ name: "api-keys" })
                 } else if (response.status === 401) {
                     this.serverError = response.data.error

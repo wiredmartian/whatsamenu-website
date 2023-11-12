@@ -124,6 +124,7 @@ export default Vue.extend({
             }
             try {
                 this.loading = true
+                localStorage.removeItem("wm_auth_token")
                 const response = await apiAdapter.putOrPost(
                     "/auth/sign-up",
                     "POST",
