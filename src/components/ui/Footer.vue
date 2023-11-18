@@ -18,12 +18,8 @@
                             <a href="#!"></a>
                         </li>
                         <li>
-                            <a
-                                href="https://dev.wiredmartians.com"
-                                target="_blank"
-                                >dev.wiredmartians.com</a
-                            >
-                            / solomzi.jikani@gmail.com
+                            <a href="https://dev.wiredmartians.com" target="_blank">dev.wiredmartians.com</a>
+                            / <a href="mailto:look@whatsamenu.co.za">look@whatsamenu.co.za</a>
                         </li>
                     </ul>
                 </div>
@@ -34,15 +30,9 @@
 
                     <ul class="list-unstyled text-center">
                         <li>
-                            <routerLink to="/get-started"
-                                >Get Started</routerLink
-                            >
+                            <routerLink to="/get-started">Get Started</routerLink>
                             /
-                            <a
-                                href="https://github.com/wiredmartian/whatsamenu-api-doc"
-                                target="_blank"
-                                >API Docs</a
-                            >
+                            <a href="https://github.com/wiredmartian/whatsamenu-api-doc" target="_blank">API Docs</a>
                         </li>
                     </ul>
                 </div>
@@ -56,7 +46,7 @@
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3">
             © {{ year }} copyright: <a href="/"> whatsamenu.co.za</a> //
-            v0.0.4-beta
+            v0.0.5
         </div>
         <!-- Copyright -->
     </footer>
