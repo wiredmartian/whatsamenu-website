@@ -46,7 +46,7 @@
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3">
             © {{ year }} copyright: <a href="/"> whatsamenu.co.za</a> //
-            v0.0.5
+            v0.0.6
         </div>
         <!-- Copyright -->
     </footer>
