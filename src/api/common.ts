@@ -1,12 +1,18 @@
 import router from "@/router"
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 
+const baseURL = process.env.VUE_APP_API_BASE_URL
+
+if (!baseURL) {
+    throw new Error("VUE_APP_API_BASE_URL is not set")
+}
+
 axios.defaults.timeout = 10000 // 10 seconds
-axios.defaults.baseURL = "https://whatsamenu.core.wiredmartians.com/v1"
+axios.defaults.baseURL = `${baseURL}/v1`
 
 axios.interceptors.request.use(
     (config: AxiosRequestConfig) => {
-        const token = localStorage.getItem("wm_auth_token")
+        const token = localStorage.getItem("_token")
         config.validateStatus = (status) => status >= 200 && status <= 404
         if (token && config.headers) {
             config.headers["Authorization"] = `Bearer ${token}`
@@ -20,7 +26,7 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(async (response: AxiosResponse) => {
     if (response.status === 401) {
-        localStorage.removeItem("wm_auth_token")
+        localStorage.removeItem("_token")
         await router.push({ name: "login" })
     }
     return response
@@ -28,5 +34,5 @@ axios.interceptors.response.use(async (response: AxiosResponse) => {
 
 export const $axios = axios
 
-export const IMGCDN = "https://whatsamenu.core.wiredmartians.com"
-export const MENU_API_V1 = "https://whatsamenu.core.wiredmartians.com/v1"
+export const IMGCDN = baseURL
+export const MENU_API_V1 = `${baseURL}/v1`

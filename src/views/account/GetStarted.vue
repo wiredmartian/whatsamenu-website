@@ -9,78 +9,40 @@
                             To get started with Whatsamenu, you will need an API
                             key for authentication. Already have an account?
                             Click
-                            <RouterLink
-                                to="/login"
-                                class="text-primary font-weight-bold"
-                                >Login</RouterLink
-                            >
+                            <RouterLink to="/login" class="text-primary font-weight-bold">Login</RouterLink>
                         </p>
                     </div>
                     <p v-if="serverError" class="alert alert-danger">
                         {{ serverError }}
                     </p>
-                    <form
-                        @submit.prevent="signUp"
-                        :model="model"
-                        novalidate="true"
-                        v-on:blur="_validateForm"
-                    >
+                    <form @submit.prevent="signUp" :model="model" novalidate="true" v-on:blur="_validateForm">
                         <div class="form-group">
                             <label for="emailAddress">Email address</label>
-                            <input
-                                v-on:blur="_validateForm"
-                                v-model="model.email"
-                                type="email"
-                                class="form-control"
-                                id="emailAddress"
-                                placeholder="hello@example.com"
-                                required
-                                autocomplete="off"
-                            />
+                            <input v-on:blur="_validateForm" v-model="model.email" type="email" class="form-control"
+                                id="emailAddress" placeholder="hello@example.com" required autocomplete="off" />
                             <small class="text-danger">{{
                                 errors?.email
                             }}</small>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input
-                                v-on:blur="_validateForm"
-                                v-model="model.password"
-                                type="password"
-                                class="form-control"
-                                id="password"
-                                placeholder="Password"
-                                required
-                                autocomplete="off"
-                            />
+                            <input v-on:blur="_validateForm" v-model="model.password" type="password" class="form-control"
+                                id="password" placeholder="Password" required autocomplete="off" />
                             <small class="text-danger">{{
                                 errors?.password
                             }}</small>
                         </div>
                         <div class="form-group">
-                            <label for="confirmPassword"
-                                >Confirm Password</label
-                            >
-                            <input
-                                v-on:blur="_validateForm"
-                                v-model="model.confirmPassword"
-                                type="password"
-                                class="form-control"
-                                id="confirmPassword"
-                                placeholder="Confirm Password"
-                                required
-                                autocomplete="off"
-                            />
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input v-on:blur="_validateForm" v-model="model.confirmPassword" type="password"
+                                class="form-control" id="confirmPassword" placeholder="Confirm Password" required
+                                autocomplete="off" />
                             <small class="text-danger">{{
                                 errors?.confirmPassword
                             }}</small>
                         </div>
                         <div class="text-center">
-                            <button
-                                v-if="!loading"
-                                type="submit"
-                                class="btn btn-dark mt-4 text-uppercase w-50"
-                            >
+                            <button v-if="!loading" type="submit" class="btn btn-dark mt-4 text-uppercase w-50">
                                 Sign Up Now
                             </button>
                             <spinner v-else />
@@ -124,7 +86,7 @@ export default Vue.extend({
             }
             try {
                 this.loading = true
-                localStorage.removeItem("wm_auth_token")
+                localStorage.removeItem("_token")
                 const response = await apiAdapter.putOrPost(
                     "/auth/sign-up",
                     "POST",
@@ -138,10 +100,9 @@ export default Vue.extend({
                 }
             } catch (e: any) {
                 this.loading = false
-                this.serverError = `ERROR: ${
-                    e?.response?.data?.error ??
+                this.serverError = `ERROR: ${e?.response?.data?.error ??
                     "Unknow error has occurred, please try again later"
-                }`
+                    }`
             }
         },
         _validateForm() {
