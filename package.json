@@ -1,7 +1,12 @@
 {
-  "name": "whatsamenu-client",
-  "version": "0.0.2-beta",
-  "private": true,
+  "name": "whatsamenu-website",
+  "version": "0.1.0",
+  "author": {
+    "name": "wiredmartian",
+    "url": "https://dev.wiredmartians.com"
+  },
+  "license": "MIT",
+  "keywords": ["restaurants website", "whatsamenu", "food api"],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
