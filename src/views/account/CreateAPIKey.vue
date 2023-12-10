@@ -13,28 +13,17 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <p class="alert alert-info col-md-12">
-                                - Creating an new API key will disable any
-                                previously existing key(s). <br />
                                 - You will only see your API Key once, please
                                 make sure you copy it.
                             </p>
                         </div>
                         <div class="col-md-12">
-                            <input
-                                v-model="apiKey"
-                                type="text"
-                                class="form-control"
-                                disabled
-                            />
+                            <input v-model="apiKey" type="text" class="form-control" disabled />
                         </div>
                         <div class="col-md-12">
                             <div class="text-center">
-                                <button
-                                    v-on:click="createApiKey"
-                                    v-if="!loading"
-                                    type="submit"
-                                    class="btn btn-dark text-uppercase w-50 mt-4"
-                                >
+                                <button v-on:click="createApiKey" v-if="!loading" type="submit"
+                                    class="btn btn-dark text-uppercase w-50 mt-4">
                                     Create Key
                                 </button>
                                 <spinner v-else />
@@ -68,7 +57,7 @@ export default Vue.extend({
             try {
                 this.loading = true
                 const response = await apiAdapter.putOrPost(
-                    "/auth/api-key",
+                    "/auth/api-keys",
                     "POST",
                     {}
                 )
