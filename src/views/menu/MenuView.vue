@@ -11,30 +11,31 @@
       <div class="row">
         <div class="col-md-3 col-sm-12">
           <restaurant-info :restaurant="restaurant" />
-          <hr v-if="menuList.length > 1"/>
+          <hr v-if="menuList.length > 1" />
           <!-- No point showing a dropdown with 1 item -->
           <div v-if="menuList.length > 1" class="pl-2 pr-2">
             <h4>Menus</h4>
             <p class="text-muted">Select to see any addition/extra menus from {{ restaurant.name }}</p>
             <div class="btn-group btn-block dropright">
-              <button type="button" class="btn btn-secondary btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button type="button" class="btn btn-secondary btn-lg dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 {{ activeMenuName }}
               </button>
               <div class="dropdown-menu w-100">
-                <a class="dropdown-item" href="#" v-for="item of menuList" :key="item.menuId" @click="getMenuById(item.menuId)">
-                {{ item.name }}
-              </a>
+                <a class="dropdown-item" href="#" v-for="item of menuList" :key="item.menuId"
+                  @click="getMenuById(item.menuId)">
+                  {{ item.name }}
+                </a>
               </div>
             </div>
           </div>
           <hr />
           <menu-group-sidebar v-if="!isLoading" :menuGroups="menuGroups" />
           <hr />
-          <a v-if="enableGPT" href="#" class="btn btn-block btn-secondary" data-toggle="modal" data-target="#virtualAssistant" role="button">Ask the waiter</a>
-          <!--          <img alt="QR Code" v-if="qrCode"-->
-          <!--               :src="qrCode"-->
-          <!--               class="img-fluid m-auto d-md-block d-lg-block d-none">-->
-          <!--          <hr class="d-md-block d-lg-block d-none"/>-->
+          <!-- <a v-if="enableGPT" href="#" class="btn btn-block btn-secondary" data-toggle="modal"
+            data-target="#virtualAssistant" role="button">Ask the waiter</a> -->
+          <img alt="QR Code" v-if="qrCode" :src="qrCode" class="img-fluid m-auto d-md-block d-lg-block d-none">
+          <hr class="d-md-block d-lg-block d-none" />
           <!-- <location-map class="d-md-block d-lg-block d-none" v-if="restaurant && restaurant.address"
             :longitude="restaurant.address.longitude" :latitude="restaurant.address.latitude" /> -->
         </div>
@@ -44,37 +45,38 @@
               <app-spinner />
             </div>
             <div v-else>
-              <div :id="`${group.menuGroupId}-` + group.name.split(' ')[0].toLowerCase()"
-              v-for="group of menu.menuGroups" :key="`row-` + group.menuGroupId">
-              <div class="row" v-if="group.items !== null">
-                <div class="col-12 mb-3 mt-3">
-                  <h3 class="text-uppercase">{{ group.name }}</h3>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <p class="text-muted" v-if="group.summary">
-                        <small>{{ group.summary }}</small>
-                      </p>
+              <div :id="`${group.menuGroupId}-` + group.name.split(' ')[0].toLowerCase()" v-for="group of menu.menuGroups"
+                :key="`row-` + group.menuGroupId">
+                <div class="row" v-if="group.items !== null">
+                  <div class="col-12 mb-3 mt-3">
+                    <h3 class="text-uppercase">{{ group.name }}</h3>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <p class="text-muted" v-if="group.summary">
+                          <small>{{ group.summary }}</small>
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6 col-sm-12 mb-4" v-for="(item, i) of group.items" :key="`col-${i}${item.menuItemId}`">
-                  <div class="media mb-2" :key="item.name" data-toggle="modal" data-target="#menuItemDetail" role="button"
-                    v-on:click="setSelectedItem(item)">
-                    <img v-if="item.imageUrl" v-bind:src="`${imgCDN}/` + item.imageUrl"
-                      class="align-self-center rounded mr-3" :alt="item.name">
-                    <div class="media-body align-self-center">
-                      <h5 class="mt-0"> {{ item.name }}</h5>
-                      <p class="block-ellipsis mb-0">{{ item.summary }}
-                      </p>
-                      <span v-if="item.price" class="font-weight-bold"><b>R{{ item.price.toFixed(2) }}</b></span>
-                      <span v-else class="info-sq font-weight-bold badge badge-dark">
-                        SQ
-                      </span>
+                  <div class="col-md-6 col-sm-12 mb-4" v-for="(item, i) of group.items"
+                    :key="`col-${i}${item.menuItemId}`">
+                    <div class="media mb-2" :key="item.name" data-toggle="modal" data-target="#menuItemDetail"
+                      role="button" v-on:click="setSelectedItem(item)">
+                      <img v-if="item.imageUrl" v-bind:src="`${imgCDN}/` + item.imageUrl"
+                        class="align-self-center rounded mr-3" :alt="item.name">
+                      <div class="media-body align-self-center">
+                        <h5 class="mt-0"> {{ item.name }}</h5>
+                        <p class="block-ellipsis mb-0">{{ item.summary }}
+                        </p>
+                        <span v-if="item.price" class="font-weight-bold"><b>R{{ item.price.toFixed(2) }}</b></span>
+                        <span v-else class="info-sq font-weight-bold badge badge-dark">
+                          SQ
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
             </div>
           </div>
         </div>
@@ -102,8 +104,9 @@
     </div>
     <!-- End Modal -->
 
-     <!-- Virtual Assistant Modal -->
-     <div class="modal fade" id="virtualAssistant" tabindex="-1" role="dialog" aria-labelledby="virtualAssistantTitle" aria-hidden="true">
+    <!-- Virtual Assistant Modal -->
+    <!-- <div class="modal fade" id="virtualAssistant" tabindex="-1" role="dialog" aria-labelledby="virtualAssistantTitle"
+      aria-hidden="true">
       <div class="modal-dialog modal-dialog-bottom-right modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -113,11 +116,11 @@
             </button>
           </div>
           <div class="modal-body">
-            <virtual-assistant v-if="menu.menuId" :menuId="menu.menuId"/>
+            <virtual-assistant v-if="menu.menuId" :menuId="menu.menuId" />
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- Virtual Assistant Modal -->
 
   </div>
@@ -131,7 +134,6 @@ import { IMGCDN } from "@/api/common";
 
 export default Vue.extend({
   components: {
-    VirtualAssistant: () => import("@/components/gpt/MenuEnqure.vue"),
     MenuItemDetails: () => import("@/components/menu/MenuItemDetails.vue"),
     MenuGroupSidebar: () => import("@/components/menu/MenuGroupSidebar.vue"),
     RestaurantInfo: () => import("@/components/restaurant/RestaurantInfo.vue"),
@@ -163,6 +165,7 @@ export default Vue.extend({
     await this.getRestaurant()
     await this.listMenus()
     this.isPageLoading = false
+    await this.getQrCode()
     this.smoothScroll()
   },
   methods: {
@@ -235,10 +238,10 @@ export default Vue.extend({
       }
     },
     async getQrCode() {
-      const response = await apiAdapter.get<{ imageUri: string }>(`/restaurants/${this.restaurantId}/qrcode`)
+      const response = await apiAdapter.get<{ image: string }>(`/restaurants/${this.restaurantId}/qrcode`)
       if (response.status == 200 && response.data) {
         // 
-        this.qrCode = `data:image/png;base64,${response.data.imageUri}`
+        this.qrCode = response.data.image
       }
     },
     pushMenuData(item: any) {
@@ -321,5 +324,4 @@ small {
   width: 400px;
   margin-right: auto;
 }
-
 </style>
