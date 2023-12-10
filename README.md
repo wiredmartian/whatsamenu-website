@@ -14,11 +14,6 @@ yarn install
 yarn run serve
 ```
 
-#### Compiles and minifies for production
-```
-yarn run build
-```
-
 ### Screenshots
 
 Here are some screenshots of the website:
@@ -28,15 +23,17 @@ Here are some screenshots of the website:
 <img src="./docs/desktop%201.png" width="100%" height="auto" />
 <br/>
 
-<img src="./docs/desktop%202.png" width="45%" height="auto" />
+<img src="./docs/desktop%202.png" width="100%" height="auto" />
+<br/>
 
-<img src="./docs/desktop%203.png" width="45%" height="auto" />
+<img src="./docs/desktop%203.png" width="100%" height="auto" />
 
 #### Mobile
 
-<img src="./docs/mobile%201.png" width="50%" height="auto" />
-
-<img src="./docs/mobile%202.png" width="50%" height="auto" />
+<img src="./docs/mobile%201.png" width="60%" height="auto" />
 <br/>
 
-<img src="./docs/mobile%203.png" width="80%" height="auto" />
+<img src="./docs/mobile%202.png" width="60%" height="auto" />
+<br/>
+
+<img src="./docs/mobile%203.png" width="60%" height="auto" />
