@@ -1,8 +1,15 @@
 import router from "@/router"
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 
+const baseURL = process.env["VUE_APP_BASE_URL"]
+const apiKey = process.env["VUE_APP_API_KEY"]
+
+if (!baseURL) throw new Error(`VUE_APP_BASE_URL env not defined`)
+if (!apiKey) throw new Error(`VUE_APP_API_KEY env not defined`)
+
+
 axios.defaults.timeout = 10000 // 10 seconds
-axios.defaults.baseURL = "https://whatsamenu.core.wiredmartians.com/v1"
+axios.defaults.baseURL = `${baseURL}/v1`
 
 axios.interceptors.request.use(
     (config: AxiosRequestConfig) => {
@@ -10,6 +17,8 @@ axios.interceptors.request.use(
         config.validateStatus = (status) => status >= 200 && status <= 404
         if (token && config.headers) {
             config.headers["Authorization"] = `Bearer ${token}`
+        } else if (config.headers) {
+            config.headers["X-Api-Key"] = apiKey
         }
         return config
     },
@@ -28,5 +37,4 @@ axios.interceptors.response.use(async (response: AxiosResponse) => {
 
 export const $axios = axios
 
-export const IMGCDN = "https://whatsamenu.core.wiredmartians.com"
-export const MENU_API_V1 = "https://whatsamenu.core.wiredmartians.com/v1"
+export const API_BASE_URL = "https://whatsamenu.core.wiredmartians.com"

@@ -130,7 +130,7 @@
 import { HttpResponseError, Menu, MenuItem, Restaurant } from "@/types/types"
 import Vue from "vue"
 import { apiAdapter } from "@/api/adapter";
-import { IMGCDN } from "@/api/common";
+import { API_BASE_URL } from "@/api/common";
 
 export default Vue.extend({
   components: {
@@ -154,7 +154,7 @@ export default Vue.extend({
       menuGroups: [] as Array<Record<string, string | number | undefined>>,
       restaurant: {} as Restaurant,
       qrCode: "",
-      imgCDN: IMGCDN,
+      imgCDN: `${API_BASE_URL}/v1`,
       activeMenuName: "Other Menus",
       enableGPT: false
     }
