@@ -1,4 +1,4 @@
-name: Deploy to Production
+name: Deploy to prod
 
 on:
   push:
@@ -24,4 +24,4 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           source: dist/
-          target: /home/martian/apps/whatsamenu-client
+          target: ${{ secrets.SERVER_TARGET_FOLDER }}
