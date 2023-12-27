@@ -56,9 +56,8 @@ export default Vue.extend({
         async createApiKey() {
             try {
                 this.loading = true
-                const response = await apiAdapter.putOrPost(
+                const response = await apiAdapter.post(
                     "/auth/api-keys",
-                    "POST",
                     {}
                 )
                 if (response.status === 200) {

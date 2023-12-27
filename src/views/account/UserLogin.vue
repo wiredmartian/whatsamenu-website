@@ -88,9 +88,8 @@ export default Vue.extend({
                 if (!this.model.email || !this.model.password) return
                 this.loading = true
                 localStorage.removeItem("wm_auth_token")
-                const response = await apiAdapter.putOrPost(
+                const response = await apiAdapter.post(
                     "/auth/sign-in",
-                    "POST",
                     this.model
                 )
                 this.loading = false
@@ -104,7 +103,7 @@ export default Vue.extend({
                 this.loading = false
                 this.serverError = `ERROR: ${
                     e?.response?.data?.error ??
-                    "Unknow error has occurred, please try again later"
+                    "Unknown error has occurred, please try again later"
                 }`
             }
         }

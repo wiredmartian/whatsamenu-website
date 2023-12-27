@@ -9,7 +9,7 @@
           </div>
           <form class="text-center">
             <input class="form-control mr-sm-2" v-model="searchInput" type="search" placeholder="e.g: Lupa"
-                   aria-label="Search">
+              aria-label="Search">
             <button type="button" class="btn btn-lg btn-dark mt-4 text-uppercase w-50" v-on:click="searchRestaurants">
               Search
             </button>
@@ -18,13 +18,13 @@
       </div>
     </div>
     <div class="container mt-5">
-      <hr class="clearfix" v-if="restaurantList.length"/>
+      <hr class="clearfix" v-if="restaurantList.length" />
       <div v-if="isLoading">
-        <app-spinner/>
+        <app-spinner />
       </div>
       <div class="row">
         <div class="col-md-4 col-sm-6" v-for="item of restaurantList" :key="item.name">
-          <restaurant-item :restaurant="item"/>
+          <restaurant-item :restaurant="item" />
         </div>
       </div>
     </div>
@@ -38,8 +38,8 @@
 
 <script lang="ts">
 import Vue from "vue"
-import {apiAdapter} from "@/api/adapter";
-import {Restaurant, GeoCoordinates} from "@/types/types";
+import { apiAdapter } from "@/api/adapter";
+import { Restaurant, GeoCoordinates } from "@/types/types";
 
 export default Vue.extend({
   name: 'HomeView',
@@ -77,7 +77,7 @@ export default Vue.extend({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         }
-        const response = await apiAdapter.putOrPost<GeoCoordinates, Restaurant[]>("restaurants/near-me", "POST", coordinates)
+        const response = await apiAdapter.post<GeoCoordinates, Restaurant[]>("restaurants/near-me", coordinates)
         this.restaurantList = response.data
         this.isLoading = false
       } catch (e) {
