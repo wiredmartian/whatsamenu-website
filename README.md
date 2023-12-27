@@ -5,6 +5,23 @@ This is the website for the WhatsAMenu app. It is built using Vue.js and Vuetify
 It uses the [WhatsAMenu API](https://github.com/wiredmartian/whatsamenu-api-documentation)
 
 ### Project setup
+
+Prerequisites:
+- Node (at least 12.x)
+- Vue
+#### Environmental variables
+
+Create an `.env.local` file at the root of the project and add the following variables
+
+```
+VUE_APP_BASE_URL=https://whatsamenu.core.wiredmartians.com
+VUE_APP_API_KEY=<Your API Key>
+```
+
+Please follow this link for a key: [Get WhatsAMenu API Key](https://whatsamenu.co.za/get-started)
+
+#### Install dependencies
+
 ```
 yarn install
 ```
