@@ -27,7 +27,7 @@
                 <div class="w-100">
                   <div class="col">
                     <img v-if="restaurant.imageUrl"
-                        v-bind:src="`${cdn}/${restaurant.imageUrl}`"
+                        v-bind:src="`${imgCDN}/${restaurant.imageUrl}`"
                         class="w-100 d-block m-auto"
                         :alt="restaurant.name">
                   </div>
@@ -61,7 +61,7 @@
 <script lang="ts">
 import Vue from "vue"
 import {ProvincesMap, Restaurant} from "@/types"
-import {IMGCDN} from "@/api/common";
+import {API_BASE_URL} from "@/api/common";
 
 export default Vue.extend({
   name: "RestaurantInfo",
@@ -71,13 +71,13 @@ export default Vue.extend({
   data() {
     return {
       provinceMap: ProvincesMap,
-      cdn: IMGCDN,
+      imgCDN: `${API_BASE_URL}/v1`,
       formattedAddress: `${this.restaurant.address.line1},${this.restaurant.address.line2},${this.restaurant.address.city}`
     }
   },
   props: {
     restaurant: {
-      type: Object,
+      type: Object as () => Restaurant,
       default: () => ({} as Restaurant),
       required: true
     }

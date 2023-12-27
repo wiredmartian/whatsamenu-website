@@ -31,20 +31,20 @@
 <script lang="ts">
 import Vue from "vue"
 import {ProvincesMap, Restaurant} from "@/types"
-import {IMGCDN} from "@/api/common";
+import {API_BASE_URL} from "@/api/common";
 
 export default Vue.extend({
   name: "RestaurantItem",
   data() {
     return {
       provinceMap: ProvincesMap,
-      imgCDN: IMGCDN,
+      imgCDN: `${API_BASE_URL}/v1`,
       restaurantIdentifier: ""
     }
   },
   props: {
     restaurant: {
-      type: Object,
+      type: Object as () => Restaurant,
       default: () => ({} as Restaurant),
       required: true
     }

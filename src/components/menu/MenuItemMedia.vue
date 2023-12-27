@@ -27,7 +27,7 @@
 <script lang="ts">
 import Vue from "vue";
 import {MenuItem} from "@/types";
-import {IMGCDN} from "@/api/common";
+import {API_BASE_URL} from "@/api/common";
 
 export default Vue.extend({
   name: "MenuItemMedia",
@@ -40,7 +40,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      imgCDN: IMGCDN
+      imgCDN: `${API_BASE_URL}/v1`
     }
   }
 })

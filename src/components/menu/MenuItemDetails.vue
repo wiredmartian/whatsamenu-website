@@ -50,7 +50,7 @@
 import Vue from 'vue'
 import {MenuItemIngredient, MenuItemAllergen, MenuItem} from "@/types/types";
 import {apiAdapter} from "@/api/adapter";
-import {IMGCDN} from "@/api/common";
+import {API_BASE_URL} from "@/api/common";
 
 export default Vue.extend({
   name: "MenuItemView",
@@ -71,7 +71,7 @@ export default Vue.extend({
       menuItem: {} as MenuItem,
       ingredients: [] as MenuItemIngredient[],
       allergens: [] as MenuItemAllergen[],
-      cdn: IMGCDN
+      cdn: `${API_BASE_URL}/v1`
     }
   },
   async mounted() {

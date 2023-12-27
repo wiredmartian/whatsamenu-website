@@ -5,7 +5,7 @@
             <div class="col-12 px-0">
                 <div class="chat-box bg-white">
                     <div v-for="c, i of conversation" v-bind:key="i">
-                        <!-- Reciever Message-->
+                        <!-- Receiver Message-->
                         <div class="media w-80 ml-5 mb-3">
                             <div class="media-body">
                                 <div class="bg-dark rounded py-2 px-3 mb-2">
@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts">
-import { MENU_API_V1 } from '@/api/common';
+import { API_BASE_URL } from '@/api/common';
 import { ConversationInput, Prompt } from '@/types';
 import Vue from 'vue'
 
@@ -106,7 +106,7 @@ export default Vue.extend({
 
             this.isSending = true
 
-            const url = `${MENU_API_V1}/menu/enquire?prompt=${encodeURIComponent(prompt.message)}&menuId=${prompt.menuId}&userId=${encodeURIComponent(prompt.userId)}`
+            const url = `${API_BASE_URL}/menu/enquire?prompt=${encodeURIComponent(prompt.message)}&menuId=${prompt.menuId}&userId=${encodeURIComponent(prompt.userId)}`
 
             this.eventSource = new EventSource(url)
 
