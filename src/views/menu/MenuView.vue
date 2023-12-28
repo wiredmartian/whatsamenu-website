@@ -154,7 +154,7 @@ export default Vue.extend({
       menuGroups: [] as Array<Record<string, string | number | undefined>>,
       restaurant: {} as Restaurant,
       qrCode: "",
-      imgCDN: `${API_BASE_URL}/v1`,
+      imgCDN: API_BASE_URL,
       activeMenuName: "Other Menus",
       enableGPT: false
     }

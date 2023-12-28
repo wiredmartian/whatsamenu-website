@@ -6,12 +6,10 @@
 
     <div class="media mb-2" :key="menuItem.name">
       <!--      <img class="align-self-center rounded mr-3 w-25" :src="menuItem.imageUrl" :alt="menuItem.name">-->
-      <img v-if="menuItem.imageUrl" v-bind:src="`${imgCDN}/`+menuItem.imageUrl"
-           class="align-self-center rounded"
-           :alt="menuItem.name">
-      <svg v-else class="align-self-center rounded" width="100%" height="auto"
-           xmlns="http://www.w3.org/2000/svg" role="img" :aria-label="menuItem.name"
-           preserveAspectRatio="xMidYMid slice" focusable="false">
+      <img v-if="menuItem.imageUrl" v-bind:src="`${imgCDN}/` + menuItem.imageUrl" class="align-self-center rounded"
+        :alt="menuItem.name">
+      <svg v-else class="align-self-center rounded" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg"
+        role="img" :aria-label="menuItem.name" preserveAspectRatio="xMidYMid slice" focusable="false">
         <rect width="100%" height="100%" fill="#6c757d"></rect>
       </svg>
       <div class="media-body align-self-center pl-3">
@@ -26,8 +24,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {MenuItem} from "@/types";
-import {API_BASE_URL} from "@/api/common";
+import { MenuItem } from "@/types";
+import { API_BASE_URL } from "@/api/common";
 
 export default Vue.extend({
   name: "MenuItemMedia",
@@ -40,14 +38,15 @@ export default Vue.extend({
   },
   data() {
     return {
-      imgCDN: `${API_BASE_URL}/v1`
+      imgCDN: API_BASE_URL
     }
   }
 })
 </script>
 
 <style scoped>
-.media img, .media svg {
+.media img,
+.media svg {
   width: 100px;
   height: 100px;
   object-fit: cover;
