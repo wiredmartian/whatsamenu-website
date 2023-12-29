@@ -54,7 +54,9 @@
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <button type="button" class="btn btn-dark btn-sm">Edit</button>
-                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                            data-target="#deleteApiKeyConfirm"
+                                            v-on:click="setSelectedKey(key)">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -63,6 +65,38 @@
                 </div>
             </div>
             <!-- End List API Keys -->
+
+            <!-- Confirm Delete Modal -->
+
+            <div class="modal fade" id="deleteApiKeyConfirm" tabindex="-1" aria-labelledby="deleteApiKeyConfirm"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirm API Key deletion</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete API key "{{ selectedKey.name }}"? <br />
+                            <small>
+                                <code>Key Alias: {{ selectedKey.keyAlias }}</code>
+                            </small>
+                        </div>
+                        <div class="modal-footer">
+                            <button :disabled="deleting" type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Cancel</button>
+                            <spinner v-if="deleting" />
+                            <button v-else type="button" class="btn btn-danger"
+                                v-on:click="deleteApiKey(selectedKey.keyAlias)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- End Confirm Delete Modal -->
+
         </div>
     </div>
 </template>
@@ -80,10 +114,11 @@ export default Vue.extend({
         return {
             serverError: "",
             loading: false,
+            deleting: false,
             apiKeyName: "",
             plainTextKey: "",
-            listApiKeys: [] as APIKey[]
-
+            listApiKeys: [] as APIKey[],
+            selectedKey: {} as APIKey
         }
     },
     mounted() {
@@ -119,6 +154,26 @@ export default Vue.extend({
             } catch (err) {
                 console.log(err)
             }
+        },
+        async deleteApiKey(keyAlias: string) {
+            try {
+                this.deleting = true
+                const response = await apiAdapter.delete(
+                    `/auth/api-keys/${keyAlias}`,
+                )
+                if (response.status === 200) {
+                    this.getApiKeys()
+                }
+                this.deleting = false
+            } catch (err) {
+                this.deleting = false
+                console.log(err)
+            }
+        },
+
+        // State functions
+        setSelectedKey(key: APIKey) {
+            this.selectedKey = key
         }
     }
 })
