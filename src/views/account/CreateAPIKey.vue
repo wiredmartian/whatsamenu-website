@@ -43,6 +43,7 @@
                                 <th scope="col">Alias</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,6 +51,12 @@
                                 <th scope="row">{{ key.keyAlias }}</th>
                                 <td>{{ key.name }}</td>
                                 <td>{{ key.status }}</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-dark btn-sm">Edit</button>
+                                        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
