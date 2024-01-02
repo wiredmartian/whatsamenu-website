@@ -13,7 +13,6 @@ axios.defaults.baseURL = `${baseURL}/v1`
 axios.interceptors.request.use(
     (config: AxiosRequestConfig) => {
         const token = localStorage.getItem("wm_auth_token")
-        config.validateStatus = (status) => status >= 200 && status <= 404
         if (token && config.headers) {
             config.headers["Authorization"] = `Bearer ${token}`
         } else if (config.headers) {
