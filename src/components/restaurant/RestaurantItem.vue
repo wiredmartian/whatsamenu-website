@@ -15,11 +15,11 @@
             }} <br />
               {{ restaurant.address.city }}, {{ provinceMap[restaurant.address.state] }}
             </p>
-            <!-- <p class="lead" v-if="restaurant.distance">
+            <p class="lead" v-if="restaurant.distance">
               <span class="badge badge-dark rounded-pill p-2">{{
-                  formatDistance(restaurant.distance)
-                }}</span>
-            </p> -->
+                formatDistance(restaurant.distance)
+              }}</span>
+            </p>
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@
 <script lang="ts">
 import Vue from "vue"
 import { ProvincesMap, Restaurant } from "@/types"
-import { API_BASE_URL } from "@/api/common";
+import { API_BASE_URL } from "@/api/interceptor";
 
 export default Vue.extend({
   name: "RestaurantItem",

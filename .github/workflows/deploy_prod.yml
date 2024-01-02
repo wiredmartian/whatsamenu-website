@@ -15,6 +15,7 @@ jobs:
       - name: yarn install, and build
         run: |
           yarn install --legacy-peer-deps
+          yarn lint
           yarn run build --if-present
 
       - name: Copy files to server

@@ -25,7 +25,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { MenuItem } from "@/types";
-import { API_BASE_URL } from "@/api/common";
+import { API_BASE_URL } from "@/api/interceptor";
 
 export default Vue.extend({
   name: "MenuItemMedia",

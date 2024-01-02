@@ -130,7 +130,7 @@
 import { HttpResponseError, Menu, MenuItem, Restaurant } from "@/types/types"
 import Vue from "vue"
 import { apiAdapter } from "@/api/adapter";
-import { API_BASE_URL } from "@/api/common";
+import { API_BASE_URL } from "@/api/interceptor";
 
 export default Vue.extend({
   components: {

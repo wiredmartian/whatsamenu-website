@@ -1,4 +1,4 @@
-import {$axios} from "@/api/common";
+import {$axios} from "@/api/interceptor";
 import {AxiosRequestConfig, AxiosResponse} from "axios";
 
 class Adapter {

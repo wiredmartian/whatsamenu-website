@@ -35,7 +35,7 @@
         <hr />
       </div>
       <div class="col" v-if="allergens.length">
-        <menu-item-allergens-accordian :allergens="allergens" />
+        <menu-item-allergens-accordion :allergens="allergens" />
         <hr />
       </div>
     </div>
@@ -46,12 +46,12 @@
 import Vue from 'vue'
 import { MenuItemIngredient, MenuItemAllergen, MenuItem } from "@/types/types";
 import { apiAdapter } from "@/api/adapter";
-import { API_BASE_URL } from "@/api/common";
+import { API_BASE_URL } from "@/api/interceptor";
 
 export default Vue.extend({
   name: "MenuItemView",
   components: {
-    MenuItemAllergensAccordian: () => import("@/components/menu/MenuItemAllergensAccordian.vue"),
+    MenuItemAllergensAccordion: () => import("@/components/menu/MenuItemAllergensAccordian.vue"),
     // MenuItemIngredients: () => import("@/components/menu/MenuItemIngredients.vue"),
     PageLoadSpinner: () => import("@/components/ui/PageLoadSpinner.vue")
   },

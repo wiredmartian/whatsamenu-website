@@ -26,9 +26,15 @@ Please follow this link for a key: [Get WhatsAMenu API Key](https://whatsamenu.c
 yarn install
 ```
 
+If you get any issues with the installation, please try:
+
+```
+yarn install --legacy-peer-deps
+```
+
 #### Compiles and hot-reloads for development
 ```
-yarn run serve
+yarn serve
 ```
 
 ### Screenshots
