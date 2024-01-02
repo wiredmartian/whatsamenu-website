@@ -7,9 +7,13 @@
                         <h1 class="font-weight-bolder">Get API Key</h1>
                         <p class="lead">You can now create your own API key</p>
                     </div>
-                    <p v-if="serverError" class="alert alert-danger">
-                        {{ serverError }}
+                    <p v-if="errorMessage" class="alert alert-danger">
+                        {{ errorMessage }}
                     </p>
+                    <div v-if="infoMessage" class="alert alert-info alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{ infoMessage }}
+                    </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <p class="alert alert-info col-md-12">
@@ -74,7 +78,8 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Confirm API Key deletion</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" ref="deleteApiKeyModal" class="close" data-dismiss="modal"
+                                aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -103,6 +108,7 @@
 
 <script lang="ts">
 import { apiAdapter } from "@/api/adapter"
+import { handleHttpError } from "@/helpers/helper"
 import { APIKey } from "@/types"
 import Vue from "vue"
 
@@ -112,7 +118,8 @@ export default Vue.extend({
     },
     data() {
         return {
-            serverError: "",
+            errorMessage: "",
+            infoMessage: "",
             loading: false,
             deleting: false,
             apiKeyName: "",
@@ -132,43 +139,49 @@ export default Vue.extend({
                     "/auth/api-keys",
                     { name: this.apiKeyName }
                 )
-                if (response.status === 200) {
-                    this.plainTextKey = response.data.apiKey
-                    // refresh list
-                    this.getApiKeys()
-                }
-                this.loading = false
+                this.plainTextKey = response.data.apiKey
+                // refresh list
+                this.getApiKeys()
             } catch (err) {
-                console.log(err)
-                this.loading = false
+                const responseErr = handleHttpError(err)
+                if (responseErr) {
+                    this.errorMessage = responseErr.error
+                } else {
+                    console.error(err)
+                    this.errorMessage = "Unknown error has occurred, please try again later"
+                }
             }
+            this.loading = false
         },
         async getApiKeys() {
             try {
                 const response = await apiAdapter.get<APIKey[]>(
                     "/auth/api-keys",
                 )
-                if (response.status === 200) {
-                    this.listApiKeys = response.data
-                }
+                this.listApiKeys = response.data
             } catch (err) {
-                console.log(err)
+                console.error(err)
             }
         },
         async deleteApiKey(keyAlias: string) {
             try {
                 this.deleting = true
-                const response = await apiAdapter.delete(
+                const response = await apiAdapter.delete<{ message: string }>(
                     `/auth/api-keys/${keyAlias}`,
                 )
-                if (response.status === 200) {
-                    this.getApiKeys()
-                }
-                this.deleting = false
+                this.infoMessage = response.data.message
+                this.getApiKeys()
+                    ; (this.$refs?.deleteApiKeyModal as HTMLElement)?.click() // close modal
             } catch (err) {
-                this.deleting = false
-                console.log(err)
+                const responseErr = handleHttpError(err)
+                if (responseErr) {
+                    this.errorMessage = responseErr.error
+                } else {
+                    console.error(err)
+                    this.errorMessage = "Unknown error has occurred, please try again later"
+                }
             }
+            this.deleting = false
         },
 
         // State functions

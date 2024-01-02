@@ -13,10 +13,8 @@ export default {
 </script>
 
 <style scoped>
-
-
 .spinner-border {
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
 }
 </style>

@@ -89,9 +89,7 @@ export default Vue.extend({
       try {
         this.isLoading = true
         const response = await apiAdapter.get<Restaurant[]>(`restaurants`)
-        if (response.status === 200 && response.data) {
-          this.restaurantList = response.data
-        }
+        this.restaurantList = response.data
         this.isLoading = false
       } catch (e) {
         this.isLoading = false
@@ -102,9 +100,7 @@ export default Vue.extend({
       try {
         this.isLoading = true
         const response = await apiAdapter.get<Restaurant[]>(`restaurants/search?query=${this.searchInput}&limit=10`)
-        if (response.status === 200 && response.data) {
-          this.restaurantList = response.data
-        }
+        this.restaurantList = response.data
         this.isLoading = false
       } catch (e) {
         this.isLoading = false
