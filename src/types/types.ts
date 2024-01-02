@@ -53,7 +53,7 @@ export type Restaurant = {
     alias?: string
     name: string
     summary: string
-    distance: string | number
+    distance: number
     imageUrl: string | null
     address: Address
     updated: string | Date

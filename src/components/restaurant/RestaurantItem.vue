@@ -15,11 +15,11 @@
             }} <br />
               {{ restaurant.address.city }}, {{ provinceMap[restaurant.address.state] }}
             </p>
-            <!-- <p class="lead" v-if="restaurant.distance">
+            <p class="lead" v-if="restaurant.distance">
               <span class="badge badge-dark rounded-pill p-2">{{
-                  formatDistance(restaurant.distance)
-                }}</span>
-            </p> -->
+                formatDistance(restaurant.distance)
+              }}</span>
+            </p>
           </div>
         </div>
       </div>
