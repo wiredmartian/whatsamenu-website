@@ -65,12 +65,12 @@ export default Vue.extend({
             try {
                 if (!this.model.email || !this.model.password) return
                 this.loading = true
-                localStorage.removeItem("wm_auth_token")
+                sessionStorage.removeItem("AUTH_TOKEN")
                 const response = await apiAdapter.post(
                     "/auth/sign-in",
                     this.model
                 )
-                localStorage.setItem("wm_auth_token", response.data.token)
+                sessionStorage.setItem("AUTH_TOKEN", response.data.token)
                 this.$router.push({ name: "api-keys" })
             } catch (e: any) {
                 const response = handleHttpError(e)
