@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-sm-12 text-center mt-5">
-      <h4 class="display-4">{{ this.prettyMessage }}</h4>
+      <h4 class="display-4">{{ prettyMessage }}</h4>
       <p class="lead">{{ errorMessage }}</p>
     </div>
   </div>

@@ -130,7 +130,7 @@
 import { HttpResponseError, Menu, MenuItem, Restaurant } from "@/types/types"
 import Vue from "vue"
 import { apiAdapter } from "@/api/adapter";
-import { IMGCDN } from "@/api/common";
+import { API_BASE_URL } from "@/api/interceptor";
 
 export default Vue.extend({
   components: {
@@ -154,7 +154,7 @@ export default Vue.extend({
       menuGroups: [] as Array<Record<string, string | number | undefined>>,
       restaurant: {} as Restaurant,
       qrCode: "",
-      imgCDN: IMGCDN,
+      imgCDN: API_BASE_URL,
       activeMenuName: "Other Menus",
       enableGPT: false
     }
@@ -196,25 +196,21 @@ export default Vue.extend({
       try {
         this.isLoading = true
         const response = await apiAdapter.get<Menu | HttpResponseError>(`/menu/${menuId}`)
-        if (response.status === 200) {
-          const data = response.data as Menu
-          this.menu = data
-          this.activeMenuName = data.name
-          if (data.menuGroups) {
-            this.menuGroups = data.menuGroups.filter(x => x.items?.length).map(item => {
-              return {
-                id: item.menuGroupId,
-                name: item.name,
-                length: item.items?.length
-              }
-            })
-          } else {
-            this.menuGroups = []
-          }
+        const data = response.data as Menu
+        this.menu = data
+        this.activeMenuName = data.name
+        if (data.menuGroups) {
+          this.menuGroups = data.menuGroups.filter(x => x.items?.length).map(item => {
+            return {
+              id: item.menuGroupId,
+              name: item.name,
+              length: item.items?.length
+            }
+          })
         } else {
-          this.responseErrorMessage = (response.data as HttpResponseError).error
-          this.responseErrorStatus = response.status
+          this.menuGroups = []
         }
+
         this.isLoading = false
       } catch (e) {
         this.isLoading = false
@@ -239,10 +235,7 @@ export default Vue.extend({
     },
     async getQrCode() {
       const response = await apiAdapter.get<{ image: string }>(`/restaurants/${this.restaurantId}/qrcode`)
-      if (response.status == 200 && response.data) {
-        // 
-        this.qrCode = response.data.image
-      }
+      this.qrCode = response.data.image
     },
     pushMenuData(item: any) {
       this.$router.push({ path: `/restaurant/menu/menu-item/${item.menuItemId}`, params: { data: JSON.stringify(item) } })

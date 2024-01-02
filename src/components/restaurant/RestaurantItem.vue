@@ -4,23 +4,22 @@
       <div class="row">
         <div class="col-md-12">
           <img v-if="restaurant.imageUrl" class="img-restaurant rounded mr-3 w-100"
-               :src="`${imgCDN}/${restaurant.imageUrl}`"
-               :alt="restaurant.name">
+            :src="`${imgCDN}/${restaurant.imageUrl}`" :alt="restaurant.name">
         </div>
         <div class="col-md-12">
           <div class="media-body pt-2">
             <h4 class="mt-0"> {{ restaurant.name }}</h4>
             <!-- <p>{{ restaurant.summary }}</p> -->
             <p v-if="restaurant.address" class="text-muted">{{ restaurant.address.line1 }}, {{
-                restaurant.address.line2
-              }} <br/>
+              restaurant.address.line2
+            }} <br />
               {{ restaurant.address.city }}, {{ provinceMap[restaurant.address.state] }}
             </p>
-            <!-- <p class="lead" v-if="restaurant.distance">
+            <p class="lead" v-if="restaurant.distance">
               <span class="badge badge-dark rounded-pill p-2">{{
-                  formatDistance(restaurant.distance)
-                }}</span>
-            </p> -->
+                formatDistance(restaurant.distance)
+              }}</span>
+            </p>
           </div>
         </div>
       </div>
@@ -30,21 +29,21 @@
 
 <script lang="ts">
 import Vue from "vue"
-import {ProvincesMap, Restaurant} from "@/types"
-import {IMGCDN} from "@/api/common";
+import { ProvincesMap, Restaurant } from "@/types"
+import { API_BASE_URL } from "@/api/interceptor";
 
 export default Vue.extend({
   name: "RestaurantItem",
   data() {
     return {
       provinceMap: ProvincesMap,
-      imgCDN: IMGCDN,
+      imgCDN: API_BASE_URL,
       restaurantIdentifier: ""
     }
   },
   props: {
     restaurant: {
-      type: Object,
+      type: Object as () => Restaurant,
       default: () => ({} as Restaurant),
       required: true
     }

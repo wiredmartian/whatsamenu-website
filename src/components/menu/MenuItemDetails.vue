@@ -1,12 +1,10 @@
 <template>
   <div class="row">
-    <page-load-spinner class="text-center m-auto" v-if="isPageLoading" :showSpinner="isPageLoading"/>
+    <page-load-spinner class="text-center m-auto" v-if="isPageLoading" :showSpinner="isPageLoading" />
     <div class="w-100" v-else>
       <div class="col">
-        <img v-if="menuItem.imageUrl"
-             v-bind:src="`${cdn}/${menuItem.imageUrl}`"
-             class="w-100 d-block m-auto"
-             :alt="menuItem.name">
+        <img v-if="menuItem.imageUrl" v-bind:src="`${imgCDN}/${menuItem.imageUrl}`" class="w-100 d-block m-auto"
+          :alt="menuItem.name">
       </div>
       <div class="col mt-2 mb-4">
         <div class="description-content">
@@ -14,33 +12,31 @@
           <!--            {{ menuItem.name }}-->
           <!--          </h2>-->
           <p class="text-muted">{{ menuItem.summary }}</p>
-          <hr v-if="menuItem.description"/>
+          <hr v-if="menuItem.description" />
           <p v-if="menuItem.description">{{ menuItem.description }}</p>
           <p class="alert alert-info text-center mt-4" v-if="!menuItem.price">
             The price of {{ menuItem.name }} differs depending on multiple factors.
             Please ask your waiter/waitress for the price
           </p>
         </div>
-        <hr/>
+        <hr />
       </div>
       <div class="col" v-if="ingredients.length">
         <h3 class="text-center mb-4">Ingredients</h3>
         <ul class="list-group list-group-horizontal row">
-          <li v-for="g of ingredients" :key="`ing-`+g.name"
-              class="list-group-item col-md-6 border-0">
+          <li v-for="g of ingredients" :key="`ing-` + g.name" class="list-group-item col-md-6 border-0">
             <div class="fw-bold">
-              <p role="button" v-on:click="askGoogle(g.name)" class="lead mb-0">{{ g.name }} <span
-                  class="badge"
-              ><i class="bi bi-arrow-up-right-square"></i> </span>
+              <p role="button" v-on:click="askGoogle(g.name)" class="lead mb-0">{{ g.name }} <span class="badge"><i
+                    class="bi bi-arrow-up-right-square"></i> </span>
               </p>
             </div>
           </li>
         </ul>
-        <hr/>
+        <hr />
       </div>
       <div class="col" v-if="allergens.length">
-        <menu-item-allergens-accordian :allergens="allergens"/>
-        <hr/>
+        <menu-item-allergens-accordion :allergens="allergens" />
+        <hr />
       </div>
     </div>
   </div>
@@ -48,14 +44,14 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import {MenuItemIngredient, MenuItemAllergen, MenuItem} from "@/types/types";
-import {apiAdapter} from "@/api/adapter";
-import {IMGCDN} from "@/api/common";
+import { MenuItemIngredient, MenuItemAllergen, MenuItem } from "@/types/types";
+import { apiAdapter } from "@/api/adapter";
+import { API_BASE_URL } from "@/api/interceptor";
 
 export default Vue.extend({
   name: "MenuItemView",
   components: {
-    MenuItemAllergensAccordian: () => import("@/components/menu/MenuItemAllergensAccordian.vue"),
+    MenuItemAllergensAccordion: () => import("@/components/menu/MenuItemAllergensAccordian.vue"),
     // MenuItemIngredients: () => import("@/components/menu/MenuItemIngredients.vue"),
     PageLoadSpinner: () => import("@/components/ui/PageLoadSpinner.vue")
   },
@@ -71,7 +67,7 @@ export default Vue.extend({
       menuItem: {} as MenuItem,
       ingredients: [] as MenuItemIngredient[],
       allergens: [] as MenuItemAllergen[],
-      cdn: IMGCDN
+      imgCDN: API_BASE_URL,
     }
   },
   async mounted() {
@@ -100,6 +96,4 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,9 +1,9 @@
-name: build
+name: build and test
 
 on: 
+  pull_request:
   push: 
     branches: 
-      - feature/**
       - develop
 
 jobs:
@@ -15,4 +15,5 @@ jobs:
       - name: yarn install, and build
         run: |
           yarn install --legacy-peer-deps
+          yarn lint
           yarn run build --if-present
