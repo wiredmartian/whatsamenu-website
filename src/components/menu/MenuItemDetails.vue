@@ -46,7 +46,7 @@
 import Vue from 'vue'
 import { MenuItemIngredient, MenuItemAllergen, MenuItem } from "@/types/types";
 import { apiAdapter } from "@/api/adapter";
-import { API_BASE_URL } from "@/api/common";
+import { API_BASE_URL } from "@/api/interceptor";
 
 export default Vue.extend({
   name: "MenuItemView",
