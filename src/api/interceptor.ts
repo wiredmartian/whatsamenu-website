@@ -4,8 +4,9 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 const baseURL = process.env["VUE_APP_API_BASE_URL"]
 const apiKey = process.env["VUE_APP_API_KEY"]
 
-if (!baseURL) throw new Error(`VUE_APP_API_BASE_URL env not defined`)
-if (!apiKey) throw new Error(`VUE_APP_API_KEY env not defined`)
+if (!baseURL) throw new Error(`VUE_APP_BASE_URL env not defined`)
+if (!apiKey && process.env.NODE_ENV === "development")
+    throw new Error(`VUE_APP_API_KEY env not defined`)
 
 axios.defaults.timeout = 10000 // 10 seconds
 axios.defaults.baseURL = `${baseURL}/v1`
