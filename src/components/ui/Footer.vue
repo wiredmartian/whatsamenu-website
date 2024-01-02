@@ -46,7 +46,7 @@
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3">
             © {{ year }} copyright: <a href="/"> whatsamenu.co.za</a> //
-            v1.0.0
+            {{ version }}
         </div>
         <!-- Copyright -->
     </footer>
@@ -58,7 +58,8 @@ export default {
     name: "AppFooter",
     data() {
         return {
-            year: new Date(Date.now()).getFullYear()
+            year: new Date(Date.now()).getFullYear(),
+            version: process.env.VUE_APP_VERSION
         }
     }
 }
