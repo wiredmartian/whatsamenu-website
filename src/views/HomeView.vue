@@ -1,36 +1,65 @@
 <template>
   <div class="home">
-    <div class="container-fluid">
-      <div class="row justify-content-md-center">
-        <div class="col-md-6">
-          <div class="mt-5 mb-4 d-block text-center">
-            <h1 class="font-weight-bolder">WhatsAMenu</h1>
-            <p>A detailed look at what's on your plate.</p>
+    <div id="homeCarousel" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://whatsamenu.core.wiredmartians.com/public/restaurants/10-36a9127d39d71c18f05442434aeb2c79.jpg" class="d-block w-100"
+            alt="Banner Image">
+          <div class="carousel-caption d-none d-md-block">
+            <h1 class="font-weight-bold text-header">WhatsAMenu</h1>
+            <p class="lead text-slogan">A detailed look at what's on your plate.</p>
+            <div class="row justify-content-md-center">
+              <div class="col-md-8">
+                <form class="text-center">
+                  <div class="input-group">
+                    <input type="text" v-model="searchInput" autocomplete="off" class="form-control" placeholder="Lupa">
+                    <div class="input-group-append">
+                      <button class="btn btn-secondary" type="button" v-on:click="searchRestaurants">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
-          <form class="text-center">
-            <input class="form-control mr-sm-2" v-model="searchInput" type="search" placeholder="e.g: Lupa"
-              aria-label="Search">
-            <button type="button" class="btn btn-lg btn-dark mt-4 text-uppercase w-50" v-on:click="searchRestaurants">
-              Search
-            </button>
-          </form>
+        </div>
+        <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </button>
+      </div>
+
+      <div class="container-fluid">
+        <div class="row justify-content-md-center">
+          <div class="col-md-6">
+            <div class="mt-5 d-block text-center">
+              <h1 class="font-weight-bolder">Restaurants</h1>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="container mt-5">
-      <hr class="clearfix" v-if="restaurantList.length" />
-      <div v-if="isLoading">
-        <app-spinner />
-      </div>
-      <div class="row">
-        <div class="col-md-4 col-sm-6" v-for="item of restaurantList" :key="item.name">
-          <restaurant-item :restaurant="item" />
+      <div class="container mt-5">
+        <div v-if="isLoading">
+          <app-spinner />
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-sm-6" v-for="item of restaurantList" :key="item.name">
+            <restaurant-item :restaurant="item" />
+          </div>
         </div>
       </div>
-    </div>
-    <div v-if="error" class="container mt-5">
-      <div class="row justify-content-md-center">
-        <p class="lead alert alert-danger">{{ error }}</p>
+      <div v-if="error" class="container mt-5">
+        <div class="row justify-content-md-center">
+          <p class="lead alert alert-danger">{{ error }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -127,3 +156,19 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style lang="css">
+/* styles for carousel */
+.carousel-item>img {
+  height: 35vh;
+  object-fit: cover;
+}
+
+h1.text-header {
+  font-size: 3.5rem;
+  text-shadow: 2px 2px 4px #00000071;
+}
+.text-slogan {
+  text-shadow: 2px 2px 4px #00000071;
+}
+</style>
