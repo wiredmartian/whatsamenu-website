@@ -11,15 +11,12 @@
                     <h5 class="text-uppercase text-center">Contact Us</h5>
 
                     <ul class="list-unstyled text-center">
-                        <!--            <li>-->
-                        <!--              <a href="mailto:solomzi.jikani@gmail.com">solomzi.jikani@gmail.com</a>-->
-                        <!--            </li>-->
                         <li>
                             <a href="#!"></a>
                         </li>
                         <li>
                             <a href="https://dev.wiredmartians.com" target="_blank">dev.wiredmartians.com</a>
-                            / <a href="mailto:look@whatsamenu.co.za">look@whatsamenu.co.za</a>
+                            / <a href="mailto:solomzi@whatsamenu.co.za">solomzi@whatsamenu.co.za</a>
                         </li>
                     </ul>
                 </div>
@@ -45,8 +42,9 @@
         <hr class="clearfix w-100" />
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3">
-            © {{ year }} copyright: <a href="/"> whatsamenu.co.za</a> //
-            {{ version }}
+            <routerLink to="/privacy-policy">Privacy Policy </routerLink> // © {{ year }} copyright: <a href="/">
+                whatsamenu.co.za</a> //
+            version-{{ version }}
         </div>
         <!-- Copyright -->
     </footer>
