@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="`restaurants/${restaurantIdentifier}/menu`">
+  <router-link :to="`restaurants/${restaurantIdentifier}`">
     <div class="media mb-4" :key="restaurant.name">
       <div class="row">
         <div class="col-md-12">
