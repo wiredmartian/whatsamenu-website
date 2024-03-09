@@ -28,6 +28,11 @@ const routes: Array<RouteConfig> = [
         path: "/restaurants/:id",
         name: "menu",
         component: () => import("@/views/menu/MenuView.vue")
+    },
+    {
+        path: "/privacy-policy",
+        name: "privacy-policy",
+        component: () => import("@/views/legal/PrivacyPolicy.vue")
     }
 ]
 
