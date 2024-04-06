@@ -1,19 +1,11 @@
 <template>
     <!-- Footer -->
     <footer class="bg-light font-small pt-4 bg-dark">
-        <!-- Footer Links -->
         <div class="container text-center text-md-left">
-            <!-- Grid row -->
             <div class="row">
-                <!-- Grid column -->
-                <div class="col-md-6">
-                    <!-- Links -->
+                <div class="col-md-4">
                     <h5 class="text-uppercase text-center">Contact Us</h5>
-
                     <ul class="list-unstyled text-center">
-                        <li>
-                            <a href="#!"></a>
-                        </li>
                         <li>
                             <a href="https://dev.wiredmartians.com" target="_blank">dev.wiredmartians.com</a>
                             / <a href="mailto:solomzi@whatsamenu.co.za">solomzi@whatsamenu.co.za</a>
@@ -21,22 +13,26 @@
                     </ul>
                 </div>
 
-                <div class="col-md-6">
-                    <!-- Links -->
-                    <h5 class="text-uppercase text-center">For Developers</h5>
-
+                <div class="col-md-4">
+                    <h5 class="text-uppercase text-center">Add Your Restaurant</h5>
                     <ul class="list-unstyled text-center">
                         <li>
-                            <routerLink to="/get-started">Get Started</routerLink>
+                            <a target="_blank" href="https://dashboard.whatsamenu.co.za">WhatsAMenu Dashboard</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4">
+                    <h5 class="text-uppercase text-center">For Developers</h5>
+                    <ul class="list-unstyled text-center">
+                        <li>
+                            <a href="https://dashboard.whatsamenu.co.za" target="_blank">Get Started</a>
                             /
                             <a href="https://github.com/wiredmartian/whatsamenu-api-doc" target="_blank">API Docs</a>
                         </li>
                     </ul>
                 </div>
-
-                <!-- Grid column -->
             </div>
-            <!-- Grid row -->
         </div>
         <!-- Footer Links -->
         <hr class="clearfix w-100" />
@@ -44,7 +40,10 @@
         <div class="footer-copyright text-center py-3">
             <routerLink to="/privacy-policy">Privacy Policy </routerLink> // © {{ year }} copyright: <a href="/">
                 whatsamenu.co.za</a> //
-            version-{{ version }}
+            version-{{ version }} <br />
+            <a href="https://www.instagram.com/whatsamenu/" target="_blank">
+                <i class="bi bi-instagram fa-2x"></i>
+            </a>
         </div>
         <!-- Copyright -->
     </footer>
