@@ -4,9 +4,6 @@
     <div v-else-if="!isPageLoading && !responseErrorStatus">
       <div class="row">
         <img v-if="restaurant.imageUrl" :src="`${imgCDN}/${restaurant.imageUrl}`" class="img-fluid img-header">
-        <!-- <img
-            src="https://thumbs.dreamstime.com/b/mexican-food-panoramic-header-blue-background-nachos-chili-con-carne-tacos-chicken-various-dips-top-shot-210526469.jpg"
-            class="img-fluid"> -->
       </div>
       <div class="row">
         <div class="col-md-3 col-sm-12">
@@ -45,8 +42,8 @@
               <app-spinner />
             </div>
             <div v-else>
-              <div :id="`${group.menuGroupId}-` + group.name.split(' ')[0].toLowerCase()" v-for="group of menu.menuGroups"
-                :key="`row-` + group.menuGroupId">
+              <div :id="`${group.menuGroupId}-` + group.name.split(' ')[0].toLowerCase()"
+                v-for="group of menu.menuGroups" :key="`row-` + group.menuGroupId">
                 <div class="row" v-if="group.items !== null">
                   <div class="col-12 mb-3 mt-3">
                     <h3 class="text-uppercase">{{ group.name }}</h3>
