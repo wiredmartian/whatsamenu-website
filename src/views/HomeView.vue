@@ -6,7 +6,7 @@
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="https://whatsamenu.core.wiredmartians.com/public/restaurants/10-36a9127d39d71c18f05442434aeb2c79.jpg" class="d-block w-100"
+          <img src="../../public/images/wm-banner.png" class="d-block w-100"
             alt="Banner Image">
           <div class="carousel-caption d-none d-md-block">
             <h1 class="font-weight-bold text-header">WhatsAMenu</h1>
