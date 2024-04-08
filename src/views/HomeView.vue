@@ -59,8 +59,8 @@
                 <div class="row">
                     <div class="d-block m-auto mt-5">
                         <a href="https://medium.com/@wiredmartian/whats-a-menu-fd661fa5cf82" target="_blank"
-                            class="btn btn-lg btn-light btn-rounded px-5">
-                            Learn More
+                            class="btn btn-lg btn-light btn-rounded px-4">
+                            Learn More <i class="bi bi-box-arrow-up-right"></i>
                         </a>
                     </div>
                 </div>
@@ -86,9 +86,9 @@
                     <restaurant-item :restaurant="item" />
                 </div>
                 <!-- See more -->
-                <div class="d-block m-auto mt-5">
+                <div class="d-block m-auto mt-5 mb-5">
                     <router-link to="/restaurants" class="btn btn-lg btn-dark btn-rounded px-5">
-                        See More
+                        See More <i class="bi bi-arrow-right"></i>
                     </router-link>
                 </div>
             </div>
@@ -97,11 +97,30 @@
         <!-- For Developers -->
 
         <div class="container-fluid mt-5">
-            <div class="container">
-                <div class="col-md-6">
-                    <img alt="For Developers" src="../../public/images/developer-1.png" class="img-fluid" />
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-8">
+                        <img alt="For Developers" src="../../public/images/developer-1.png" class="img-fluid" />
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-block my-2">
+                            <h2 class="font-weight-bolder">
+                                <b>Developer-friendly REST API</b>
+                            </h2>
+                        </div>
+                        <p class="lead pt-4">
+                            For building something more custom to your restaurant, WhatsAMenu provides a RESTful API
+                            that allows developers to access
+                            restaurant data, menu items, and more.
+                        </p>
+                        <div class="d-block m-auto mt-5">
+                            <a href="https://github.com/wiredmartian/whatsamenu-api-documentation" target="_blank"
+                                class="btn btn-md btn-dark btn-rounded px-4">
+                                See API Docs <i class="bi bi-box-arrow-up-right"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4"></div>
             </div>
         </div>
     </div>
