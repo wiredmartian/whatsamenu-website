@@ -1,20 +1,21 @@
 <template>
     <!-- Footer -->
-    <footer class="bg-light font-small pt-4 bg-dark">
+    <footer class="font-small pt-4 bg-dark">
         <div class="container text-center text-md-left">
             <div class="row">
                 <div class="col-md-4">
-                    <h5 class="text-uppercase text-center">Contact Us</h5>
+                    <h5 class="text-uppercase text-center">Get In Touch</h5>
                     <ul class="list-unstyled text-center">
                         <li>
-                            <a href="https://dev.wiredmartians.com" target="_blank">dev.wiredmartians.com</a>
-                            / <a href="mailto:solomzi@whatsamenu.co.za">solomzi@whatsamenu.co.za</a>
+                            <a href="mailto:solomzi@whatsamenu.co.za">solomzi.jikani@gmail.com</a>
                         </li>
                     </ul>
                 </div>
 
                 <div class="col-md-4">
-                    <h5 class="text-uppercase text-center">Add Your Restaurant</h5>
+                    <h5 class="text-uppercase text-center">
+                        Add Your Restaurant
+                    </h5>
                     <ul class="list-unstyled text-center">
                         <li>
                             <a target="_blank" href="https://dashboard.whatsamenu.co.za">WhatsAMenu Dashboard</a>
@@ -38,8 +39,8 @@
         <hr class="clearfix w-100" />
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3">
-            <routerLink to="/privacy-policy">Privacy Policy </routerLink> // © {{ year }} copyright: <a href="/">
-                whatsamenu.co.za</a> //
+            <routerLink to="/privacy-policy">Privacy Policy </routerLink> // ©
+            {{ year }} copyright: <a href="/"> whatsamenu.co.za</a> //
             version-{{ version }} <br />
             <a href="https://www.instagram.com/whatsamenu/" target="_blank">
                 <i class="bi bi-instagram fa-2x"></i>
