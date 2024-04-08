@@ -8,17 +8,16 @@
         </div>
         <div class="col-md-12">
           <div class="media-body pt-2">
-            <h4 class="mt-0"> {{ restaurant.name }}</h4>
-            <!-- <p>{{ restaurant.summary }}</p> -->
+            <h5 class="mt-0"> {{ restaurant.name }}</h5>
             <p v-if="restaurant.address" class="text-muted">{{ restaurant.address.line1 }}, {{
-              restaurant.address.line2
-            }} <br />
+    restaurant.address.line2
+  }} <br />
               {{ restaurant.address.city }}, {{ provinceMap[restaurant.address.state] }}
             </p>
             <p class="lead" v-if="restaurant.distance">
               <span class="badge badge-dark rounded-pill p-2">{{
-                formatDistance(restaurant.distance)
-              }}</span>
+    formatDistance(restaurant.distance)
+                }}</span>
             </p>
           </div>
         </div>
