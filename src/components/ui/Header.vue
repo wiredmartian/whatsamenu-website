@@ -11,9 +11,10 @@
                     </p>
                     <!-- Button group -->
                     <div class="btn-group mr-2" role="group">
-                        <router-link to="/restaurants" class="btn btn-lg btn-dark btn-rounded px-5">
+                        <a href="https://dashboard.whatsamenu.co.za" target="_blank"
+                            class="btn btn-lg btn-dark btn-rounded px-5">
                             Get Started
-                        </router-link>
+                        </a>
                     </div>
                 </div>
             </div>

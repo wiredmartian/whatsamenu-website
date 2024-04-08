@@ -96,14 +96,14 @@
 
         <!-- For Developers -->
 
-        <div class="container-fluid mt-5">
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-md-8">
+        <div class="container-fluid bg-light">
+            <div class="container mt-5 ">
+                <div class="row align-items-center h-100">
+                    <div class="col-md-8 py-5">
                         <img alt="For Developers" src="../../public/images/developer-1.png" class="img-fluid" />
                     </div>
-                    <div class="col-md-4">
-                        <div class="d-block my-2">
+                    <div class="col-md-4 py-5">
+                        <div class="d-block">
                             <h2 class="font-weight-bolder">
                                 <b>Developer-friendly REST API</b>
                             </h2>
@@ -116,10 +116,41 @@
                         <div class="d-block m-auto mt-5">
                             <a href="https://github.com/wiredmartian/whatsamenu-api-documentation" target="_blank"
                                 class="btn btn-md btn-dark btn-rounded px-4">
-                                See API Docs <i class="bi bi-box-arrow-up-right"></i>
+                                See API documentation <i class="bi bi-box-arrow-up-right"></i>
                             </a>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Management Console -->
+        <div class="container-fluid">
+            <div class="container mt-5">
+                <div class="row align-items-center h-100">
+                    <div class="col-md-6 py-5">
+                        <div class="d-block">
+                            <h2 class="font-weight-bolder">
+                                <b>Management Console</b>
+                            </h2>
+                        </div>
+                        <p class="lead pt-4">
+                            We provide a management console for restaurant owners to manage their restaurants, menus,
+                            menu
+                            items, and more.
+                            We're constantly improving the platform to make it easier for you to manage your restaurant.
+                        </p>
+                        <div class="d-block m-auto mt-5">
+                            <a href="https://dashboard.whatsamenu.co.za" target="_blank"
+                                class="btn btn-md btn-dark btn-rounded px-4">
+                                Get Started <i class="bi bi-box-arrow-up-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 py-5">
+                        <img alt="For Developers" src="../../public/images/dashboard.png" class="img-fluid" />
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -130,7 +161,6 @@
 import Vue from "vue"
 import { apiAdapter } from "@/api/adapter"
 import { Restaurant, GeoCoordinates } from "@/types/types"
-import router from "@/router"
 
 export default Vue.extend({
     name: "HomeView",

@@ -71,4 +71,8 @@ a:hover {
 .btn-rounded {
     border-radius: 2.5rem !important;
 }
+
+.font-weight-bolder {
+    font-weight: 500 !important;
+}
 </style>
