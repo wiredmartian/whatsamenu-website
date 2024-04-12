@@ -1,9 +1,6 @@
 <template>
     <div class="home">
         <div id="homeCarousel" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
-            </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="../../../public/images/wm-banner.png" class="d-block w-100" alt="Banner">
@@ -39,6 +36,11 @@
                     </div>
                 </div>
             </div>
+            <div v-if="error" class="container mt-5">
+                <div class="row justify-content-md-center">
+                    <p class="lead alert alert-danger">{{ error }}</p>
+                </div>
+            </div>
             <div class="container mt-5">
                 <div v-if="isLoading">
                     <app-spinner />
@@ -48,11 +50,11 @@
                         <restaurant-item :restaurant="item" />
                     </div>
                 </div>
-            </div>
-            <div v-if="error" class="container mt-5">
-                <div class="row justify-content-md-center">
-                    <p class="lead alert alert-danger">{{ error }}</p>
-                </div>
+                <!-- Load more items -->
+                <button type="button" v-if="!loadingMore" class="btn m-auto btn-lg btn-dark d-block"
+                    v-on:click="loadMoreRestaurants">Load
+                    more</button>
+                <app-spinner v-else />
             </div>
         </div>
     </div>
@@ -74,7 +76,10 @@ export default Vue.extend({
             error: "",
             searchInput: "",
             isLoading: false,
-            restaurantList: [] as Restaurant[]
+            loadingMore: false,
+            restaurantList: [] as Restaurant[],
+            limit: 30,
+            offset: 0,
         }
     },
     mounted() {
@@ -101,22 +106,33 @@ export default Vue.extend({
                 }
                 const response = await apiAdapter.post<GeoCoordinates, Restaurant[]>("restaurants/near-me", coordinates)
                 this.restaurantList = response.data
-                this.isLoading = false
             } catch (e) {
-                this.isLoading = false
-                console.log(e)
+                console.error(e)
             }
+            this.isLoading = false
         },
+        async loadMoreRestaurants() {
+            this.offset += this.limit
+            try {
+                this.loadingMore = true
+                const response = await apiAdapter.get<Restaurant[]>(`restaurants?limit=${this.limit}&offset=${this.offset}`)
+                this.restaurantList = this.restaurantList.concat(response.data)
+            } catch (e) {
+                console.error(e)
+            }
+            this.loadingMore = false
+        },
+
         async getAllRestaurants() {
             try {
                 this.isLoading = true
-                const response = await apiAdapter.get<Restaurant[]>(`restaurants`)
+                const response = await apiAdapter.get<Restaurant[]>(`restaurants?limit=${this.limit}&offset=${this.offset}`)
                 this.restaurantList = response.data
-                this.isLoading = false
             } catch (e) {
-                this.isLoading = false
-                console.log(e)
+                console.error(e)
             }
+            this.isLoading = false
+
         },
         async searchRestaurants(event: any) {
             try {

@@ -214,12 +214,12 @@ export default Vue.extend({
                 console.log(e)
             }
         },
-        async getAllRestaurants() {
+        async getAllRestaurants(limit = 3, offset = 0) {
             try {
                 this.isLoading = true
                 const response =
-                    await apiAdapter.get<Restaurant[]>(`restaurants`)
-                this.restaurantList = response.data.slice(0, 3)
+                    await apiAdapter.get<Restaurant[]>(`restaurants?limit=${limit}&offset=${offset}`)
+                this.restaurantList = response.data
                 this.isLoading = false
             } catch (e) {
                 this.isLoading = false
