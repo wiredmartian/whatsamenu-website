@@ -29,7 +29,11 @@
                         <li>
                             <a href="https://dashboard.whatsamenu.co.za" target="_blank">Get Started</a>
                             /
-                            <a href="https://github.com/wiredmartian/whatsamenu-api-doc" target="_blank">API Docs</a>
+                            <a href="https://github.com/wiredmartian/whatsamenu-api-doc" target="_blank">API</a>
+                            /
+                            <a href="https://github.com/wiredmartian/whatsamenu-website" target="_blank">
+                                Source Code
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -39,8 +43,8 @@
         <hr class="clearfix w-100" />
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3">
-            <routerLink to="/privacy-policy">Privacy Policy </routerLink> // ©
-            {{ year }} copyright: <a href="/"> whatsamenu.co.za</a> //
+            <routerLink to="/privacy-policy">Privacy Policy </routerLink> | ©
+            {{ year }} copyright: <a href="/"> whatsamenu.co.za</a> |
             version-{{ version }} <br />
             <a href="https://www.instagram.com/whatsamenu/" target="_blank">
                 <i class="bi bi-instagram fa-2x"></i>
@@ -65,7 +69,6 @@ export default {
 
 <style scoped>
 footer {
-    /*position: sticky;*/
     bottom: 0;
     width: 100%;
     line-height: 40px;
