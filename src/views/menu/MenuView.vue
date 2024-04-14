@@ -65,7 +65,7 @@
                         <h5 class="mt-0"> {{ item.name }}</h5>
                         <p class="block-ellipsis mb-0">{{ item.summary }}
                         </p>
-                        <span v-if="item.price" class="font-weight-bold"><b>R{{ item.price.toFixed(2) }}</b></span>
+                        <span v-if="item.price" class="font-weight-bold"><b>{{ item.price.toFixed(2) }}</b></span>
                         <span v-else class="info-sq font-weight-bold badge badge-dark">
                           SQ
                         </span>
