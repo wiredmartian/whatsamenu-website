@@ -7,7 +7,7 @@
           alt="Restaurant header">
       </div>
       <div class="row">
-        <div class="col-md-3 col-sm-12">
+        <div class="col-md-3 col-sm-12 px-0">
           <restaurant-info :restaurant="restaurant" />
           <hr v-if="menuList.length > 1" />
           <!-- No point showing a dropdown with 1 item -->
@@ -32,10 +32,8 @@
           <hr />
           <img alt="QR Code" v-if="qrCode" :src="qrCode" class="img-fluid m-auto d-md-block d-lg-block d-none">
           <hr class="d-md-block d-lg-block d-none" />
-          <!-- <location-map class="d-md-block d-lg-block d-none" v-if="restaurant && restaurant.address"
-            :longitude="restaurant.address.longitude" :latitude="restaurant.address.latitude" /> -->
         </div>
-        <div class="col-md-9 col-sm-12">
+        <div class="col-md-9 col-sm-12 px-0">
           <div class="main-content">
             <div v-if="isLoading">
               <app-spinner />
