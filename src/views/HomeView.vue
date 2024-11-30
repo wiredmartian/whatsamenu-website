@@ -3,7 +3,7 @@
         <div class="header-section">
             <app-header />
         </div>
-        <div class="motivation-section px-4 container-fluid bg-dark">
+        <div class="motivation-section container-fluid bg-dark">
             <!-- Why Whats a menu -->
             <div class="container">
                 <div class="row justify-content-md-center">
@@ -82,7 +82,7 @@
                 <app-spinner />
             </div>
             <div class="row">
-                <div class="col-md-4 col-sm-6" v-for="item of restaurantList" :key="item.name">
+                <div class="col-md-4" v-for="item of restaurantList" :key="item.name">
                     <restaurant-item :restaurant="item" />
                 </div>
                 <!-- See more -->
@@ -151,6 +151,95 @@
                         <img alt="For Developers" src="../../public/images/dashboard.png" class="img-fluid" />
                     </div>
 
+                </div>
+            </div>
+        </div>
+
+        <!-- Tutorials to help get started -->
+        <div class="container-fluid bg-light">
+            <!-- Why Whats a menu -->
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col-md-12">
+                        <div class="d-block text-center my-2">
+                            <h2 class="font-weight-bolder pt-5">
+                                <b>How to get started</b>
+                            </h2>
+                        </div>
+                        <p class="text-center lead pt-4">
+                            We have tutorials to help you get started with WhatsAMenu.
+                            Learn how to create an account, add your restaurant, and start adding your menu items.
+                        </p>
+                    </div>
+
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-md-6">
+                        <div class="mt-5 d-block">
+                            <iframe width="100%" height="315"
+                                src="https://www.youtube.com/embed/pmanq2BNNIo?si=ts5yJ7_PNjdkyMv0" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mt-5 d-block">
+                            <iframe width="100%" height="315"
+                                src="https://www.youtube.com/embed/NwEKG8YnECs?si=s-8GNct9C961pvNM" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-md-center">
+                    <div class="col-md-6">
+                        <div class="mt-5 d-block">
+                            <iframe width="100%" height="315"
+                                src="https://www.youtube.com/embed/TIuFRKKSM4k?si=GEPtGym8Lr6Xi6dA" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mt-5 d-block">
+                            <iframe width="100%" height="315"
+                                src="https://www.youtube.com/embed/YxwqRUVa6EE?si=oVfRdpvPWYqzS_5f" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-md-center">
+                    <div class="col-md-6">
+                        <div class="mt-5 d-block">
+                            <iframe width="100%" height="315"
+                                src="https://www.youtube.com/embed/3zZCj4XNU78?si=ZIhAN-RDj93UNA8s" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mt-5 d-block">
+                            <iframe width="100%" height="315"
+                                src="https://www.youtube.com/embed/oLhu50W2cvU?si=UKrI7Wqnqk6OThpd" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Learn more -->
+        <div class="container">
+            <div class="row">
+                <div class="d-block m-auto pt-5">
+                    <a href="https://www.youtube.com/watch?v=pmanq2BNNIo&list=PLeB5OSgUY60FjFl5ZyQJWIwcuyKmAlX8E"
+                        target="_blank" class="btn btn-lg btn-dark btn-rounded px-4">
+                        Playlist on YouTube <i class="bi bi-box-arrow-up-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
