@@ -94,69 +94,8 @@
             </div>
         </div>
 
-        <!-- For Developers -->
-
-        <div class="container-fluid bg-light">
-            <div class="container mt-5 ">
-                <div class="row align-items-center h-100">
-                    <div class="col-md-8 py-5">
-                        <img alt="For Developers" src="../../public/images/developer-1.png" class="img-fluid" />
-                    </div>
-                    <div class="col-md-4 py-5">
-                        <div class="d-block">
-                            <h2 class="font-weight-bolder">
-                                <b>Developer-friendly REST API</b>
-                            </h2>
-                        </div>
-                        <p class="lead pt-4">
-                            For building something more custom to your restaurant, WhatsAMenu provides a RESTful API
-                            that allows developers to access
-                            restaurant data, menu items, and more.
-                        </p>
-                        <div class="d-block m-auto mt-5">
-                            <a href="https://github.com/wiredmartian/whatsamenu-api-documentation" target="_blank"
-                                class="btn btn-md btn-dark btn-rounded px-4">
-                                See API documentation <i class="bi bi-box-arrow-up-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Management Console -->
-        <div class="container-fluid">
-            <div class="container mt-5">
-                <div class="row align-items-center h-100">
-                    <div class="col-md-6 py-5">
-                        <div class="d-block">
-                            <h2 class="font-weight-bolder">
-                                <b>Management Console</b>
-                            </h2>
-                        </div>
-                        <p class="lead pt-4">
-                            We provide a management console for restaurant owners to manage their restaurants, menus,
-                            menu
-                            items, and more.
-                            We're constantly improving the platform to make it easier for you to manage your restaurant.
-                        </p>
-                        <div class="d-block m-auto mt-5">
-                            <a href="https://dashboard.whatsamenu.co.za" target="_blank"
-                                class="btn btn-md btn-dark btn-rounded px-4">
-                                Get Started <i class="bi bi-box-arrow-up-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 py-5">
-                        <img alt="For Developers" src="../../public/images/dashboard.png" class="img-fluid" />
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
         <!-- Tutorials to help get started -->
-        <div class="container-fluid bg-light">
+        <div class="container-fluid bg-light mt-5 pb-5">
             <!-- Why Whats a menu -->
             <div class="container">
                 <div class="row justify-content-md-center">
@@ -232,10 +171,73 @@
             </div>
         </div>
 
+        <!-- Management Console -->
+        <div class="container-fluid">
+            <div class="container mt-5">
+                <div class="row align-items-center h-100">
+                    <div class="col-md-6 py-5">
+                        <div class="d-block">
+                            <h2 class="font-weight-bolder">
+                                <b>Management Console</b>
+                            </h2>
+                        </div>
+                        <p class="lead pt-4">
+                            We provide a management console for restaurant owners to manage their restaurants, menus,
+                            menu
+                            items, and more.
+                            We're constantly improving the platform to make it easier for you to manage your restaurant.
+                        </p>
+                        <div class="d-block m-auto mt-5">
+                            <a href="https://dashboard.whatsamenu.co.za" target="_blank"
+                                class="btn btn-md btn-dark btn-rounded px-4">
+                                Get Started <i class="bi bi-box-arrow-up-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 py-5">
+                        <img alt="For Developers" src="../../public/images/dashboard.png" class="img-fluid" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- For Developers -->
+
+        <div class="container-fluid bg-light">
+            <div class="container mt-5 ">
+                <div class="row align-items-center h-100">
+                    <div class="col-md-8 py-5">
+                        <img alt="For Developers" src="../../public/images/developer-1.png" class="img-fluid" />
+                    </div>
+                    <div class="col-md-4 py-5">
+                        <div class="d-block">
+                            <h2 class="font-weight-bolder">
+                                <b>Developer-friendly REST API</b>
+                            </h2>
+                        </div>
+                        <p class="lead pt-4">
+                            For building something more custom to your restaurant, WhatsAMenu provides a RESTful API
+                            that allows developers to access
+                            restaurant data, menu items, and more.
+                        </p>
+                        <div class="d-block m-auto mt-5">
+                            <a href="https://github.com/wiredmartian/whatsamenu-api-documentation" target="_blank"
+                                class="btn btn-md btn-dark btn-rounded px-4">
+                                See API documentation <i class="bi bi-box-arrow-up-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Learn more -->
-        <div class="container">
+        <div class="container-fluid bg-light">
             <div class="row">
-                <div class="d-block m-auto pt-5">
+                <div class="d-block m-auto pt-5 pb-5">
                     <a href="https://www.youtube.com/watch?v=pmanq2BNNIo&list=PLeB5OSgUY60FjFl5ZyQJWIwcuyKmAlX8E"
                         target="_blank" class="btn btn-lg btn-dark btn-rounded px-4">
                         Playlist on YouTube <i class="bi bi-box-arrow-up-right"></i>
