@@ -18,7 +18,7 @@ VUE_APP_BASE_URL=https://whatsamenu.core.wiredmartians.com
 VUE_APP_API_KEY=<Your API Key>
 ```
 
-Please follow this link for a key: [Get WhatsAMenu API Key](https://whatsamenu.co.za/get-started)
+Please follow this link for a key: [Get WhatsAMenu API Key](https://dashboard.whatsamenu.co.za/sign-in)
 
 #### Install dependencies
 

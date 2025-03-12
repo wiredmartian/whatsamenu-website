@@ -3,10 +3,12 @@
     <page-load-spinner v-if="isPageLoading" :showSpinner="isPageLoading" />
     <div v-else-if="!isPageLoading && !responseErrorStatus">
       <div class="row">
-        <img v-if="restaurant.imageUrl" :src="`${imgCDN}/${restaurant.imageUrl}`" class="img-fluid img-header">
+        <img v-if="restaurant.imageUrl" :src="`${imgCDN}/${restaurant.imageUrl}`" class="img-fluid img-header"
+          alt="Restaurant header">
+        <img v-else class="img-fluid img-header" src="../../../public/placeholder.png" :alt="restaurant.name">
       </div>
       <div class="row">
-        <div class="col-md-3 col-sm-12">
+        <div class="col-md-3 col-sm-12 px-0">
           <restaurant-info :restaurant="restaurant" />
           <hr v-if="menuList.length > 1" />
           <!-- No point showing a dropdown with 1 item -->
@@ -29,24 +31,20 @@
           <hr />
           <menu-group-sidebar v-if="!isLoading" :menuGroups="menuGroups" />
           <hr />
-          <!-- <a v-if="enableGPT" href="#" class="btn btn-block btn-secondary" data-toggle="modal"
-            data-target="#virtualAssistant" role="button">Ask the waiter</a> -->
           <img alt="QR Code" v-if="qrCode" :src="qrCode" class="img-fluid m-auto d-md-block d-lg-block d-none">
           <hr class="d-md-block d-lg-block d-none" />
-          <!-- <location-map class="d-md-block d-lg-block d-none" v-if="restaurant && restaurant.address"
-            :longitude="restaurant.address.longitude" :latitude="restaurant.address.latitude" /> -->
         </div>
-        <div class="col-md-9 col-sm-12">
+        <div class="col-md-9 col-sm-12 px-0">
           <div class="main-content">
             <div v-if="isLoading">
               <app-spinner />
             </div>
             <div v-else>
-              <div :id="`${group.menuGroupId}-` + group.name.split(' ')[0].toLowerCase()"
+              <div :id="group.name.split(' ')[0].toLowerCase() + `${group.menuGroupId}`"
                 v-for="group of menu.menuGroups" :key="`row-` + group.menuGroupId">
                 <div class="row" v-if="group.items !== null">
                   <div class="col-12 mb-3 mt-3">
-                    <h3 class="text-uppercase">{{ group.name }}</h3>
+                    <h3 class="text-uppercase font-weight-bolder">{{ group.name }}</h3>
                     <div class="row">
                       <div class="col-sm-6">
                         <p class="text-muted" v-if="group.summary">
@@ -62,10 +60,10 @@
                       <img v-if="item.imageUrl" v-bind:src="`${imgCDN}/` + item.imageUrl"
                         class="align-self-center rounded mr-3" :alt="item.name">
                       <div class="media-body align-self-center">
-                        <h5 class="mt-0"> {{ item.name }}</h5>
+                        <h5 class="mt-0 font-weight-bolder"> {{ item.name }}</h5>
                         <p class="block-ellipsis mb-0">{{ item.summary }}
                         </p>
-                        <span v-if="item.price" class="font-weight-bold"><b>R{{ item.price.toFixed(2) }}</b></span>
+                        <span v-if="item.price" class="font-weight-bold"><b>{{ item.price.toFixed(2) }}</b></span>
                         <span v-else class="info-sq font-weight-bold badge badge-dark">
                           SQ
                         </span>
@@ -100,25 +98,6 @@
       </div>
     </div>
     <!-- End Modal -->
-
-    <!-- Virtual Assistant Modal -->
-    <!-- <div class="modal fade" id="virtualAssistant" tabindex="-1" role="dialog" aria-labelledby="virtualAssistantTitle"
-      aria-hidden="true">
-      <div class="modal-dialog modal-dialog-bottom-right modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="Add Menu Group/Sub-category">Ask about {{ activeMenuName }}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <virtual-assistant v-if="menu.menuId" :menuId="menu.menuId" />
-          </div>
-        </div>
-      </div>
-    </div> -->
-    <!-- Virtual Assistant Modal -->
 
   </div>
 </template>
@@ -245,8 +224,9 @@ export default Vue.extend({
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', (e) => {
           e.preventDefault();
-          const href = anchor.getAttribute('href')
+          let href = anchor.getAttribute('href')
           if (href) {
+            href = href.replace(/([:.])/g, '\\$1');
             document.querySelector(href)?.scrollIntoView({
               behavior: 'smooth'
             });

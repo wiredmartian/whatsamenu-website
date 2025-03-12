@@ -3,11 +3,11 @@
     <div class="sidebar-item">
       <div class="sidebar-content">
         <ul class="list-group">
-          <li v-for="g of menuGroups" :key="`group-`+g.name"
-              class="list-group-item d-flex justify-content-between align-items-start border-0">
+          <li v-for="g of menuGroups" :key="`group-` + g.name"
+            class="list-group-item d-flex justify-content-between align-items-start border-0">
             <div class="ms-2 me-auto">
               <div class="fw-bold">
-                <h5><a :href="`#${g.id}-${g.name.split(' ')[0].toLowerCase()}`">{{ g.name }}</a></h5>
+                <h5><a :href="`#${g.name.split(' ')[0].toLowerCase()}${g.id}`">{{ g.name }}</a></h5>
               </div>
             </div>
             <span class="badge badge-light rounded-pill">{{ g.length }}</span>
@@ -17,6 +17,8 @@
     </div>
   </div>
 </template>
+
+<!-- group.name.split(' ')[0].toLowerCase() + `${group.menuGroupId}` -->
 
 <script lang="ts">
 import Vue from 'vue';

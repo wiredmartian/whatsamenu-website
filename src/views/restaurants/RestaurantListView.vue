@@ -12,7 +12,7 @@
                                 <form class="text-center">
                                     <div class="input-group">
                                         <input type="text" v-model="searchInput" autocomplete="off" class="form-control"
-                                            placeholder="Lupa">
+                                            placeholder="Enter search term...">
                                         <div class="input-group-append">
                                             <button class="btn btn-secondary" type="button"
                                                 v-on:click="searchRestaurants">
@@ -41,7 +41,7 @@
                     <p class="lead alert alert-danger">{{ error }}</p>
                 </div>
             </div>
-            <div class="container mt-5">
+            <div class="container mt-5 mb-5">
                 <div v-if="isLoading">
                     <app-spinner />
                 </div>
