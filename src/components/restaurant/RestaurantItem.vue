@@ -5,19 +5,21 @@
         <div class="col-md-12">
           <img v-if="restaurant.imageUrl" class="img-restaurant rounded mr-3 w-100"
             :src="`${imgCDN}/${restaurant.imageUrl}`" :alt="restaurant.name">
+          <img v-else class="img-restaurant rounded mr-3 w-100" src="../../../public/placeholder.png"
+            :alt="restaurant.name">
         </div>
         <div class="col-md-12">
           <div class="media-body pt-2">
             <h5 class="mt-0"> {{ restaurant.name }}</h5>
             <p v-if="restaurant.address" class="text-muted">{{ restaurant.address.line1 }}, {{
-    restaurant.address.line2
-  }} <br />
+              restaurant.address.line2
+            }} <br />
               {{ restaurant.address.city }}, {{ provinceMap[restaurant.address.state] }}
             </p>
             <p class="lead" v-if="restaurant.distance">
               <span class="badge badge-dark rounded-pill p-2">{{
-    formatDistance(restaurant.distance)
-                }}</span>
+                formatDistance(restaurant.distance)
+              }}</span>
             </p>
           </div>
         </div>

@@ -6,9 +6,13 @@
         "url": "https://dev.wiredmartians.com"
     },
     "license": "MIT",
-    "keywords": ["restaurants website", "whatsamenu", "food api"],
+    "keywords": [
+        "restaurants website",
+        "whatsamenu",
+        "food api"
+    ],
     "scripts": {
-        "serve": "vue-cli-service serve",
+        "serve": "vue-cli-service serve --port 8081",
         "build": "vue-cli-service build --mode production",
         "lint": "vue-cli-service lint"
     },
