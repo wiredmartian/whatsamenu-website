@@ -8,7 +8,8 @@
         restaurant.address.line2
       }} <br />
       {{ restaurant.address.city }}, {{ provinceMap[restaurant.address.state] }} &nbsp;
-      <span class="badge badge-light rounded-pill" data-toggle="modal" data-target="#restaurantDetail" role="button">More
+      <span class="badge badge-light rounded-pill" data-toggle="modal" data-target="#restaurantDetail"
+        role="button">More
         info</span>
     </p>
 
@@ -29,6 +30,7 @@
                 <div class="col">
                   <img v-if="restaurant.imageUrl" v-bind:src="`${imgCDN}/${restaurant.imageUrl}`"
                     class="w-100 d-block m-auto" :alt="restaurant.name">
+                  <img v-else class="w-100 d-block m-auto" src="../../../public/placeholder.png" :alt="restaurant.name">
                 </div>
                 <div class="col mt-2 mb-4">
                   <div class="description-content">
@@ -85,5 +87,4 @@ export default Vue.extend({
 })
 </script>
 
-<style>
-</style>
+<style></style>

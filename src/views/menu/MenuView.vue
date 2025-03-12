@@ -5,6 +5,7 @@
       <div class="row">
         <img v-if="restaurant.imageUrl" :src="`${imgCDN}/${restaurant.imageUrl}`" class="img-fluid img-header"
           alt="Restaurant header">
+        <img v-else class="img-fluid img-header" src="../../../public/placeholder.png" :alt="restaurant.name">
       </div>
       <div class="row">
         <div class="col-md-3 col-sm-12 px-0">
