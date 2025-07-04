@@ -76,7 +76,7 @@
                               data-target="#menuItemDetail"
                               @click="setSelectedItem(item)"
                             >
-                              <i class="bi bi-info-circle h5"></i> 
+                              <i class="bi bi-info-circle"></i> 
                             </button>
                             <button 
                               v-if="item.price" 
@@ -85,7 +85,7 @@
                               data-target="#addToCartModal"
                               @click="setSelectedItemForCart(item)"
                             >
-                              <i class="bi bi-cart-plus h5"></i>
+                              <i class="bi bi-cart-plus"></i>
                             </button>
                           </div>
                         </div>

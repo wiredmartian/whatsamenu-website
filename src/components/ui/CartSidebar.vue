@@ -142,7 +142,6 @@ export default Vue.extend({
     },
     proceedToCheckout() {
       // Implement checkout logic here
-      alert('Checkout functionality would be implemented here')
     }
   }
 })
