@@ -55,18 +55,40 @@
                   </div>
                   <div class="col-md-6 col-sm-12 mb-4" v-for="(item, i) of group.items"
                     :key="`col-${i}${item.menuItemId}`">
-                    <div class="media mb-2" :key="item.name" data-toggle="modal" data-target="#menuItemDetail"
-                      role="button" v-on:click="setSelectedItem(item)">
+                    <div class="media mb-2" :key="item.name">
                       <img v-if="item.imageUrl" v-bind:src="`${imgCDN}/` + item.imageUrl"
                         class="align-self-center rounded mr-3" :alt="item.name">
                       <div class="media-body align-self-center">
                         <h5 class="mt-0 font-weight-bolder"> {{ item.name }}</h5>
-                        <p class="block-ellipsis mb-0">{{ item.summary }}
+                        <p class="block-ellipsis mb-2">{{ item.summary }}
                         </p>
-                        <span v-if="item.price" class="font-weight-bold"><b>{{ item.price.toFixed(2) }}</b></span>
-                        <span v-else class="info-sq font-weight-bold badge badge-dark">
-                          SQ
-                        </span>
+                        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center">
+                          <div class="price-section mb-2 mb-sm-0">
+                            <span v-if="item.price" class="h5 font-weight-bold">{{ item.price.toFixed(2) }}</span>
+                            <span v-else class="info-sq font-weight-bold badge badge-dark">
+                              SQ
+                            </span>
+                          </div>
+                          <div class="item-actions">
+                            <button 
+                              class="btn btn-sm btn-outline-dark" 
+                              data-toggle="modal" 
+                              data-target="#menuItemDetail"
+                              @click="setSelectedItem(item)"
+                            >
+                              <i class="bi bi-info-circle h5"></i> 
+                            </button>
+                            <button 
+                              v-if="item.price" 
+                              class="btn btn-sm btn-dark" 
+                              data-toggle="modal" 
+                              data-target="#addToCartModal"
+                              @click="setSelectedItemForCart(item)"
+                            >
+                              <i class="bi bi-cart-plus h5"></i>
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -99,6 +121,20 @@
     </div>
     <!-- End Modal -->
 
+    <!-- Add to Cart Modal -->
+    <add-to-cart-modal 
+      :selected-item="selectedMenuItemForCart"
+      :restaurant-id="restaurantId"
+      :restaurant-name="restaurant.name"
+      @close-modal="closeAddToCartModal"
+      @item-added-to-cart="onItemAddedToCart"
+    />
+    <!-- End Add to Cart Modal -->
+
+    <!-- Cart Sidebar -->
+    <cart-sidebar />
+    <!-- End Cart Sidebar -->
+
   </div>
 </template>
 
@@ -115,7 +151,9 @@ export default Vue.extend({
     RestaurantInfo: () => import("@/components/restaurant/RestaurantInfo.vue"),
     AppSpinner: () => import("@/components/ui/Spinner.vue"),
     PageLoadSpinner: () => import("@/components/ui/PageLoadSpinner.vue"),
-    PrettyError: () => import("@/components/ui/PrettyError.vue")
+    PrettyError: () => import("@/components/ui/PrettyError.vue"),
+    AddToCartModal: () => import("@/components/ui/AddToCartModal.vue"),
+    CartSidebar: () => import("@/components/ui/CartSidebar.vue")
   },
   data() {
     return {
@@ -127,6 +165,7 @@ export default Vue.extend({
       menuList: [] as Menu[],
       menu: {} as Menu,
       selectedMenuItem: {} as MenuItem,
+      selectedMenuItemForCart: null as MenuItem | null,
       menuGroups: [] as Array<Record<string, string | number | undefined>>,
       restaurant: {} as Restaurant,
       qrCode: "",
@@ -213,12 +252,23 @@ export default Vue.extend({
       const response = await apiAdapter.get<{ image: string }>(`/restaurants/${this.restaurantId}/qrcode`)
       this.qrCode = response.data.image
     },
-    pushMenuData(item: any) {
+    pushMenuData(item: MenuItem) {
       this.$router.push({ path: `/restaurant/menu/menu-item/${item.menuItemId}`, params: { data: JSON.stringify(item) } })
     },
     setSelectedItem(item: MenuItem) {
       console.log(item)
       this.selectedMenuItem = item
+    },
+    setSelectedItemForCart(item: MenuItem) {
+      this.selectedMenuItemForCart = item
+    },
+    closeAddToCartModal() {
+      this.selectedMenuItemForCart = null
+    },
+    onItemAddedToCart(data: { item: MenuItem; quantity: number }) {
+      // Show a success message or notification
+      console.log(`Added ${data.quantity} x ${data.item.name} to cart`)
+      // You could show a toast notification here
     },
     smoothScroll() {
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -267,7 +317,8 @@ small {
   display: -webkit-box;
   max-width: 100%;
   height: auto;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -276,6 +327,58 @@ small {
 /* ask the waiter */
 .info-sq {
   font-size: 1rem;
+}
+
+/* Item actions */
+.item-actions {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.item-actions .btn {
+  font-size: 0.8rem;
+  padding: 0.375rem 0.75rem;
+  white-space: nowrap;
+  min-width: auto;
+}
+
+.price-section {
+  flex-shrink: 0;
+}
+
+@media (max-width: 575.98px) {
+  .item-actions {
+    width: 100%;
+    justify-content: flex-end;
+    gap: 0.25rem;
+  }
+  
+  .item-actions .btn {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    min-width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .item-actions .btn i {
+    font-size: 1rem;
+  }
+  
+  /* Stack price and buttons vertically on very small screens */
+  .d-flex.flex-column.flex-sm-row {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .item-actions .btn {
+    flex: 1;
+    max-width: 80px;
+  }
 }
 
 /** chat modal */

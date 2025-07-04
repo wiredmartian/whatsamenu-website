@@ -152,3 +152,21 @@ export type APIKey = {
     created: string
     updated: string
 }
+
+// Cart types
+export type CartItem = {
+    menuItemId: string
+    name: string
+    price: number
+    quantity: number
+    imageUrl?: string
+    specialInstructions?: string
+}
+
+export type Cart = {
+    items: CartItem[]
+    restaurantId: string
+    restaurantName: string
+    totalAmount: number
+    totalItems: number
+}
