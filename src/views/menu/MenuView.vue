@@ -182,6 +182,7 @@ export default Vue.extend({
     this.isPageLoading = false
     await this.getQrCode()
     this.smoothScroll()
+    this.setupModalEventListeners()
   },
   methods: {
     async listMenus() {
@@ -264,6 +265,23 @@ export default Vue.extend({
     },
     closeAddToCartModal() {
       this.selectedMenuItemForCart = null
+      // Close the Bootstrap modal programmatically
+      this.$nextTick(() => {
+        const modalElement = document.getElementById('addToCartModal')
+        if (modalElement) {
+          // Use jQuery if available (Bootstrap 4)
+          const windowWithJquery = window as unknown as { $?: (selector: string) => { modal: (action: string) => void } }
+          if (typeof windowWithJquery.$ !== 'undefined') {
+            windowWithJquery.$('#addToCartModal').modal('hide')
+          } else {
+            // Fallback: trigger the close button click
+            const closeButton = modalElement.querySelector('[data-dismiss="modal"]') as HTMLElement
+            if (closeButton) {
+              closeButton.click()
+            }
+          }
+        }
+      })
     },
     onItemAddedToCart(data: { item: MenuItem; quantity: number }) {
       // Show a success message or notification
@@ -283,6 +301,25 @@ export default Vue.extend({
           }
         });
       });
+    },
+    setupModalEventListeners() {
+      // Add event listener for when the modal is hidden
+      this.$nextTick(() => {
+        const modalElement = document.getElementById('addToCartModal')
+        if (modalElement) {
+          modalElement.addEventListener('hidden.bs.modal', () => {
+            this.selectedMenuItemForCart = null
+          })
+          
+          // For Bootstrap 4 with jQuery
+          const windowWithJquery = window as unknown as { $?: (selector: string) => { on: (event: string, callback: () => void) => void } }
+          if (typeof windowWithJquery.$ !== 'undefined') {
+            windowWithJquery.$('#addToCartModal').on('hidden.bs.modal', () => {
+              this.selectedMenuItemForCart = null
+            })
+          }
+        }
+      })
     },
   }
 })
