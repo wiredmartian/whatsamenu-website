@@ -1,13 +1,13 @@
 <template>
-  <div class="sidebar-section mt-4">
+  <div class="sidebar-section">
     <div class="sidebar-item">
       <div class="sidebar-content">
         <ul class="list-group">
           <li v-for="g of menuGroups" :key="`group-` + g.name"
-            class="list-group-item d-flex justify-content-between align-items-start border-0">
+            class="list-group-item d-flex justify-content-between align-items-start border-0 px-0">
             <div class="ms-2 me-auto">
               <div class="fw-bold">
-                <h5><a :href="`#${g.name.split(' ')[0].toLowerCase()}${g.id}`">{{ g.name }}</a></h5>
+                <h5 class="mb-0"><a class="text-lowercase" :href="`#${g.name.split(' ')[0].toLowerCase()}${g.id}`">{{ g.name }}</a></h5>
               </div>
             </div>
             <span class="badge badge-light rounded-pill">{{ g.length }}</span>
