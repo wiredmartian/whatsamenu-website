@@ -13,6 +13,7 @@
           class="btn btn-outline-primary btn-sm more-info-btn" 
           data-toggle="modal" 
           data-target="#restaurantDetail"
+          data-backdrop="false"
           type="button"
         >
           <i class="bi bi-info-circle me-2"></i>
@@ -29,20 +30,21 @@
       role="dialog"
       aria-labelledby="restaurantDetailTitle" 
       aria-hidden="true"
+      data-backdrop="false"
     >
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content modern-modal">
-          <div class="modal-header modern-modal-header">
+          <div class="modal-header">
             <h5 class="modal-title" :id="restaurant.restaurantId">
               <i class="bi bi-shop me-2"></i>
-              {{ restaurant.name }}
+              &nbsp; {{ restaurant.name }}
             </h5>
-            <button type="button" class="modal-close-btn" data-dismiss="modal" aria-label="Close">
-              <i class="bi bi-x-lg"></i>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
             </button>
           </div>
           
-          <div class="modal-body modern-modal-body">
+          <div class="modal-body">
             <div class="restaurant-detail-content">
               <!-- Restaurant Image -->
               <div class="restaurant-image-container">
@@ -189,50 +191,67 @@ export default Vue.extend({
 }
 
 /* Modern Modal Styling */
+#restaurantDetail {
+  z-index: 1060;
+}
+
+/* Disable backdrop completely */
+#restaurantDetail.modal {
+  background: none !important;
+}
+
+.modal-backdrop {
+  display: none !important;
+}
+
 .modern-modal {
   border: none;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  z-index: 1060;
+  position: relative;
+  margin-top: 5%;
 }
 
-.modern-modal-header {
+.modern-modal .modal-header {
   background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
   color: white;
   padding: 1.5rem 2rem;
   border-bottom: none;
 }
 
-.modal-title {
+.modern-modal .modal-title {
   font-size: 1.5rem;
   font-weight: 600;
   margin: 0;
   display: flex;
   align-items: center;
-}
-
-.modal-close-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
   color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+}
+
+.modern-modal .close {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 300;
+  text-shadow: none;
+  opacity: 0.8;
   transition: all 0.3s ease;
-  font-size: 1.1rem;
+  z-index: 1070;
+  position: relative;
 }
 
-.modal-close-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
+.modern-modal .close:hover {
+  color: white;
+  opacity: 1;
+  transform: scale(1.1);
 }
 
-.modern-modal-body {
+.modern-modal .modal-body {
   padding: 0;
   background: #f8f9fa;
+  z-index: 1055;
+  position: relative;
 }
 
 /* Restaurant Detail Content */
@@ -362,11 +381,11 @@ export default Vue.extend({
     align-self: flex-start;
   }
 
-  .modern-modal-header {
+  .modern-modal .modal-header {
     padding: 1rem 1.5rem;
   }
 
-  .modal-title {
+  .modern-modal .modal-title {
     font-size: 1.25rem;
   }
 
