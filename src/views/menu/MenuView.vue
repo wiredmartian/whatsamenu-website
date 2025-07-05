@@ -1,92 +1,153 @@
 <template>
-  <div class="container-fluid">
+  <div class="menu-page">
     <page-load-spinner v-if="isPageLoading" :showSpinner="isPageLoading" />
+    
     <div v-else-if="!isPageLoading && !responseErrorStatus">
-      <div class="row">
-        <img v-if="restaurant.imageUrl" :src="`${imgCDN}/${restaurant.imageUrl}`" class="img-fluid img-header"
-          alt="Restaurant header">
-        <img v-else class="img-fluid img-header" src="../../../public/placeholder.png" :alt="restaurant.name">
-      </div>
-      <div class="row">
-        <div class="col-md-3 col-sm-12 px-0">
-          <restaurant-info :restaurant="restaurant" />
-          <hr v-if="menuList.length > 1" />
-          <!-- No point showing a dropdown with 1 item -->
-          <div v-if="menuList.length > 1" class="pl-2 pr-2">
-            <h4>Menus</h4>
-            <p class="text-muted">Select to see any addition/extra menus from {{ restaurant.name }}</p>
-            <div class="btn-group btn-block dropright">
-              <button type="button" class="btn btn-secondary btn-lg dropdown-toggle" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                {{ activeMenuName }}
-              </button>
-              <div class="dropdown-menu w-100">
-                <a class="dropdown-item" href="#" v-for="item of menuList" :key="item.menuId"
-                  @click="getMenuById(item.menuId)">
-                  {{ item.name }}
-                </a>
-              </div>
-            </div>
-          </div>
-          <hr />
-          <menu-group-sidebar v-if="!isLoading" :menuGroups="menuGroups" />
-          <hr />
-          <img alt="QR Code" v-if="qrCode" :src="qrCode" class="img-fluid m-auto d-md-block d-lg-block d-none">
-          <hr class="d-md-block d-lg-block d-none" />
+      <!-- Restaurant Header Section -->
+      <section class="restaurant-header">
+        <div class="header-image-container">
+          <img 
+            v-if="restaurant.imageUrl" 
+            :src="`${imgCDN}/${restaurant.imageUrl}`" 
+            class="header-image"
+            :alt="restaurant.name"
+          >
+          <img 
+            v-else 
+            class="header-image" 
+            src="../../../public/placeholder.png" 
+            :alt="restaurant.name"
+          >
         </div>
-        <div class="col-md-9 col-sm-12 px-0">
-          <div class="main-content">
-            <div v-if="isLoading">
-              <app-spinner />
-            </div>
-            <div v-else>
-              <div :id="group.name.split(' ')[0].toLowerCase() + `${group.menuGroupId}`"
-                v-for="group of menu.menuGroups" :key="`row-` + group.menuGroupId">
-                <div class="row" v-if="group.items !== null">
-                  <div class="col-12 mb-3 mt-3">
-                    <h3 class="text-uppercase font-weight-bolder">{{ group.name }}</h3>
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <p class="text-muted" v-if="group.summary">
-                          <small>{{ group.summary }}</small>
-                        </p>
-                      </div>
+      </section>
+
+      <!-- Menu Content Section -->
+      <section class="menu-content-section">
+        <div class="container-fluid">
+          <div class="row g-0">
+            <!-- Sidebar -->
+            <div class="col-lg-3 col-md-4">
+              <div class="sidebar">
+                <div class="sidebar-content">
+                  <!-- Restaurant Info -->
+                  <div class="restaurant-info-card">
+                    <restaurant-info :restaurant="restaurant" />
+                  </div>
+
+                  <!-- Menu Selection -->
+                  <div v-if="menuList.length > 1" class="menu-selection-card">
+                    <h5 class="card-title">Menus</h5>
+                    <p class="card-subtitle">Select from available menus</p>
+                    <div class="menu-dropdown">
+                      <select 
+                        class="form-select" 
+                        @change="handleMenuChange"
+                        :value="menu.menuId"
+                      >
+                        <option v-for="item in menuList" :key="item.menuId" :value="item.menuId">
+                          {{ item.name }}
+                        </option>
+                      </select>
                     </div>
                   </div>
-                  <div class="col-md-6 col-sm-12 mb-4" v-for="(item, i) of group.items"
-                    :key="`col-${i}${item.menuItemId}`">
-                    <div class="media mb-2" :key="item.name">
-                      <img v-if="item.imageUrl" v-bind:src="`${imgCDN}/` + item.imageUrl"
-                        class="align-self-center rounded mr-3" :alt="item.name">
-                      <div class="media-body align-self-center">
-                        <h5 class="mt-0 font-weight-bolder"> {{ item.name }}</h5>
-                        <p class="block-ellipsis mb-2">{{ item.summary }}
-                        </p>
-                        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center">
-                          <div class="price-section mb-2 mb-sm-0">
-                            <span v-if="item.price" class="h5 font-weight-bold">{{ item.price.toFixed(2) }}</span>
-                            <span v-else class="info-sq font-weight-bold badge badge-dark">
-                              SQ
-                            </span>
-                          </div>
-                          <div class="item-actions">
-                            <button 
-                              class="btn btn-sm btn-outline-dark" 
-                              data-toggle="modal" 
-                              data-target="#menuItemDetail"
-                              @click="setSelectedItem(item)"
-                            >
-                              <i class="bi bi-info-circle"></i> 
-                            </button>
-                            <button 
-                              v-if="item.price" 
-                              class="btn btn-sm btn-dark" 
-                              data-toggle="modal" 
-                              data-target="#addToCartModal"
-                              @click="setSelectedItemForCart(item)"
-                            >
-                              <i class="bi bi-cart-plus"></i>
-                            </button>
+
+                  <!-- Menu Groups Navigation -->
+                  <div class="menu-navigation-card">
+                    <h5 class="card-title">Categories</h5>
+                    <menu-group-sidebar v-if="!isLoading" :menuGroups="menuGroups" />
+                  </div>
+
+                  <!-- QR Code -->
+                  <div v-if="qrCode" class="qr-code-card d-none d-md-block">
+                    <h5 class="card-title">QR Menu</h5>
+                    <div class="qr-code-container">
+                      <img :src="qrCode" class="qr-code-image img-fluid" alt="QR Code">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9 col-md-8">
+              <div class="main-content">
+                <div v-if="isLoading" class="loading-container">
+                  <app-spinner />
+                </div>
+                
+                <div v-else class="menu-groups-container">
+                  <div 
+                    v-for="group in menu.menuGroups" 
+                    :key="group.menuGroupId"
+                    :id="group.name.split(' ')[0].toLowerCase() + `${group.menuGroupId}`"
+                    class="menu-group"
+                  >
+                    <div v-if="group.items && group.items.length > 0">
+                      <!-- Group Header -->
+                      <div class="group-header">
+                        <h2 class="group-title">{{ group.name }}</h2>
+                        <p v-if="group.summary" class="group-subtitle">{{ group.summary }}</p>
+                      </div>
+
+                      <!-- Menu Items Grid -->
+                      <div class="menu-items-grid">
+                        <div 
+                          v-for="(item, index) in group.items" 
+                          :key="`${item.menuItemId}-${index}`"
+                          class="menu-item-card"
+                        >
+                          <div class="item-content">
+                            <!-- Item Image -->
+                            <div v-if="item.imageUrl" class="item-image-container">
+                              <img 
+                                :src="`${imgCDN}/${item.imageUrl}`"
+                                class="item-image"
+                                :alt="item.name"
+                              >
+                            </div>
+
+                            <!-- Item Details -->
+                            <div class="item-details">
+                              <h4 class="item-name">{{ item.name }}</h4>
+                              <p class="item-summary">{{ item.summary }}</p>
+                              
+                              <!-- Price and Actions -->
+                              <div class="item-footer">
+                                <div class="price-section">
+                                  <span v-if="item.price" class="item-price">
+                                    {{ item.price.toFixed(2) }}
+                                  </span>
+                                  <span v-else class="price-on-request">
+                                    <i class="bi bi-chat-dots me-1"></i>Ask for Price
+                                  </span>
+                                </div>
+                                
+                                <div class="item-actions">
+                                  <button 
+                                    class="btn btn-outline-primary btn-sm action-btn" 
+                                    data-toggle="modal" 
+                                    data-target="#menuItemDetail"
+                                    @click="setSelectedItem(item)"
+                                    title="View Details"
+                                  >
+                                    <i class="bi bi-info-circle"></i>
+                                    <span class="d-none d-sm-inline ms-1">Details</span>
+                                  </button>
+                                  
+                                  <button 
+                                    v-if="item.price" 
+                                    class="btn btn-primary btn-sm action-btn" 
+                                    data-toggle="modal" 
+                                    data-target="#addToCartModal"
+                                    @click="setSelectedItemForCart(item)"
+                                    title="Add to Cart"
+                                  >
+                                    <i class="bi bi-cart-plus"></i>
+                                    <span class="d-none d-sm-inline ms-1">Add</span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -97,18 +158,32 @@
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
-    <pretty-error v-if="responseErrorStatus" :request-status="responseErrorStatus"
-      :error-message="responseErrorMessage" />
 
-    <!-- Modal -->
-    <div v-if="Object.keys(selectedMenuItem).length" :key="selectedMenuItem.menuItemId" class="modal fade"
-      id="menuItemDetail" tabindex="-1" role="dialog" aria-labelledby="menuItemDetailTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-md" role="document">
-        <div class="modal-content">
+    <!-- Error Display -->
+    <pretty-error 
+      v-if="responseErrorStatus" 
+      :request-status="responseErrorStatus"
+      :error-message="responseErrorMessage" 
+    />
+
+    <!-- Modals -->
+    <!-- Menu Item Details Modal -->
+    <div 
+      v-if="Object.keys(selectedMenuItem).length" 
+      :key="selectedMenuItem.menuItemId" 
+      class="modal fade"
+      id="menuItemDetail" 
+      tabindex="-1" 
+      role="dialog" 
+      aria-labelledby="menuItemDetailTitle" 
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content modern-modal">
           <div class="modal-header">
-            <h5 class="modal-title" id="Add Menu Group/Sub-category">{{ selectedMenuItem.name }}</h5>
+            <h5 class="modal-title">{{ selectedMenuItem.name }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -119,7 +194,6 @@
         </div>
       </div>
     </div>
-    <!-- End Modal -->
 
     <!-- Add to Cart Modal -->
     <add-to-cart-modal 
@@ -129,12 +203,9 @@
       @close-modal="closeAddToCartModal"
       @item-added-to-cart="onItemAddedToCart"
     />
-    <!-- End Add to Cart Modal -->
 
     <!-- Cart Sidebar -->
     <cart-sidebar />
-    <!-- End Cart Sidebar -->
-
   </div>
 </template>
 
@@ -288,6 +359,12 @@ export default Vue.extend({
       console.log(`Added ${data.quantity} x ${data.item.name} to cart`)
       // You could show a toast notification here
     },
+    handleMenuChange(event: Event) {
+      const target = event.target as HTMLSelectElement
+      if (target && target.value) {
+        this.getMenuById(target.value)
+      }
+    },
     smoothScroll() {
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', (e) => {
@@ -326,112 +403,414 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-small {
-  font-size: 90%;
-}
-
-.main-content {
+/* Menu Page Layout */
+.menu-page {
+  background: #f8f9fa;
   min-height: 100vh;
-  padding: 1em;
 }
 
-.media img,
-.media svg {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
+/* Restaurant Header */
+.restaurant-header {
+  position: relative;
+  height: 40vh;
+  min-height: 300px;
+  overflow: hidden;
 }
 
-.img-header {
-  width: 100vw;
-  height: 35vh;
+.header-image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.header-image {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.block-ellipsis {
-  display: block;
+/* .header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+} */
+
+/* Menu Content Section */
+.menu-content-section {
+  margin-top: -50px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Sidebar */
+.sidebar {
+  background: white;
+  border-radius: 15px 15px 0 0;
+  box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.1);
+  min-height: calc(100vh - 250px);
+}
+
+.sidebar-content {
+  padding: 2rem 1.5rem;
+}
+
+/* Sidebar Cards */
+.restaurant-info-card,
+.menu-selection-card,
+.menu-navigation-card,
+.qr-code-card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e9ecef;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.card-subtitle {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+/* Menu Dropdown */
+.menu-dropdown .form-select {
+  border-radius: 10px;
+  border: 2px solid #e9ecef;
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+}
+
+.menu-dropdown .form-select:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+
+/* Main Content */
+.main-content {
+  background: white;
+  border-radius: 0 15px 15px 15px;
+  box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.1);
+  min-height: calc(100vh - 250px);
+  padding: 1.5rem 1rem;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+/* Menu Groups */
+.menu-groups-container {
+  max-width: none;
+}
+
+.menu-group {
+  margin-bottom: 3rem;
+}
+
+.group-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.group-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.group-subtitle {
+  font-size: 1rem;
+  color: #6c757d;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Menu Items Grid */
+.menu-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.menu-item-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f1f3f4;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.menu-item-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.item-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Item Image */
+.item-image-container {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+
+.item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.menu-item-card:hover .item-image {
+  transform: scale(1.05);
+}
+
+/* Item Details */
+.item-details {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.item-summary {
+  color: #6c757d;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  flex: 1;
   display: -webkit-box;
-  max-width: 100%;
-  height: auto;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-/* ask the waiter */
-.info-sq {
-  font-size: 1rem;
-}
-
-/* Item actions */
-.item-actions {
+/* Item Footer */
+.item-footer {
   display: flex;
-  flex-wrap: nowrap;
-  gap: 0.5rem;
+  justify-content: space-between;
   align-items: center;
-}
-
-.item-actions .btn {
-  font-size: 0.8rem;
-  padding: 0.375rem 0.75rem;
-  white-space: nowrap;
-  min-width: auto;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #f1f3f4;
 }
 
 .price-section {
   flex-shrink: 0;
 }
 
-@media (max-width: 575.98px) {
-  .item-actions {
-    width: 100%;
-    justify-content: flex-end;
-    gap: 0.25rem;
+.item-price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #28a745;
+}
+
+.price-on-request {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #667eea;
+  padding: 0.375rem 0.75rem;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 20px;
+}
+
+/* Item Actions */
+.item-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.action-btn {
+  border-radius: 25px;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  border: 2px solid;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-outline-primary.action-btn {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.btn-outline-primary.action-btn:hover {
+  background: #667eea;
+  border-color: #667eea;
+  color: white;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary.action-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+}
+
+.btn-primary.action-btn:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  border-color: #5a6fd8;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Modern Modal */
+.modern-modal {
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.modern-modal .modal-header {
+  border-bottom: 1px solid #f1f3f4;
+  padding: 1.5rem 2rem;
+}
+
+.modern-modal .modal-title {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.modern-modal .modal-body {
+  padding: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .restaurant-header {
+    height: 30vh;
+    min-height: 250px;
   }
   
-  .item-actions .btn {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-    min-width: 40px;
-    display: flex;
-    align-items: center;
+  .menu-content-section {
+    margin-top: -30px;
+  }
+  
+  .sidebar {
+    border-radius: 15px 15px 0 0;
+    margin-bottom: 1rem;
+  }
+  
+  .main-content {
+    border-radius: 15px;
+    margin-top: 1rem;
+    padding: 1.5rem 1rem;
+  }
+  
+  .sidebar-content {
+    padding: 1.5rem 1rem;
+  }
+  
+
+  .group-title {
+    font-size: 1.5rem;
+  }
+  
+  .menu-items-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .item-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .item-actions {
     justify-content: center;
   }
   
-  .item-actions .btn i {
-    font-size: 1rem;
+  .action-btn {
+    flex: 1;
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 576px) {
+  .restaurant-header {
+    height: 25vh;
+    min-height: 200px;
   }
   
-  /* Stack price and buttons vertically on very small screens */
-  .d-flex.flex-column.flex-sm-row {
-    gap: 0.5rem;
+  .item-details {
+    padding: 1rem;
+  }
+  
+  .item-name {
+    font-size: 1.1rem;
+  }
+  
+  .item-summary {
+    font-size: 0.85rem;
+  }
+  
+  .item-price {
+    font-size: 1.3rem;
+  }
+  
+  .action-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
   }
 }
 
-@media (max-width: 767.98px) {
-  .item-actions .btn {
-    flex: 1;
-    max-width: 80px;
-  }
+/* Legacy compatibility for existing components */
+.block-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/** chat modal */
-.modal-dialog-bottom-right {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  margin: 0;
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }
 
-/* .modal.fade .modal-dialog.modal-dialog-bottom-right {
-  transform: translate(25%, 105%);
-} */
-
-.modal-content {
-  width: 400px;
-  margin-right: auto;
+/* General improvements */
+.container-fluid {
+  max-width: 1400px;
 }
 </style>
