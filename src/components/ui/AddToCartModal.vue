@@ -98,17 +98,15 @@
         </div>
         <div class="modal-footer">
           <div class="footer-actions">
-            <button type="button" class="btn cancel-btn" data-dismiss="modal" @click="closeModal">
-              <i class="bi bi-x-circle me-2"></i>
+            <button type="button" class="btn btn-md cancel-btn" data-dismiss="modal" @click="closeModal">
               Cancel
             </button>
             <button 
               type="button" 
-              class="btn add-to-cart-btn" 
+              class="btn btn-md add-to-cart-btn" 
               @click="addToCart"
               :disabled="!selectedItem || !selectedItem.price"
             >
-              <i class="bi bi-cart-plus me-2"></i>
               Add to Order
             </button>
           </div>
@@ -513,8 +511,6 @@ export default Vue.extend({
   flex: 1;
   border-radius: 12px;
   font-weight: 600;
-  padding: 0.75rem;
-  font-size: 0.9rem;
   border: 1px solid #6c757d;
   color: #6c757d;
   background: white;
