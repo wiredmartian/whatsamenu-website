@@ -1,9 +1,9 @@
 <template>
   <div class="restaurant-info">
-    <div class="mt-4 d-block pl-4">
-      <h1 class="font-weight-bolder">{{ restaurant.name }}</h1>
+    <div class="d-block">
+      <h1 class="font-weight-bolder h3">{{ restaurant.name }}</h1>
     </div>
-    <p v-if="restaurant.address" class="text-muted pl-4">
+    <p v-if="restaurant.address" class="text-muted">
       <i class="bi bi-geo-alt"></i> {{ restaurant.address.line1 }}, {{
         restaurant.address.line2
       }} <br />
