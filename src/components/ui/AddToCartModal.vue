@@ -90,7 +90,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { MenuItem } from '@/types/types'
-import { cartService } from '@/services/cartService'
+import { cartService } from '@/services/cart-service'
 import { API_BASE_URL } from "@/api/interceptor"
 
 export default Vue.extend({
