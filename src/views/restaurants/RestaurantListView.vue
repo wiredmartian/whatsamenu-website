@@ -1,62 +1,103 @@
 <template>
-    <div class="home">
-        <div id="homeCarousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="../../../public/images/wm-banner.png" class="d-block w-100" alt="Banner">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h1 class="font-weight-bold text-header">WhatsAMenu</h1>
-                        <p class="lead text-slogan">A detailed look at what's on your plate.</p>
-                        <div class="row justify-content-md-center">
-                            <div class="col-md-8">
-                                <form class="text-center">
+    <div class="restaurants-page">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content w-100">
+                <div class="container">
+                    <div class="row justify-content-center text-center">
+                        <div class="col-lg-8">
+                            <h1 class="hero-title">Discover Restaurants</h1>
+                            <p class="hero-subtitle">
+                                Find restaurants with detailed digital menus. Search by name, cuisine, or location.
+                            </p>
+                            
+                            <!-- Search Bar -->
+                            <div class="search-container mt-4">
+                                <div class="search-form">
                                     <div class="input-group">
-                                        <input type="text" v-model="searchInput" autocomplete="off" class="form-control"
-                                            placeholder="Enter search term...">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-secondary" type="button"
-                                                v-on:click="searchRestaurants">
-                                                <i class="bi bi-search"></i>
-                                            </button>
-                                        </div>
+                                        <input 
+                                            type="text" 
+                                            v-model="searchInput" 
+                                            autocomplete="off" 
+                                            class="form-control search-input"
+                                            placeholder="Search restaurants..."
+                                            @keyup.enter="searchRestaurants"
+                                        >
+                                        <button 
+                                            class="btn btn-primary search-btn" 
+                                            type="button"
+                                            @click="searchRestaurants"
+                                        >
+                                            <i class="bi bi-search"></i>
+                                        </button>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="container-fluid">
-                <div class="row justify-content-md-center">
-                    <div class="col-md-6">
-                        <div class="mt-5 d-block text-center">
-                            <h1 class="font-weight-bolder">Restaurants</h1>
+        <!-- Restaurants Section -->
+        <section class="restaurants-section py-5">
+            <div class="container">
+                <div class="row text-center mb-5">
+                    <div class="col-12">
+                        <h2 class="section-title">All Restaurants</h2>
+                        <p class="section-subtitle text-muted">
+                            Browse through our collection of restaurants with digital menus
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Error Message -->
+                <div v-if="error" class="row justify-content-center mb-4">
+                    <div class="col-lg-8">
+                        <div class="alert alert-danger" role="alert">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            {{ error }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading Spinner -->
+                <div v-if="isLoading" class="text-center">
+                    <app-spinner />
+                </div>
+
+                <!-- Restaurant Grid -->
+                <div v-else>
+                    <div class="row g-4">
+                        <div class="col-lg-4 col-md-6" v-for="restaurant in restaurantList" :key="restaurant.restaurantId">
+                            <restaurant-item :restaurant="restaurant" />
+                        </div>
+                    </div>
+
+                    <!-- Load More Button -->
+                    <div class="text-center mt-5" v-if="restaurantList.length > 0">
+                        <button 
+                            v-if="!loadingMore" 
+                            type="button" 
+                            class="btn btn-primary btn-lg load-more-btn"
+                            @click="loadMoreRestaurants"
+                        >
+                            Load More Restaurants
+                        </button>
+                        <app-spinner v-else />
+                    </div>
+
+                    <!-- No Results -->
+                    <div v-if="restaurantList.length === 0 && !isLoading" class="text-center mt-5">
+                        <div class="no-results">
+                            <i class="bi bi-search display-1 text-muted mb-3"></i>
+                            <h3 class="text-muted">No restaurants found</h3>
+                            <p class="text-muted">Try adjusting your search terms or browse all restaurants.</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div v-if="error" class="container mt-5">
-                <div class="row justify-content-md-center">
-                    <p class="lead alert alert-danger">{{ error }}</p>
-                </div>
-            </div>
-            <div class="container mt-5 mb-5">
-                <div v-if="isLoading">
-                    <app-spinner />
-                </div>
-                <div class="row">
-                    <div class="col-md-4 col-sm-6" v-for="item of restaurantList" :key="item.name">
-                        <restaurant-item :restaurant="item" />
-                    </div>
-                </div>
-                <!-- Load more items -->
-                <button type="button" v-if="!loadingMore" class="btn m-auto btn-lg btn-dark d-block"
-                    v-on:click="loadMoreRestaurants">Load
-                    more</button>
-                <app-spinner v-else />
-            </div>
-        </div>
+        </section>
     </div>
 </template>
 
@@ -88,10 +129,12 @@ export default Vue.extend({
     methods: {
         getCurrentUserLocation() {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(this.getPlacesNearMe, (_) => {
-                    this.getAllRestaurants()
-                    // this.showError(positionError)
-                });
+                navigator.geolocation.getCurrentPosition(
+                    this.getPlacesNearMe, 
+                    () => {
+                        this.getAllRestaurants()
+                    }
+                );
             } else {
                 this.getAllRestaurants()
             }
@@ -108,8 +151,9 @@ export default Vue.extend({
                 this.restaurantList = response.data
             } catch (e) {
                 console.error(e)
+            } finally {
+                this.isLoading = false
             }
-            this.isLoading = false
         },
         async loadMoreRestaurants() {
             this.offset += this.limit
@@ -119,10 +163,10 @@ export default Vue.extend({
                 this.restaurantList = this.restaurantList.concat(response.data)
             } catch (e) {
                 console.error(e)
+            } finally {
+                this.loadingMore = false
             }
-            this.loadingMore = false
         },
-
         async getAllRestaurants() {
             try {
                 this.isLoading = true
@@ -130,55 +174,299 @@ export default Vue.extend({
                 this.restaurantList = response.data
             } catch (e) {
                 console.error(e)
+            } finally {
+                this.isLoading = false
             }
-            this.isLoading = false
-
         },
-        async searchRestaurants(event: any) {
+        async searchRestaurants() {
+            if (!this.searchInput.trim()) {
+                this.getAllRestaurants()
+                return
+            }
+            
             try {
                 this.isLoading = true
                 const response = await apiAdapter.get<Restaurant[]>(`restaurants/search?query=${this.searchInput}&limit=10`)
                 this.restaurantList = response.data
-                this.isLoading = false
             } catch (e) {
+                console.error(e)
+            } finally {
                 this.isLoading = false
-                console.log(e)
             }
-        },
-        showError(err: any) {
-            switch (err.code) {
-                case err.PERMISSION_DENIED:
-                    this.error = "User denied the request for Geolocation."
-                    break;
-                case err.POSITION_UNAVAILABLE:
-                    this.error = "Location information is unavailable."
-                    break;
-                case err.TIMEOUT:
-                    this.error = "The request to get user location timed out."
-                    break;
-                case err.UNKNOWN_ERROR:
-                    this.error = "An unknown error occurred."
-                    break;
-            }
-            this.error = this.error + " Please try refreshing the page"
         }
     }
 })
 </script>
 
-<style lang="css">
-/* styles for carousel */
-.carousel-item>img {
-    height: 35vh;
-    object-fit: cover;
+<style lang="css" scoped>
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
 }
 
-h1.text-header {
-    font-size: 3.5rem;
-    text-shadow: 2px 2px 4px #00000071;
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }
 
-.text-slogan {
-    text-shadow: 2px 2px 4px #00000071;
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 4rem 0;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+  line-height: 1.6;
+}
+
+/* Search Section */
+.search-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-form {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  padding: 0.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.input-group {
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.search-input {
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 1.1rem;
+  padding: 1rem 1.5rem;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.search-input:focus {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: white;
+}
+
+.search-btn {
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Section Styling */
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+/* Restaurants Section */
+.restaurants-section {
+  padding: 5rem 0;
+  background: #f8f9fa;
+}
+
+/* Load More Button */
+.load-more-btn {
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.load-more-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+}
+
+/* Error Alert */
+.alert {
+  border-radius: 15px;
+  border: none;
+  font-size: 1rem;
+}
+
+.alert-danger {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  color: white;
+}
+
+/* No Results */
+.no-results {
+  padding: 3rem 0;
+}
+
+.no-results .display-1 {
+  opacity: 0.3;
+}
+
+.no-results h3 {
+  margin-bottom: 1rem;
+  color: #6c757d;
+}
+
+.no-results p {
+  font-size: 1.1rem;
+  color: #95a5a6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 50vh;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .search-input,
+  .search-btn {
+    padding: 0.75rem 1rem;
+  }
+  
+  .restaurants-section {
+    padding: 3rem 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-content {
+    padding: 2rem 0;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .search-form {
+    padding: 0.25rem;
+  }
+  
+  .search-input {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+  }
+  
+  .load-more-btn {
+    width: 100%;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Button enhancements */
+.btn {
+  transition: all 0.3s ease;
+  border-radius: 25px;
+  font-weight: 600;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+/* General improvements */
+.container {
+  max-width: 1200px;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Ensure restaurant cards follow the same design as feature cards */
+:deep(.restaurant-card) {
+  padding: 2rem 1rem;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  height: 100%;
+  background: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  border: none;
+}
+
+:deep(.restaurant-card:hover) {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+:deep(.restaurant-card .card-body) {
+  padding: 1.5rem;
+}
+
+:deep(.restaurant-card .card-title) {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+:deep(.restaurant-card .card-text) {
+  color: #6c757d;
+  line-height: 1.6;
 }
 </style>
