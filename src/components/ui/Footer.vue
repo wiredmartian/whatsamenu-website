@@ -63,7 +63,7 @@
                     <div class="col-md-6">
                         <div class="footer-meta">
                             <span class="version">v{{ version }}</span>
-                            <a href="mailto:solomzi@whatsamenu.co.za" class="contact-link">
+                            <a href="mailto:solomzi.jikani@gmail.com" class="contact-link">
                                 Contact Us
                             </a>
                         </div>
