@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="row g-4">
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-4">
                         <div class="feature-card text-center">
                             <div class="feature-icon">
                                 <i class="bi bi-currency-dollar"></i>
@@ -49,7 +49,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-4">
                         <div class="feature-card text-center">
                             <div class="feature-icon">
                                 <i class="bi bi-lightning"></i>
@@ -60,7 +60,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 mb-4">
                         <div class="feature-card text-center">
                             <div class="feature-icon">
                                 <i class="bi bi-qr-code"></i>

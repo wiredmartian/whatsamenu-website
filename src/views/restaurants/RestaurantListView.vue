@@ -265,7 +265,7 @@ export default Vue.extend({
   background: transparent;
   color: white;
   font-size: 1.1rem;
-  padding: 1rem 1.5rem;
+  padding: 2rem 1.5rem;
 }
 
 .search-input::placeholder {

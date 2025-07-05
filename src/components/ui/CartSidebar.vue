@@ -17,7 +17,7 @@
         <div class="header-content">
           <h4 class="cart-title">
             <i class="bi bi-cart me-2"></i>
-            Your Order
+            &nbsp; Your Order
           </h4>
           <button class="cart-close-btn" @click="closeCart">
             <i class="bi bi-x-lg"></i>
@@ -61,7 +61,7 @@
                 </div>
                 
                 <div class="item-details">
-                  <div class="item-price">R{{ item.price.toFixed(2) }}</div>
+                  <div class="item-price">{{ item.price.toFixed(2) }}</div>
                   <div v-if="item.specialInstructions" class="item-instructions">
                     <i class="bi bi-chat-left-text me-1"></i>
                     <span>{{ item.specialInstructions }}</span>
@@ -85,7 +85,7 @@
                     </button>
                   </div>
                   <div class="item-total">
-                    R{{ (item.price * item.quantity).toFixed(2) }}
+                    {{ (item.price * item.quantity).toFixed(2) }}
                   </div>
                 </div>
               </div>
@@ -102,7 +102,7 @@
           </div>
           <div class="summary-row total-row">
             <span class="summary-label">Total:</span>
-            <span class="summary-value total-amount">R{{ cartService.currentCart.totalAmount.toFixed(2) }}</span>
+            <span class="summary-value total-amount">{{ cartService.currentCart.totalAmount.toFixed(2) }}</span>
           </div>
         </div>
         
@@ -123,7 +123,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { cartService } from '@/services/cartService'
+import { cartService } from '@/services/cart-service'
 
 export default Vue.extend({
   name: 'CartSidebar',
