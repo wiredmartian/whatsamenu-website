@@ -123,7 +123,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { cartService } from '@/services/cartService'
+import { cartService } from '@/services/cart-service'
 
 export default Vue.extend({
   name: 'CartSidebar',
