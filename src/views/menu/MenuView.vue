@@ -180,7 +180,7 @@
       aria-labelledby="menuItemDetailTitle" 
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-dialog modal-dialog-centered modal-md" role="document">
         <div class="modal-content modern-modal">
           <div class="modal-header">
             <h5 class="modal-title">{{ selectedMenuItem.name }}</h5>
